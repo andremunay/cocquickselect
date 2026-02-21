@@ -110,10 +110,26 @@
     optionFill($('#wiz-progestin'), data.progestin.options);
     optionFill($('#wiz-cycle'), data.cyclePatterns);
 
-    const wizCat4 = $('#wiz-step-cat4-list');
-    if (wizCat4) data.contraindications.category4.forEach((x) => wizCat4.appendChild(create('li', x)));
-    const wizCat3 = $('#wiz-step-cat3-list');
-    if (wizCat3) data.contraindications.category3.forEach((x) => wizCat3.appendChild(create('li', x)));
+    const wizCat4 = $('#wiz-step-cat4-guide');
+    if (wizCat4) {
+      const ul = create('ul');
+      data.contraindications.category4.forEach((x) => ul.appendChild(create('li', x)));
+      wizCat4.appendChild(ul);
+    }
+
+    const wizCat3 = $('#wiz-step-cat3-guide');
+    if (wizCat3) {
+      const ul = create('ul');
+      data.contraindications.category3.forEach((x) => ul.appendChild(create('li', x)));
+      wizCat3.appendChild(ul);
+    }
+
+    const eeTips = $('#wiz-ee-guide');
+    if (eeTips) {
+      const ul = create('ul');
+      data.estrogen.options.forEach((x) => ul.appendChild(create('li', typeof x === 'string' ? x : x.label)));
+      eeTips.appendChild(ul);
+    }
 
     const proTips = $('#wiz-progestin-guide');
     if (proTips) {
@@ -131,7 +147,8 @@
 
     document.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
       const next = btn.dataset.next;
-      if (next === '2' && $('#wiz-cat4').value === 'Yes') {
+      const cat4Value = document.querySelector('input[name="wiz-cat4"]:checked')?.value || 'No';
+      if (next === '2' && cat4Value === 'Yes') {
         document.querySelector('[data-step="2"]').classList.add('hidden');
         document.querySelector('[data-step="3"]').classList.remove('hidden');
       } else {
@@ -139,8 +156,8 @@
         document.querySelector(`[data-step="${next}"]`).classList.remove('hidden');
       }
       renderResults($('#wizard-results'), {
-        cat4: $('#wiz-cat4').value,
-        cat3: $('#wiz-cat3').value,
+        cat4: document.querySelector('input[name="wiz-cat4"]:checked')?.value || 'No',
+        cat3: document.querySelector('input[name="wiz-cat3"]:checked')?.value || 'No',
         ee: $('#wiz-ee').value,
         pro: $('#wiz-progestin').value,
         cycle: $('#wiz-cycle').value
@@ -152,24 +169,6 @@
       document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
       document.querySelector(`[data-step="${prev}"]`).classList.remove('hidden');
     }));
-  }
-
-  function initQuick() {
-    if (document.body.dataset.page !== 'quick') return;
-    optionFill($('#quick-ee'), data.estrogen.options);
-    optionFill($('#quick-progestin'), data.progestin.options);
-    optionFill($('#quick-cycle'), data.cyclePatterns);
-
-    const update = () => renderResults($('#quick-results'), {
-      cat4: $('#quick-cat4').value,
-      cat3: $('#quick-cat3').value,
-      ee: $('#quick-ee').value,
-      pro: $('#quick-progestin').value,
-      cycle: $('#quick-cycle').value
-    });
-
-    ['#quick-cat4', '#quick-cat3', '#quick-ee', '#quick-progestin', '#quick-cycle'].forEach((id) => $(id).addEventListener('change', update));
-    update();
   }
 
   function initPicks() {
@@ -217,6 +216,5 @@
 
   initShared();
   initWizard();
-  initQuick();
   initPicks();
 })();
