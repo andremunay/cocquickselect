@@ -49,21 +49,23 @@
             <h4>Category 4 quick guide (Hard Stop)</h4>
             <div id="wiz-step-cat4-guide"></div>
           </div>
-          <fieldset>
-            <legend>Any Category 4 condition present today? (COCs are unsafe to start)</legend>
-            <label><input type="radio" name="wiz-cat4" value="No" checked /> No</label>
-            <label><input type="radio" name="wiz-cat4" value="Yes" /> Yes</label>
-          </fieldset>
+          <label>Any Category 4 condition present today? (COCs are unsafe to start)
+            <select id="wiz-cat4">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
 
           <div class="inline-guide">
             <h4>Category 3 quick guide (Caution)</h4>
             <div id="wiz-step-cat3-guide"></div>
           </div>
-          <fieldset>
-            <legend>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)</legend>
-            <label><input type="radio" name="wiz-cat3" value="No" checked /> No</label>
-            <label><input type="radio" name="wiz-cat3" value="Yes" /> Yes</label>
-          </fieldset>
+          <label>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)
+            <select id="wiz-cat3">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </label>
           <button class="btn btn-primary" data-next="2">Next</button>
         </div>
 
