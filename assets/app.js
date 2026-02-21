@@ -28,6 +28,10 @@
     return (value || '').split(' — ')[0].trim();
   }
 
+  function conciseLabel(value) {
+    return typeof value === 'string' ? token(value) : value;
+  }
+
   function renderAlternatives() {
     const ul = create('ul');
     data.contraindications.alternatives.forEach((a) => ul.appendChild(create('li', a)));
@@ -106,9 +110,9 @@
 
   function initWizard() {
     if (document.body.dataset.page !== 'wizard') return;
-    optionFill($('#wiz-ee'), data.estrogen.options);
-    optionFill($('#wiz-progestin'), data.progestin.options);
-    optionFill($('#wiz-cycle'), data.cyclePatterns);
+    optionFill($('#wiz-ee'), data.estrogen.options.map((x) => ({value: x, label: conciseLabel(x)})));
+    optionFill($('#wiz-progestin'), data.progestin.options.map((x) => ({value: x, label: conciseLabel(x)})));
+    optionFill($('#wiz-cycle'), data.cyclePatterns.map((x) => ({value: x, label: conciseLabel(x)})));
 
     const wizCat4 = $('#wiz-step-cat4-guide');
     if (wizCat4) {
@@ -147,7 +151,7 @@
 
     document.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
       const next = btn.dataset.next;
-      const cat4Value = document.querySelector('input[name="wiz-cat4"]:checked')?.value || 'No';
+      const cat4Value = $('#wiz-cat4')?.value || 'No';
       if (next === '2' && cat4Value === 'Yes') {
         document.querySelector('[data-step="2"]').classList.add('hidden');
         document.querySelector('[data-step="3"]').classList.remove('hidden');
@@ -156,8 +160,8 @@
         document.querySelector(`[data-step="${next}"]`).classList.remove('hidden');
       }
       renderResults($('#wizard-results'), {
-        cat4: document.querySelector('input[name="wiz-cat4"]:checked')?.value || 'No',
-        cat3: document.querySelector('input[name="wiz-cat3"]:checked')?.value || 'No',
+        cat4: $('#wiz-cat4')?.value || 'No',
+        cat3: $('#wiz-cat3')?.value || 'No',
         ee: $('#wiz-ee').value,
         pro: $('#wiz-progestin').value,
         cycle: $('#wiz-cycle').value
