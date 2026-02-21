@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wizard | COC QuickSelect</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-page="wizard">
+  <header class="site-header">
+    <h1>COC QuickSelect</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quick.html">⚡ Quick Mode</a>
+      <a href="picks.html">💊 Quick Picks</a>
+      <a href="contraindications.html">⛔ Contraindications</a>
+    </nav>
+  </header>
+
+  <div class="layout with-jump">
+    <aside class="jump-nav">
+      <h3>Jump to</h3>
+      <a href="#facts">Quick Facts</a>
+      <a href="#sdm">Shared Decision-Making</a>
+      <a href="#wizard">Wizard Flow</a>
+    </aside>
+
+    <main class="container">
+      <section id="facts" class="card quick-facts">
+        <h2>🧭 Wizard Quick Facts</h2>
+        <ul>
+          <li>⛔ Category 4 = Hard Stop.</li>
+          <li>⚠️ Category 3 = Caution pathway.</li>
+          <li>💊 Final output is suggested options.</li>
+        </ul>
+      </section>
+
+      <section id="sdm" class="card">
+        <h2>Shared Decision-Making for COC Selection</h2>
+        <div id="sdm-content"></div>
+      </section>
+
+      <section id="wizard" class="card">
+        <h2>Wizard Flow</h2>
+        <div class="wizard-step" data-step="1">
+          <h3>Step 1: Contraindication Screen</h3>
+          <label>Any Category 4 condition present today? (COCs are unsafe to start)
+            <select id="wiz-cat4"><option>No</option><option>Yes</option></select>
+          </label>
+          <label>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)
+            <select id="wiz-cat3"><option>No</option><option>Yes</option></select>
+          </label>
+          <button class="btn btn-primary" data-next="2">Next</button>
+        </div>
+
+        <div class="wizard-step hidden" data-step="2">
+          <h3>Step 2: Dose, Progestin, Cycle</h3>
+          <label>EE dose
+            <select id="wiz-ee"></select>
+          </label>
+          <label>Progestin goal
+            <select id="wiz-progestin"></select>
+          </label>
+          <label>Cycle pattern
+            <select id="wiz-cycle"></select>
+          </label>
+          <div class="row">
+            <button class="btn" data-prev="1">Back</button>
+            <button class="btn btn-primary" data-next="3">Next</button>
+          </div>
+        </div>
+
+        <div class="wizard-step hidden" data-step="3">
+          <h3>Step 3: Suggested Options</h3>
+          <div id="wizard-results"></div>
+          <div class="row">
+            <button class="btn" data-prev="2">Back</button>
+            <a class="btn" href="picks.html">Open full Quick Picks</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/content.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
