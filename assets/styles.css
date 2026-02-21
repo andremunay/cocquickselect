@@ -54,3 +54,33 @@ select { padding: .45rem; border-radius: 8px; border: 1px solid #c4dcdc; }
 @media (max-width: 700px) {
   .grid.two, .grid.three { grid-template-columns: 1fr; }
 }
+
+
+.inline-guide {
+  background: #f4fbfb;
+  border: 1px solid #d6ebeb;
+  border-radius: 10px;
+  padding: .65rem .8rem;
+  margin: .3rem 0 .8rem;
+}
+.inline-guide h4 { margin: 0 0 .35rem; }
+.inline-guide ul { margin: 0; padding-left: 1.1rem; }
+summary { cursor: pointer; font-weight: 600; margin-bottom: .35rem; }
+details { margin: .5rem 0; }
+
+.muted { color: #48656a; }
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+}
+.results-table th, .results-table td {
+  border-bottom: 1px solid #dceaea;
+  text-align: left;
+  vertical-align: top;
+  padding: .55rem .45rem;
+}
+.results-table th {
+  background: #f3f8f8;
+  font-weight: 600;
+}

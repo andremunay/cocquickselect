@@ -13,10 +13,19 @@
     if (!select) return;
     values.forEach((v) => {
       const opt = document.createElement('option');
-      opt.value = v;
-      opt.textContent = v;
+      if (typeof v === 'string') {
+        opt.value = v;
+        opt.textContent = v;
+      } else {
+        opt.value = v.value;
+        opt.textContent = v.label;
+      }
       select.appendChild(opt);
     });
+  }
+
+  function token(value) {
+    return (value || '').split(' — ')[0].trim();
   }
 
   function renderAlternatives() {
@@ -42,10 +51,14 @@
       container.appendChild(renderAlternatives());
     }
 
+    const eeToken = token(state.ee);
+    const proToken = token(state.pro);
+    const cycleToken = token(state.cycle);
+
     const list = data.medications.filter((m) => {
-      const eeMatch = !state.ee || m.ee.startsWith(state.ee.replace('30–35', '30')) || (state.ee === '30–35 mcg' && (m.ee === '30 mcg' || m.ee === '35 mcg'));
-      const proMatch = !state.pro || m.progestin === state.pro;
-      const cycMatch = !state.cycle || m.cycle.includes(state.cycle.split(' ')[0]);
+      const eeMatch = !eeToken || m.ee === eeToken || (eeToken === '30–35 mcg' && (m.ee === '30 mcg' || m.ee === '35 mcg'));
+      const proMatch = !proToken || m.progestin === proToken;
+      const cycMatch = !cycleToken || m.cycle.includes(cycleToken);
       return eeMatch && proMatch && cycMatch;
     });
 
@@ -94,8 +107,27 @@
   function initWizard() {
     if (document.body.dataset.page !== 'wizard') return;
     optionFill($('#wiz-ee'), data.estrogen.options);
-    optionFill($('#wiz-progestin'), ['1st gen', '2nd gen', '3rd gen', '4th gen']);
-    optionFill($('#wiz-cycle'), ['21/7', '24/4', '84/7', 'Continuous']);
+    optionFill($('#wiz-progestin'), data.progestin.options);
+    optionFill($('#wiz-cycle'), data.cyclePatterns);
+
+    const wizCat4 = $('#wiz-step-cat4-list');
+    if (wizCat4) data.contraindications.category4.forEach((x) => wizCat4.appendChild(create('li', x)));
+    const wizCat3 = $('#wiz-step-cat3-list');
+    if (wizCat3) data.contraindications.category3.forEach((x) => wizCat3.appendChild(create('li', x)));
+
+    const proTips = $('#wiz-progestin-guide');
+    if (proTips) {
+      const ul = create('ul');
+      data.progestin.options.forEach((x) => ul.appendChild(create('li', x)));
+      proTips.appendChild(ul);
+    }
+
+    const cycleTips = $('#wiz-cycle-guide');
+    if (cycleTips) {
+      const ul = create('ul');
+      data.cyclePatterns.forEach((x) => ul.appendChild(create('li', x)));
+      cycleTips.appendChild(ul);
+    }
 
     document.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
       const next = btn.dataset.next;
@@ -125,8 +157,8 @@
   function initQuick() {
     if (document.body.dataset.page !== 'quick') return;
     optionFill($('#quick-ee'), data.estrogen.options);
-    optionFill($('#quick-progestin'), ['1st gen', '2nd gen', '3rd gen', '4th gen']);
-    optionFill($('#quick-cycle'), ['21/7', '24/4', '84/7', 'Continuous']);
+    optionFill($('#quick-progestin'), data.progestin.options);
+    optionFill($('#quick-cycle'), data.cyclePatterns);
 
     const update = () => renderResults($('#quick-results'), {
       cat4: $('#quick-cat4').value,
@@ -156,9 +188,27 @@
       const rows = data.medications.filter((m) => (!ee || m.ee === ee) && (!pro || m.progestin === pro) && (!cyc || m.cycle === cyc));
       const box = $('#picks-results');
       box.innerHTML = '';
-      const ul = create('ul');
-      rows.forEach((m) => ul.appendChild(create('li', `${m.name} — ${m.detail} (${m.cycle})${m.note ? ` — ${m.note}` : ''}`)));
-      box.appendChild(ul);
+      if (!rows.length) {
+        box.appendChild(create('p', 'No medications match these filters.'));
+        return;
+      }
+
+      const table = create('table');
+      table.className = 'results-table';
+      const thead = create('thead');
+      const headRow = create('tr');
+      ['Medication', 'Estrogen', 'Progestin', 'Cycle', 'Details / Notes'].forEach((label) => headRow.appendChild(create('th', label)));
+      thead.appendChild(headRow);
+      table.appendChild(thead);
+
+      const tbody = create('tbody');
+      rows.forEach((m) => {
+        const tr = create('tr');
+        [m.name, m.ee, m.progestin, m.cycle, `${m.detail}${m.note ? ` — ${m.note}` : ''}`].forEach((text) => tr.appendChild(create('td', text)));
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      box.appendChild(table);
     };
 
     ['#pick-ee', '#pick-progestin', '#pick-cycle'].forEach((id) => $(id).addEventListener('change', render));

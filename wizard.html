@@ -11,9 +11,11 @@
     <h1>COC QuickSelect</h1>
     <nav>
       <a href="index.html">Home</a>
+      <a href="wizard.html">🧭 Wizard</a>
       <a href="quick.html">⚡ Quick Mode</a>
       <a href="picks.html">💊 Quick Picks</a>
       <a href="contraindications.html">⛔ Contraindications</a>
+      <a href="qi.html">📈 QI</a>
     </nav>
   </header>
 
@@ -44,6 +46,15 @@
         <h2>Wizard Flow</h2>
         <div class="wizard-step" data-step="1">
           <h3>Step 1: Contraindication Screen</h3>
+          <p>Use the checklist below while answering:</p>
+          <details>
+            <summary>Category 4 conditions (Hard Stop)</summary>
+            <ul id="wiz-step-cat4-list"></ul>
+          </details>
+          <details>
+            <summary>Category 3 conditions (Caution)</summary>
+            <ul id="wiz-step-cat3-list"></ul>
+          </details>
           <label>Any Category 4 condition present today? (COCs are unsafe to start)
             <select id="wiz-cat4"><option>No</option><option>Yes</option></select>
           </label>
@@ -56,13 +67,21 @@
         <div class="wizard-step hidden" data-step="2">
           <h3>Step 2: Dose, Progestin, Cycle</h3>
           <label>EE dose
-            <select id="wiz-ee"></select>
+            <select id="wiz-ee"><option value="">Any</option></select>
           </label>
+          <div class="inline-guide">
+            <h4>Progestin goal quick guide</h4>
+            <div id="wiz-progestin-guide"></div>
+          </div>
           <label>Progestin goal
-            <select id="wiz-progestin"></select>
+            <select id="wiz-progestin"><option value="">Any</option></select>
           </label>
+          <div class="inline-guide">
+            <h4>Cycle pattern quick guide</h4>
+            <div id="wiz-cycle-guide"></div>
+          </div>
           <label>Cycle pattern
-            <select id="wiz-cycle"></select>
+            <select id="wiz-cycle"><option value="">Any</option></select>
           </label>
           <div class="row">
             <button class="btn" data-prev="1">Back</button>
