@@ -12,7 +12,6 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="wizard.html">🧭 Wizard</a>
-      <a href="quick.html">⚡ Quick Mode</a>
       <a href="picks.html">💊 Quick Picks</a>
       <a href="contraindications.html">⛔ Contraindications</a>
       <a href="qi.html">📈 QI</a>
@@ -46,26 +45,34 @@
         <h2>Wizard Flow</h2>
         <div class="wizard-step" data-step="1">
           <h3>Step 1: Contraindication Screen</h3>
-          <p>Use the checklist below while answering:</p>
-          <details>
-            <summary>Category 4 conditions (Hard Stop)</summary>
-            <ul id="wiz-step-cat4-list"></ul>
-          </details>
-          <details>
-            <summary>Category 3 conditions (Caution)</summary>
-            <ul id="wiz-step-cat3-list"></ul>
-          </details>
-          <label>Any Category 4 condition present today? (COCs are unsafe to start)
-            <select id="wiz-cat4"><option>No</option><option>Yes</option></select>
-          </label>
-          <label>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)
-            <select id="wiz-cat3"><option>No</option><option>Yes</option></select>
-          </label>
+          <div class="inline-guide">
+            <h4>Category 4 quick guide (Hard Stop)</h4>
+            <div id="wiz-step-cat4-guide"></div>
+          </div>
+          <fieldset>
+            <legend>Any Category 4 condition present today? (COCs are unsafe to start)</legend>
+            <label><input type="radio" name="wiz-cat4" value="No" checked /> No</label>
+            <label><input type="radio" name="wiz-cat4" value="Yes" /> Yes</label>
+          </fieldset>
+
+          <div class="inline-guide">
+            <h4>Category 3 quick guide (Caution)</h4>
+            <div id="wiz-step-cat3-guide"></div>
+          </div>
+          <fieldset>
+            <legend>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)</legend>
+            <label><input type="radio" name="wiz-cat3" value="No" checked /> No</label>
+            <label><input type="radio" name="wiz-cat3" value="Yes" /> Yes</label>
+          </fieldset>
           <button class="btn btn-primary" data-next="2">Next</button>
         </div>
 
         <div class="wizard-step hidden" data-step="2">
           <h3>Step 2: Dose, Progestin, Cycle</h3>
+          <div class="inline-guide">
+            <h4>EE dose quick guide</h4>
+            <div id="wiz-ee-guide"></div>
+          </div>
           <label>EE dose
             <select id="wiz-ee"><option value="">Any</option></select>
           </label>
