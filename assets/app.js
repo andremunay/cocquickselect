@@ -151,14 +151,26 @@
   }
 
   function initShared() {
-    renderSdmSection($('#wiz-sdm-content'));
+    const step1Sdm = document.querySelector('.wizard-step[data-step="1"] #wiz-sdm-content');
+    renderSdmSection(step1Sdm);
 
     const cat4 = $('#cat4-list');
-    if (cat4) data.contraindications.category4.forEach((x) => cat4.appendChild(create('li', x)));
+    if (cat4) {
+      cat4.innerHTML = '';
+      data.contraindications.category4.forEach((x) => cat4.appendChild(create('li', x)));
+    }
+
     const cat3 = $('#cat3-list');
-    if (cat3) data.contraindications.category3.forEach((x) => cat3.appendChild(create('li', x)));
+    if (cat3) {
+      cat3.innerHTML = '';
+      data.contraindications.category3.forEach((x) => cat3.appendChild(create('li', x)));
+    }
+
     const c3 = $('#cat3-counsel');
-    if (c3) data.contraindications.cat3Counseling.forEach((x) => c3.appendChild(create('p', x)));
+    if (c3) {
+      c3.innerHTML = '';
+      data.contraindications.cat3Counseling.forEach((x) => c3.appendChild(create('p', x)));
+    }
   }
 
   function initWizard() {
