@@ -1,5 +1,5 @@
 window.COC_CONTENT = {
-  siteName: 'COC QuickSelect',
+  siteName: 'Combined Oral Contraceptive Pill Selection',
   sdm: {
     title: 'Shared Decision-Making for COC Selection',
     approach: [
