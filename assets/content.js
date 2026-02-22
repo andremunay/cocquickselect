@@ -74,6 +74,23 @@ window.COC_CONTENT = {
     'Miss 1: Take ASAP, continue as usual.',
     'Miss ≥2: Follow catch-up rules + use back-up x7 days.'
   ],
+  recommendationOutput: {
+    sideEffectsPlaceholder: [
+      '[Placeholder] Add common side effects counseling bullets tailored to selected formulation.',
+      '[Placeholder] Add red-flag symptoms that should prompt urgent follow-up.',
+      '[Placeholder] Add expected timeline for side-effect improvement after initiation.'
+    ],
+    startingMedicationPlaceholder: [
+      '[Placeholder] Add Sunday-start and quick-start instructions with backup duration.',
+      '[Placeholder] Add guidance for same-day start when reasonably certain not pregnant.',
+      '[Placeholder] Add practical adherence tips (daily timing, reminders, refill planning).'
+    ],
+    epicOrderingPlaceholder: [
+      '[Placeholder] Add Epic order set name/path for combined oral contraceptive prescriptions.',
+      '[Placeholder] Add default quantity/refill workflow for common starter prescriptions.',
+      '[Placeholder] Add documentation smartphrase or counseling checklist for visit notes.'
+    ]
+  },
   medications: [
     {name: 'Lo Loestrin Fe', ee: '10 mcg', progestin: '1st gen', cycle: '24/2/2', detail: 'EE 10 mcg / Norethindrone 1 mg', note: 'ultra-low dose EE; no generic'},
     {name: 'Loestrin 1/20', ee: '20 mcg', progestin: '1st gen', cycle: '21/7', detail: 'EE 20 mcg / Norethindrone 1 mg', note: 'Generics: Junel Fe 1/20, Blisovi Fe 1/20, Microgestin Fe 1/20'},
