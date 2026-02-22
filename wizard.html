@@ -22,7 +22,6 @@
     <aside class="jump-nav">
       <h3>Jump to</h3>
       <a href="#facts">Quick Facts</a>
-      <a href="#sdm">Shared Decision-Making</a>
       <a href="#wizard">COC Select Flow</a>
     </aside>
 
@@ -36,15 +35,16 @@
         </ul>
       </section>
 
-      <section id="sdm" class="card">
-        <h2>Shared Decision-Making for COC Selection</h2>
-        <div id="sdm-content"></div>
-      </section>
-
       <section id="wizard" class="card">
         <h2>COC Select Flow</h2>
         <div class="wizard-step" data-step="1">
-          <h3>Step 1: Contraindication Screen</h3>
+          <h3>Step 1: Shared Decision-Making</h3>
+          <div id="wiz-sdm-content"></div>
+          <button class="btn btn-primary" data-next="2">Next</button>
+        </div>
+
+        <div class="wizard-step hidden" data-step="2">
+          <h3>Step 2: Contraindication Screen</h3>
           <div class="inline-guide">
             <h4>Category 4 quick guide (Hard Stop)</h4>
             <div id="wiz-step-cat4-guide"></div>
@@ -66,11 +66,14 @@
               <option value="Yes">Yes</option>
             </select>
           </label>
-          <button class="btn btn-primary" data-next="2">Next</button>
+          <div class="row">
+            <button class="btn" data-prev="1">Back</button>
+            <button class="btn btn-primary" data-next="3">Next</button>
+          </div>
         </div>
 
-        <div class="wizard-step hidden" data-step="2">
-          <h3>Step 2: Dose, Progestin, Cycle</h3>
+        <div class="wizard-step hidden" data-step="3">
+          <h3>Step 3: Dose, Progestin, Cycle</h3>
           <div class="inline-guide">
             <h4>EE dose quick guide</h4>
             <div id="wiz-ee-guide"></div>
@@ -93,16 +96,16 @@
             <select id="wiz-cycle"><option value="">Any</option></select>
           </label>
           <div class="row">
-            <button class="btn" data-prev="1">Back</button>
-            <button class="btn btn-primary" data-next="3">Next</button>
+            <button class="btn" data-prev="2">Back</button>
+            <button class="btn btn-primary" data-next="4">Next</button>
           </div>
         </div>
 
-        <div class="wizard-step hidden" data-step="3">
-          <h3>Step 3: Suggested Options</h3>
+        <div class="wizard-step hidden" data-step="4">
+          <h3>Step 4: Suggested Options</h3>
           <div id="wizard-results"></div>
           <div class="row">
-            <button class="btn" data-prev="2">Back</button>
+            <button class="btn" data-prev="3">Back</button>
             <a class="btn" href="picks.html">Open full Quick Picks</a>
           </div>
         </div>
