@@ -117,6 +117,7 @@
     container.appendChild(create('p', data.sdm.audienceLabel));
 
     const whySection = create('div');
+    whySection.className = 'inline-guide';
     whySection.appendChild(create('h4', data.sdm.whyThisMattersHeading));
     whySection.appendChild(create('p', data.sdm.whyThisMattersIntro));
     const whyList = renderBullets(data.sdm.whyThisMatters);
@@ -125,6 +126,7 @@
     container.appendChild(whySection);
 
     const approachSection = create('div');
+    approachSection.className = 'inline-guide';
     approachSection.appendChild(create('h4', data.sdm.approachHeading));
     approachSection.appendChild(create('p', data.sdm.approachIntro));
     approachSection.appendChild(renderBullets(data.sdm.approachBullets));
