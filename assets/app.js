@@ -103,6 +103,34 @@
     }
   }
 
+  function renderBullets(items) {
+    const ul = create('ul');
+    items.forEach((item) => ul.appendChild(create('li', item)));
+    return ul;
+  }
+
+  function renderSdmSection(container) {
+    if (!container) return;
+    container.innerHTML = '';
+
+    container.appendChild(create('h3', data.sdm.heading));
+    container.appendChild(create('p', data.sdm.audienceLabel));
+
+    container.appendChild(create('h4', 'Why this matters'));
+    container.appendChild(renderBullets(data.sdm.whyThisMatters));
+
+    container.appendChild(create('h4', 'Equity and access considerations'));
+    data.sdm.equityParagraphs.forEach((paragraph) => container.appendChild(create('p', paragraph)));
+
+    container.appendChild(create('h4', 'Clinical approach'));
+    container.appendChild(create('p', data.sdm.approachIntro));
+    container.appendChild(renderBullets(data.sdm.approachBullets));
+
+    container.appendChild(create('h4', 'Your role in shared decision-making'));
+    container.appendChild(create('p', data.sdm.roleStatement));
+    container.appendChild(renderBullets(data.sdm.roleBullets));
+  }
+
   function initShared() {
     ['#sdm-content', '#wiz-sdm-content'].forEach((selector) => {
       const sdm = $(selector);
