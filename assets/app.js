@@ -115,24 +115,22 @@
 
     container.appendChild(create('p', data.sdm.audienceLabel));
 
-    const whyDetails = create('details');
-    const whySummary = create('summary', data.sdm.whyThisMattersHeading);
-    whyDetails.appendChild(whySummary);
-    whyDetails.appendChild(create('p', data.sdm.whyThisMattersIntro));
+    const whySection = create('div');
+    whySection.appendChild(create('h4', data.sdm.whyThisMattersHeading));
+    whySection.appendChild(create('p', data.sdm.whyThisMattersIntro));
     const whyList = renderBullets(data.sdm.whyThisMatters);
-    whyDetails.appendChild(whyList);
-    data.sdm.whyThisMattersParagraphs.forEach((paragraph) => whyDetails.appendChild(create('p', paragraph)));
-    container.appendChild(whyDetails);
+    whySection.appendChild(whyList);
+    data.sdm.whyThisMattersParagraphs.forEach((paragraph) => whySection.appendChild(create('p', paragraph)));
+    container.appendChild(whySection);
 
-    const approachDetails = create('details');
-    const approachSummary = create('summary', data.sdm.approachHeading);
-    approachDetails.appendChild(approachSummary);
-    approachDetails.appendChild(create('p', data.sdm.approachIntro));
-    approachDetails.appendChild(renderBullets(data.sdm.approachBullets));
-    approachDetails.appendChild(create('p', data.sdm.roleStatement));
-    approachDetails.appendChild(create('p', data.sdm.roleIntro));
-    approachDetails.appendChild(renderBullets(data.sdm.roleBullets));
-    container.appendChild(approachDetails);
+    const approachSection = create('div');
+    approachSection.appendChild(create('h4', data.sdm.approachHeading));
+    approachSection.appendChild(create('p', data.sdm.approachIntro));
+    approachSection.appendChild(renderBullets(data.sdm.approachBullets));
+    approachSection.appendChild(create('p', data.sdm.roleStatement));
+    approachSection.appendChild(create('p', data.sdm.roleIntro));
+    approachSection.appendChild(renderBullets(data.sdm.roleBullets));
+    container.appendChild(approachSection);
   }
 
   function makeInlineGuidesCollapsible() {
