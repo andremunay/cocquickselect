@@ -21,20 +21,14 @@
   <div class="layout with-jump">
     <aside class="jump-nav">
       <h3>Jump to</h3>
-      <a href="#sdm">Shared Decision-Making</a>
       <a href="#wizard">COC Select Flow</a>
     </aside>
 
     <main class="container">
-      <section id="sdm" class="card">
-        <h2>Shared Decision-Making for COC Selection</h2>
-        <div id="sdm-content"></div>
-      </section>
-
       <section id="wizard" class="card">
         <h2>COC Select Flow</h2>
         <div class="wizard-step" data-step="1">
-          <h3>Step 1: Shared Decision-Making</h3>
+          <h3>Step 1: Shared Decision-Making in Contraceptive Counseling</h3>
           <div id="wiz-sdm-content"></div>
           <button class="btn btn-primary" data-next="2">Next</button>
         </div>
@@ -42,7 +36,7 @@
         <div class="wizard-step hidden" data-step="2">
           <h3>Step 2: Contraindication Screen</h3>
           <div class="inline-guide">
-            <h4>Category 4 quick guide (Hard Stop)</h4>
+            <h4>Category 4 quick guide (Hard Stop) ⌄</h4>
             <div id="wiz-step-cat4-guide"></div>
           </div>
           <label>Any Category 4 condition present today? (COCs are unsafe to start)
@@ -53,7 +47,7 @@
           </label>
 
           <div class="inline-guide">
-            <h4>Category 3 quick guide (Caution)</h4>
+            <h4>Category 3 quick guide (Caution) ⌄</h4>
             <div id="wiz-step-cat3-guide"></div>
           </div>
           <label>Any Category 3 condition present today? (COCs generally not recommended; consider alternatives)
@@ -71,21 +65,21 @@
         <div class="wizard-step hidden" data-step="3">
           <h3>Step 3: Dose, Progestin, Cycle</h3>
           <div class="inline-guide">
-            <h4>EE dose quick guide</h4>
+            <h4>EE dose quick guide ⌄</h4>
             <div id="wiz-ee-guide"></div>
           </div>
           <label>EE dose
             <select id="wiz-ee"><option value="">Any</option></select>
           </label>
           <div class="inline-guide">
-            <h4>Progestin goal quick guide</h4>
+            <h4>Progestin goal quick guide ⌄</h4>
             <div id="wiz-progestin-guide"></div>
           </div>
           <label>Progestin goal
             <select id="wiz-progestin"><option value="">Any</option></select>
           </label>
           <div class="inline-guide">
-            <h4>Cycle pattern quick guide</h4>
+            <h4>Cycle pattern quick guide ⌄</h4>
             <div id="wiz-cycle-guide"></div>
           </div>
           <label>Cycle pattern

@@ -1,26 +1,41 @@
 window.COC_CONTENT = {
   siteName: 'Combined Oral Contraceptive Pill Selection',
   sdm: {
-    heading: 'Shared Decision-Making for COC Selection',
-    audienceLabel: 'Use this section as a counseling framework during COC selection visits.',
+    heading: 'Shared Decision-Making in Contraceptive Counseling',
+    audienceLabel: '(For the Resident Clinician)',
+    whyThisMattersHeading: 'Why This Matters',
+    whyThisMattersIntro: 'Contraception is not just pregnancy prevention.',
     whyThisMatters: [
-      'Engage patient in choosing a COC based on safety, lifestyle, and non-contraceptive benefits.',
-      'ACOG emphasizes counseling should be patient-centered and support reproductive autonomy.'
+      'Improved educational attainment',
+      'Greater workforce participation and income stability',
+      'Reduced maternal morbidity and mortality',
+      'Improved management of menstrual disorders (heavy bleeding, dysmenorrhea, endometriosis)',
+      'Treatment of acne, hirsutism, PMDD',
+      'Greater sexual autonomy and relationship stability',
+      'Improved quality of life'
     ],
-    equityParagraphs: [
-      'Use a nonjudgmental, trauma-informed, and culturally responsive approach so each patient can identify the option that best fits their goals and context.',
-      'Ask about access barriers (cost, transportation, pharmacy access, privacy, language, and follow-up feasibility) and incorporate these realities into method selection.'
+    whyThisMattersParagraphs: [
+      'Reproductive control is directly tied to health equity.',
+      'When patients cannot reliably control if and when they become pregnant, it affects physical health, mental health, career trajectory, and economic stability.',
+      'As primary care physicians, we are often the most accessible clinicians. Our comfort and competence in contraceptive counseling meaningfully affect patient outcomes.'
     ],
-    approachIntro: 'A practical approach for initial prescribing is to prioritize simplicity first, then tailor to symptom and cycle goals.',
+    approachHeading: 'Approach: Patient-Centered, Evidence-Based',
+    approachIntro: 'ACOG and CDC emphasize that contraceptive counseling should:',
     approachBullets: [
-      'Offer monophasic COCs first — easiest to use and simplest for continuous or extended cycling.',
-      'Always review CDC/WHO/ACOG Medical Eligibility Criteria before initiation.'
+      'Support reproductive autonomy',
+      'Avoid coercion',
+      'Be nonjudgmental',
+      'Present options neutrally',
+      'Align method selection with patient goals and medical safety'
     ],
-    roleStatement: 'Clinician role: provide clear risk/benefit counseling and recommendation options while preserving patient choice.',
+    roleStatement: 'Your role is not to “pick the best pill.”',
     roleBullets: [
-      'Confirm understanding with teach-back and shared plan documentation.',
-      'Arrange follow-up for side effects, bleeding changes, blood pressure checks, and adherence troubleshooting.'
+      'Medically safe',
+      'Aligned with their priorities',
+      'Realistic for their lifestyle',
+      'Acceptable to them.'
     ],
+    roleIntro: 'Your role is to guide the patient toward a method that is:'
   },
   contraindications: {
     category4: [
