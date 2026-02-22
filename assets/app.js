@@ -48,6 +48,7 @@
   }
 
   function renderResults(container, state) {
+    if (!container) return;
     container.innerHTML = '';
     if (state.cat4 === 'Yes') {
       container.appendChild(create('div', 'HARD STOP'));
@@ -215,29 +216,36 @@
       cycleTips.appendChild(ul);
     }
 
+    const showWizardStep = (targetStep) => {
+      document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
+      document.querySelector(`[data-step="${targetStep}"]`)?.classList.remove('hidden');
+    };
+
     document.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
       const next = btn.dataset.next;
       const cat4Value = $('#wiz-cat4')?.value || 'No';
+      let targetStep = next;
       if (next === '3' && cat4Value === 'Yes') {
-        document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
-        document.querySelector('[data-step="4"]').classList.remove('hidden');
-      } else {
-        document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
-        document.querySelector(`[data-step="${next}"]`).classList.remove('hidden');
+        targetStep = '4';
       }
-      renderResults($('#wizard-results'), {
-        cat4: $('#wiz-cat4')?.value || 'No',
-        cat3: $('#wiz-cat3')?.value || 'No',
-        ee: $('#wiz-ee').value,
-        pro: $('#wiz-progestin').value,
-        cycle: $('#wiz-cycle').value
-      });
+
+      showWizardStep(targetStep);
+
+      const resultsContainer = $('#wizard-results');
+      if (targetStep === '4' || resultsContainer) {
+        renderResults(resultsContainer, {
+          cat4: $('#wiz-cat4')?.value || 'No',
+          cat3: $('#wiz-cat3')?.value || 'No',
+          ee: $('#wiz-ee')?.value || '',
+          pro: $('#wiz-progestin')?.value || '',
+          cycle: $('#wiz-cycle')?.value || ''
+        });
+      }
     }));
 
     document.querySelectorAll('[data-prev]').forEach((btn) => btn.addEventListener('click', () => {
       const prev = btn.dataset.prev;
-      document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
-      document.querySelector(`[data-step="${prev}"]`).classList.remove('hidden');
+      showWizardStep(prev);
     }));
   }
 
