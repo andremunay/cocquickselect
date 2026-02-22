@@ -38,6 +38,15 @@
     return ul;
   }
 
+  function renderBulletSection(container, heading, items) {
+    const section = create('div');
+    section.appendChild(create('h4', heading));
+    const ul = create('ul');
+    (items || []).forEach((item) => ul.appendChild(create('li', item)));
+    section.appendChild(ul);
+    container.appendChild(section);
+  }
+
   function renderResults(container, state) {
     container.innerHTML = '';
     if (state.cat4 === 'Yes') {
@@ -85,6 +94,10 @@
     miss.appendChild(missUl);
     container.appendChild(miss);
 
+    renderBulletSection(container, 'Side effects', data.recommendationOutput?.sideEffectsPlaceholder);
+    renderBulletSection(container, 'How to start the medication', data.recommendationOutput?.startingMedicationPlaceholder);
+    renderBulletSection(container, 'How to order in Epic systems', data.recommendationOutput?.epicOrderingPlaceholder);
+
     if (state.pro === '4th gen') {
       container.appendChild(create('p', data.progestin.drospirenoneNote));
     }
@@ -119,8 +132,15 @@
   }
 
   function initShared() {
-    renderSdmSection($('#sdm-content'));
-    renderSdmSection($('#wiz-sdm-content'));
+    ['#sdm-content', '#wiz-sdm-content'].forEach((selector) => {
+      const sdm = $(selector);
+      if (!sdm) return;
+      const ul = create('ul');
+      data.sdm.approach.forEach((x) => ul.appendChild(create('li', x)));
+      sdm.appendChild(ul);
+      sdm.appendChild(create('p', data.sdm.startingPoint));
+      sdm.appendChild(create('p', data.sdm.contraindicationScreen));
+    });
 
     const cat4 = $('#cat4-list');
     if (cat4) data.contraindications.category4.forEach((x) => cat4.appendChild(create('li', x)));
@@ -174,9 +194,9 @@
     document.querySelectorAll('[data-next]').forEach((btn) => btn.addEventListener('click', () => {
       const next = btn.dataset.next;
       const cat4Value = $('#wiz-cat4')?.value || 'No';
-      if (next === '2' && cat4Value === 'Yes') {
-        document.querySelector('[data-step="2"]').classList.add('hidden');
-        document.querySelector('[data-step="3"]').classList.remove('hidden');
+      if (next === '3' && cat4Value === 'Yes') {
+        document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
+        document.querySelector('[data-step="4"]').classList.remove('hidden');
       } else {
         document.querySelectorAll('.wizard-step').forEach((s) => s.classList.add('hidden'));
         document.querySelector(`[data-step="${next}"]`).classList.remove('hidden');
