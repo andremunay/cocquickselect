@@ -1,13 +1,26 @@
 window.COC_CONTENT = {
   siteName: 'COC QuickSelect',
   sdm: {
-    title: 'Shared Decision-Making for COC Selection',
-    approach: [
+    heading: 'Shared Decision-Making for COC Selection',
+    audienceLabel: 'Use this section as a counseling framework during COC selection visits.',
+    whyThisMatters: [
       'Engage patient in choosing a COC based on safety, lifestyle, and non-contraceptive benefits.',
       'ACOG emphasizes counseling should be patient-centered and support reproductive autonomy.'
     ],
-    startingPoint: 'Offer monophasic COCs first — easiest to use and simplest for continuous or extended cycling.',
-    contraindicationScreen: 'Always review CDC/WHO/ACOG Medical Eligibility Criteria before initiation.'
+    equityParagraphs: [
+      'Use a nonjudgmental, trauma-informed, and culturally responsive approach so each patient can identify the option that best fits their goals and context.',
+      'Ask about access barriers (cost, transportation, pharmacy access, privacy, language, and follow-up feasibility) and incorporate these realities into method selection.'
+    ],
+    approachIntro: 'A practical approach for initial prescribing is to prioritize simplicity first, then tailor to symptom and cycle goals.',
+    approachBullets: [
+      'Offer monophasic COCs first — easiest to use and simplest for continuous or extended cycling.',
+      'Always review CDC/WHO/ACOG Medical Eligibility Criteria before initiation.'
+    ],
+    roleStatement: 'Clinician role: provide clear risk/benefit counseling and recommendation options while preserving patient choice.',
+    roleBullets: [
+      'Confirm understanding with teach-back and shared plan documentation.',
+      'Arrange follow-up for side effects, bleeding changes, blood pressure checks, and adherence troubleshooting.'
+    ],
   },
   contraindications: {
     category4: [
