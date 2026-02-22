@@ -113,34 +113,47 @@
     if (!container) return;
     container.innerHTML = '';
 
-    container.appendChild(create('h3', data.sdm.heading));
     container.appendChild(create('p', data.sdm.audienceLabel));
 
-    container.appendChild(create('h4', 'Why this matters'));
-    container.appendChild(renderBullets(data.sdm.whyThisMatters));
+    const whyDetails = create('details');
+    const whySummary = create('summary', data.sdm.whyThisMattersHeading);
+    whyDetails.appendChild(whySummary);
+    whyDetails.appendChild(create('p', data.sdm.whyThisMattersIntro));
+    const whyList = renderBullets(data.sdm.whyThisMatters);
+    whyDetails.appendChild(whyList);
+    data.sdm.whyThisMattersParagraphs.forEach((paragraph) => whyDetails.appendChild(create('p', paragraph)));
+    container.appendChild(whyDetails);
 
-    container.appendChild(create('h4', 'Equity and access considerations'));
-    data.sdm.equityParagraphs.forEach((paragraph) => container.appendChild(create('p', paragraph)));
+    const approachDetails = create('details');
+    const approachSummary = create('summary', data.sdm.approachHeading);
+    approachDetails.appendChild(approachSummary);
+    approachDetails.appendChild(create('p', data.sdm.approachIntro));
+    approachDetails.appendChild(renderBullets(data.sdm.approachBullets));
+    approachDetails.appendChild(create('p', data.sdm.roleStatement));
+    approachDetails.appendChild(create('p', data.sdm.roleIntro));
+    approachDetails.appendChild(renderBullets(data.sdm.roleBullets));
+    container.appendChild(approachDetails);
+  }
 
-    container.appendChild(create('h4', 'Clinical approach'));
-    container.appendChild(create('p', data.sdm.approachIntro));
-    container.appendChild(renderBullets(data.sdm.approachBullets));
+  function makeInlineGuidesCollapsible() {
+    document.querySelectorAll('.inline-guide').forEach((guide) => {
+      const heading = guide.querySelector('h4');
+      if (!heading || guide.querySelector('details')) return;
+      const details = create('details');
+      const summary = create('summary', heading.textContent.replace(' ⌄', ''));
+      details.appendChild(summary);
 
-    container.appendChild(create('h4', 'Your role in shared decision-making'));
-    container.appendChild(create('p', data.sdm.roleStatement));
-    container.appendChild(renderBullets(data.sdm.roleBullets));
+      Array.from(guide.children).forEach((child) => {
+        if (child !== heading) details.appendChild(child);
+      });
+
+      guide.innerHTML = '';
+      guide.appendChild(details);
+    });
   }
 
   function initShared() {
-    ['#sdm-content', '#wiz-sdm-content'].forEach((selector) => {
-      const sdm = $(selector);
-      if (!sdm) return;
-      const ul = create('ul');
-      data.sdm.approach.forEach((x) => ul.appendChild(create('li', x)));
-      sdm.appendChild(ul);
-      sdm.appendChild(create('p', data.sdm.startingPoint));
-      sdm.appendChild(create('p', data.sdm.contraindicationScreen));
-    });
+    renderSdmSection($('#wiz-sdm-content'));
 
     const cat4 = $('#cat4-list');
     if (cat4) data.contraindications.category4.forEach((x) => cat4.appendChild(create('li', x)));
@@ -152,6 +165,7 @@
 
   function initWizard() {
     if (document.body.dataset.page !== 'wizard') return;
+    makeInlineGuidesCollapsible();
     optionFill($('#wiz-ee'), data.estrogen.options.map((x) => ({value: x, label: conciseLabel(x)})));
     optionFill($('#wiz-progestin'), data.progestin.options.map((x) => ({value: x, label: conciseLabel(x)})));
     optionFill($('#wiz-cycle'), data.cyclePatterns.map((x) => ({value: x, label: conciseLabel(x)})));
