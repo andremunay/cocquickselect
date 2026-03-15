@@ -17,7 +17,7 @@
         opt.value = v;
         opt.textContent = v;
       } else {
-        opt.value = v.value;
+        opt.value = v.value || v.key;
         opt.textContent = v.label;
       }
       select.appendChild(opt);
@@ -30,6 +30,31 @@
 
   function conciseLabel(value) {
     return typeof value === "string" ? token(value) : value;
+  }
+
+  function matchesEeSelection(medication, selectedEe) {
+    const eeToken = token(selectedEe);
+    return !eeToken || medication.ee === eeToken || (eeToken === "30-35 mcg" && (medication.ee === "30 mcg" || medication.ee === "35 mcg"));
+  }
+
+  function matchesProgestinSelection(medication, selectedProgestin) {
+    return !selectedProgestin || medication.progestinCategory === selectedProgestin;
+  }
+
+  function matchesCycleSelection(medication, selectedCycle) {
+    if (!selectedCycle) return true;
+    const categories = medication.cycleCategoryKeys || [];
+    if (selectedCycle === "continuous") return !!medication.continuousEligible;
+    if (selectedCycle === "extended") return categories.includes("extended") || !!medication.continuousEligible;
+    return categories.includes(selectedCycle);
+  }
+
+  function filterMedications(filters) {
+    return data.medications.filter((medication) => (
+      matchesEeSelection(medication, filters.ee)
+      && matchesProgestinSelection(medication, filters.pro)
+      && matchesCycleSelection(medication, filters.cycle)
+    ));
   }
 
   function renderAlternatives() {
@@ -65,16 +90,7 @@
       container.appendChild(renderAlternatives());
     }
 
-    const eeToken = token(state.ee);
-    const proToken = token(state.pro);
-    const cycleToken = token(state.cycle);
-
-    const list = data.medications.filter((m) => {
-      const eeMatch = !eeToken || m.ee === eeToken || (eeToken === "30-35 mcg" && (m.ee === "30 mcg" || m.ee === "35 mcg"));
-      const proMatch = !proToken || m.progestin === proToken;
-      const cycMatch = !cycleToken || m.cycle.includes(cycleToken);
-      return eeMatch && proMatch && cycMatch;
-    });
+    const list = filterMedications(state);
 
     const h = create("h4", "Suggested options");
     container.appendChild(h);
@@ -99,7 +115,7 @@
     renderBulletSection(container, "How to start the medication", data.recommendationOutput?.startingMedicationPlaceholder);
     renderBulletSection(container, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
 
-    if (state.pro === "4th gen") {
+    if (state.pro === "drospirenone") {
       container.appendChild(create("p", data.progestin.drospirenoneNote));
     }
   }
@@ -188,8 +204,8 @@
     if (document.body.dataset.page !== "wizard") return;
     makeInlineGuidesCollapsible();
     optionFill($("#wiz-ee"), data.estrogen.options.map((x) => ({ value: x, label: conciseLabel(x) })));
-    optionFill($("#wiz-progestin"), data.progestin.options.map((x) => ({ value: x, label: conciseLabel(x) })));
-    optionFill($("#wiz-cycle"), data.cyclePatterns.map((x) => ({ value: x, label: conciseLabel(x) })));
+    optionFill($("#wiz-progestin"), data.progestin.categories);
+    optionFill($("#wiz-cycle"), data.cyclePatterns.categories);
 
     const wizCat4 = $("#wiz-step-cat4-guide");
     if (wizCat4) {
@@ -223,11 +239,11 @@
 
     const cycleTips = $("#wiz-cycle-guide");
     if (cycleTips) {
-      cycleTips.appendChild(create("p", data.cycleGuideIntro));
+      cycleTips.appendChild(create("p", data.cyclePatterns.guideIntro));
       const ul = create("ul");
-      (data.cycleGuideBullets || []).forEach((x) => ul.appendChild(create("li", x)));
+      (data.cyclePatterns.guideBullets || []).forEach((x) => ul.appendChild(create("li", x)));
       cycleTips.appendChild(ul);
-      (data.cycleGuideNotes || []).forEach((text) => cycleTips.appendChild(create("p", text)));
+      (data.cyclePatterns.guideNotes || []).forEach((text) => cycleTips.appendChild(create("p", text)));
     }
 
     const showWizardStep = (targetStep) => {
@@ -266,17 +282,15 @@
   function initPicks() {
     if (document.body.dataset.page !== "picks") return;
     const ees = [...new Set(data.medications.map((m) => m.ee))];
-    const pros = [...new Set(data.medications.map((m) => m.progestin))];
-    const cycles = [...new Set(data.medications.map((m) => m.cycle))];
     optionFill($("#pick-ee"), ees);
-    optionFill($("#pick-progestin"), pros);
-    optionFill($("#pick-cycle"), cycles);
+    optionFill($("#pick-progestin"), data.progestin.categories);
+    optionFill($("#pick-cycle"), data.cyclePatterns.categories);
 
     const render = () => {
       const ee = $("#pick-ee").value;
       const pro = $("#pick-progestin").value;
       const cyc = $("#pick-cycle").value;
-      const rows = data.medications.filter((m) => (!ee || m.ee === ee) && (!pro || m.progestin === pro) && (!cyc || m.cycle === cyc));
+      const rows = filterMedications({ ee, pro, cycle: cyc });
       const box = $("#picks-results");
       box.innerHTML = "";
       if (!rows.length) {

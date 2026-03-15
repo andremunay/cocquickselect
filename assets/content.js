@@ -81,16 +81,32 @@ window.COC_CONTENT = {
     ]
   },
   progestin: {
-    options: [
-      "1st gen - Norethindrone (lower potency; good if estrogen-sensitive; more BTB)",
-      "2nd gen - Levonorgestrel (strong cycle control; heavy bleeding; may be slightly lower VTE risk)",
-      "3rd gen - Desogestrel or Norgestimate (less androgenic; acne/hirsutism; fewer androgenic side effects)",
-      "4th gen - Drospirenone (anti-androgenic + anti-mineralocorticoid; PMDD/bloating/acne/weight or mood concerns; may increase VTE risk vs LNG)"
+    categories: [
+      {
+        key: "norethindrone",
+        label: "Norethindrone",
+        helpText: "1st gen - lower potency; practical if estrogen-sensitive; more BTB"
+      },
+      {
+        key: "levonorgestrel",
+        label: "Levonorgestrel",
+        helpText: "2nd gen - strong cycle control; heavy bleeding; may be slightly lower VTE risk"
+      },
+      {
+        key: "third-gen",
+        label: "3rd gen (Norgestimate/Desogestrel)",
+        helpText: "Less androgenic; acne/hirsutism; fewer androgenic side effects"
+      },
+      {
+        key: "drospirenone",
+        label: "Drospirenone",
+        helpText: "4th gen - anti-androgenic + anti-mineralocorticoid; PMDD/bloating/acne/weight or mood concerns; may increase VTE risk vs LNG"
+      }
     ],
     guideBullets: [
       "Norethindrone: common, practical starting option; inexpensive and widely available",
       "Levonorgestrel: common, practical default option; well-studied and often used as a straightforward starting point",
-      "Norgestimate: less androgenic; often a good choice if acne is a concern",
+      "3rd gen (Norgestimate or Desogestrel): less androgenic; often a good choice if acne is a concern",
       "Drospirenone: may be helpful for acne, bloating/fluid retention, or PMDD-type symptoms"
     ],
     guideNotes: [
@@ -99,25 +115,43 @@ window.COC_CONTENT = {
     ],
     drospirenoneNote: "Potassium monitoring is only recommended during the first month if the patient is taking other medications that increase potassium (spironolactone, ACE-I, ARBs, or other K-sparing meds)."
   },
-  cyclePatterns: [
-    "21/7 - Standard regimen, monthly withdrawal bleed",
-    "24/4 - May result in lighter bleeding and fewer hormone withdrawal symptoms",
-    "84/7 - Bleeding every 3 months; good for menstrual suppression",
-    "Continuous - No placebo/hormone-free interval; no scheduled withdrawal bleeding; safe for endometrial stability if using a monophasic COC"
-  ],
-  cycleGuideIntro: "What do the numbers mean?",
-  cycleGuideBullets: [
-    "21/7: 21 active pills + 7 placebo/hormone-free days -> monthly withdrawal bleed",
-    "24/4: 24 active pills + 4 placebo/hormone-free days -> monthly withdrawal bleed with a shorter hormone-free interval; may reduce withdrawal symptoms and may result in lighter bleeding",
-    "Extended cycling (e.g., 84/7): 84 active pills + 7 placebo/hormone-free days -> fewer scheduled bleeds (often every 3 months)",
-    "Continuous cycling: no placebo/hormone-free interval -> no scheduled withdrawal bleed; safe and commonly used"
-  ],
-  cycleGuideNotes: [
-    "Clinical pearl: The bleed during placebo days is a withdrawal bleed, not a medically necessary period. Extended and continuous regimens are safe options for patients who want fewer periods, menstrual suppression, or less cyclic pain, headache, or bloating.",
-    "Monophasic = each active pill contains the same hormone dose. This site generally recommends monophasic COCs because they are easier to prescribe, easier to troubleshoot, and the simplest option for extended or continuous cycling.",
-    "Multiphasic (including biphasic, triphasic, or quadriphasic) pills vary hormone dose throughout the pack; they can work well for some patients, but are usually less straightforward to prescribe, troubleshoot, or use continuously than monophasic pills.",
-    "Practical tip: Any monophasic COC can usually be used continuously by skipping placebo pills and starting the next pack right away."
-  ],
+  cyclePatterns: {
+    categories: [
+      {
+        key: "21-7",
+        label: "21/7",
+        helpText: "Standard regimen with a monthly withdrawal bleed"
+      },
+      {
+        key: "24-4",
+        label: "24/4",
+        helpText: "Shorter hormone-free interval; may reduce withdrawal symptoms and lighten bleeding"
+      },
+      {
+        key: "extended",
+        label: "Extended cycling",
+        helpText: "Fewer scheduled bleeds, including 84/7-style regimens and monophasic pills used for suppression"
+      },
+      {
+        key: "continuous",
+        label: "Continuous cycling",
+        helpText: "No scheduled withdrawal bleed when using a continuous-eligible monophasic COC"
+      }
+    ],
+    guideIntro: "What do the numbers mean?",
+    guideBullets: [
+      "21/7: 21 active pills + 7 placebo/hormone-free days -> monthly withdrawal bleed",
+      "24/4: 24 active pills + 4 placebo/hormone-free days -> monthly withdrawal bleed with a shorter hormone-free interval; may reduce withdrawal symptoms and may result in lighter bleeding",
+      "Extended cycling (e.g., 84/7): 84 active pills + 7 placebo/hormone-free days -> fewer scheduled bleeds (often every 3 months)",
+      "Continuous cycling: no placebo/hormone-free interval -> no scheduled withdrawal bleed; safe and commonly used"
+    ],
+    guideNotes: [
+      "Clinical pearl: The bleed during placebo days is a withdrawal bleed, not a medically necessary period. Extended and continuous regimens are safe options for patients who want fewer periods, menstrual suppression, or less cyclic pain, headache, or bloating.",
+      "Monophasic = each active pill contains the same hormone dose. This site generally recommends monophasic COCs because they are easier to prescribe, easier to troubleshoot, and the simplest option for extended or continuous cycling.",
+      "Multiphasic (including biphasic, triphasic, or quadriphasic) pills vary hormone dose throughout the pack; they can work well for some patients, but are usually less straightforward to prescribe, troubleshoot, or use continuously than monophasic pills.",
+      "Practical tip: Any monophasic COC can usually be used continuously by skipping placebo pills and starting the next pack right away."
+    ]
+  },
   missedPill: [
     "Miss 1: Take ASAP, continue as usual.",
     "Miss >=2: Follow catch-up rules + use back-up x7 days."
@@ -140,20 +174,167 @@ window.COC_CONTENT = {
     ]
   },
   medications: [
-    { name: "Lo Loestrin Fe", ee: "10 mcg", progestin: "1st gen", cycle: "24/2/2", detail: "EE 10 mcg / Norethindrone 1 mg", note: "ultra-low dose EE; no generic" },
-    { name: "Loestrin 1/20", ee: "20 mcg", progestin: "1st gen", cycle: "21/7", detail: "EE 20 mcg / Norethindrone 1 mg", note: "Generics: Junel Fe 1/20, Blisovi Fe 1/20, Microgestin Fe 1/20" },
-    { name: "Loestrin 24 Fe", ee: "20 mcg", progestin: "1st gen", cycle: "24/4", detail: "EE 20 mcg / Norethindrone 1 mg", note: "Generics: Blisovi 24 Fe, Junel Fe 24, Hailey 24 Fe" },
-    { name: "Femlyv (ODT)", ee: "20 mcg", progestin: "1st gen", cycle: "24/4", detail: "EE 20 mcg / Norethindrone acetate 1 mg", note: "Orally disintegrating tablet (ODT) for difficulty swallowing" },
-    { name: "Aviane", ee: "20 mcg", progestin: "2nd gen", cycle: "21/7 or 24/4", detail: "EE 20 mcg / LNG 0.1 mg", note: "Generic: Lessina" },
-    { name: "Levora / Nordette / Marlissa", ee: "30 mcg", progestin: "2nd gen", cycle: "21/7", detail: "EE 30 mcg / LNG 0.15 mg" },
-    { name: "Seasonale", ee: "30 mcg", progestin: "2nd gen", cycle: "84/7", detail: "EE 30 mcg / LNG 0.15 mg", note: "Generic: Jolessa" },
-    { name: "Seasonique", ee: "30 mcg", progestin: "2nd gen", cycle: "84/7", detail: "EE 30 mcg / LNG 0.15 mg", note: "Listed as biphasic in the document. Generics: Amethia, Camrese" },
-    { name: "Desogen", ee: "30 mcg", progestin: "3rd gen", cycle: "21/7", detail: "EE 30 mcg / Desogestrel 0.15 mg", note: "Generics: Apri, Reclipsen" },
-    { name: "Ortho-Cept", ee: "30 mcg", progestin: "3rd gen", cycle: "21/7", detail: "EE 30 mcg / Desogestrel 0.15 mg", note: "Generics: Isibloom, Caziant" },
-    { name: "Ortho-Cyclen", ee: "35 mcg", progestin: "3rd gen", cycle: "21/7", detail: "EE 35 mcg / Norgestimate 0.25 mg", note: "Generics: Sprintec, MonoNessa, Estarylla" },
-    { name: "Yaz", ee: "20 mcg", progestin: "4th gen", cycle: "24/4", detail: "EE 20 mcg / Drospirenone 3 mg", note: "Generics: Loryna, Vestura, Nikki. FDA-approved for PMDD and moderate acne" },
-    { name: "Yasmin", ee: "30 mcg", progestin: "4th gen", cycle: "21/7", detail: "EE 30 mcg / Drospirenone 3 mg", note: "Generics: Ocella, Syeda, Zarah" },
-    { name: "Beyaz", ee: "20 mcg", progestin: "4th gen", cycle: "24/4", detail: "EE 20 mcg / Drospirenone 3 mg + levomefolate calcium" },
-    { name: "Safyral", ee: "30 mcg", progestin: "4th gen", cycle: "21/7", detail: "EE 30 mcg / Drospirenone 3 mg + levomefolate calcium" }
+    {
+      name: "Lo Loestrin Fe",
+      ee: "10 mcg",
+      progestin: "Norethindrone",
+      progestinCategory: "norethindrone",
+      cycle: "24/2/2",
+      cycleCategoryKeys: ["24-4"],
+      continuousEligible: false,
+      detail: "EE 10 mcg / Norethindrone 1 mg",
+      note: "ultra-low dose EE; no generic"
+    },
+    {
+      name: "Loestrin 1/20",
+      ee: "20 mcg",
+      progestin: "Norethindrone",
+      progestinCategory: "norethindrone",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / Norethindrone 1 mg",
+      note: "Generics: Junel Fe 1/20, Blisovi Fe 1/20, Microgestin Fe 1/20"
+    },
+    {
+      name: "Loestrin 24 Fe",
+      ee: "20 mcg",
+      progestin: "Norethindrone",
+      progestinCategory: "norethindrone",
+      cycle: "24/4",
+      cycleCategoryKeys: ["24-4"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / Norethindrone 1 mg",
+      note: "Generics: Blisovi 24 Fe, Junel Fe 24, Hailey 24 Fe"
+    },
+    {
+      name: "Femlyv (ODT)",
+      ee: "20 mcg",
+      progestin: "Norethindrone acetate",
+      progestinCategory: "norethindrone",
+      cycle: "24/4",
+      cycleCategoryKeys: ["24-4"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / Norethindrone acetate 1 mg",
+      note: "Orally disintegrating tablet (ODT) for difficulty swallowing"
+    },
+    {
+      name: "Aviane",
+      ee: "20 mcg",
+      progestin: "Levonorgestrel",
+      progestinCategory: "levonorgestrel",
+      cycle: "21/7 or 24/4",
+      cycleCategoryKeys: ["21-7", "24-4"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / LNG 0.1 mg",
+      note: "Generic: Lessina"
+    },
+    {
+      name: "Levora / Nordette / Marlissa",
+      ee: "30 mcg",
+      progestin: "Levonorgestrel",
+      progestinCategory: "levonorgestrel",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / LNG 0.15 mg"
+    },
+    {
+      name: "Seasonale",
+      ee: "30 mcg",
+      progestin: "Levonorgestrel",
+      progestinCategory: "levonorgestrel",
+      cycle: "84/7",
+      cycleCategoryKeys: ["extended"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / LNG 0.15 mg",
+      note: "Generic: Jolessa"
+    },
+    {
+      name: "Seasonique",
+      ee: "30 mcg",
+      progestin: "Levonorgestrel",
+      progestinCategory: "levonorgestrel",
+      cycle: "84/7",
+      cycleCategoryKeys: ["extended"],
+      continuousEligible: false,
+      detail: "EE 30 mcg / LNG 0.15 mg",
+      note: "Listed as biphasic in the document. Generics: Amethia, Camrese"
+    },
+    {
+      name: "Desogen",
+      ee: "30 mcg",
+      progestin: "Desogestrel",
+      progestinCategory: "third-gen",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / Desogestrel 0.15 mg",
+      note: "Generics: Apri, Reclipsen"
+    },
+    {
+      name: "Ortho-Cept",
+      ee: "30 mcg",
+      progestin: "Desogestrel",
+      progestinCategory: "third-gen",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / Desogestrel 0.15 mg",
+      note: "Generics: Isibloom, Caziant"
+    },
+    {
+      name: "Ortho-Cyclen",
+      ee: "35 mcg",
+      progestin: "Norgestimate",
+      progestinCategory: "third-gen",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 35 mcg / Norgestimate 0.25 mg",
+      note: "Generics: Sprintec, MonoNessa, Estarylla"
+    },
+    {
+      name: "Yaz",
+      ee: "20 mcg",
+      progestin: "Drospirenone",
+      progestinCategory: "drospirenone",
+      cycle: "24/4",
+      cycleCategoryKeys: ["24-4"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / Drospirenone 3 mg",
+      note: "Generics: Loryna, Vestura, Nikki. FDA-approved for PMDD and moderate acne"
+    },
+    {
+      name: "Yasmin",
+      ee: "30 mcg",
+      progestin: "Drospirenone",
+      progestinCategory: "drospirenone",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / Drospirenone 3 mg",
+      note: "Generics: Ocella, Syeda, Zarah"
+    },
+    {
+      name: "Beyaz",
+      ee: "20 mcg",
+      progestin: "Drospirenone",
+      progestinCategory: "drospirenone",
+      cycle: "24/4",
+      cycleCategoryKeys: ["24-4"],
+      continuousEligible: true,
+      detail: "EE 20 mcg / Drospirenone 3 mg + levomefolate calcium"
+    },
+    {
+      name: "Safyral",
+      ee: "30 mcg",
+      progestin: "Drospirenone",
+      progestinCategory: "drospirenone",
+      cycle: "21/7",
+      cycleCategoryKeys: ["21-7"],
+      continuousEligible: true,
+      detail: "EE 30 mcg / Drospirenone 3 mg + levomefolate calcium"
+    }
   ]
 };
