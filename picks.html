@@ -8,19 +8,24 @@
 </head>
 <body data-page="picks">
   <header class="site-header">
-    <h1>Combined Oral Contraceptive Pill Selection</h1>
-    <nav>
+    <a class="site-brand" href="index.html">
+      <span class="brand-kicker">Resident Contraception Guide</span>
+      <span class="brand-title">COC QuickSelect</span>
+      <span class="brand-subtitle">Combined Oral Contraceptive Pill Selection</span>
+    </a>
+    <nav aria-label="Primary">
       <a href="index.html">Home</a>
-      <a href="wizard.html">🧭 COC Select</a>
-      <a href="picks.html">💊 Quick Picks</a>
-      <a href="contraindications.html">⛔ Contraindications</a>
-      <a href="qi.html">📈 QI</a>
+      <a href="wizard.html">COC Select</a>
+      <a href="picks.html" aria-current="page">Quick Picks</a>
+      <a href="contraindications.html">Contraindications</a>
+      <a href="qi.html">QI</a>
     </nav>
   </header>
 
   <main class="container">
     <section class="card quick-facts">
-      <h2>💊 Quick Picks</h2>
+      <p class="section-kicker">Filterable list</p>
+      <h2>Quick Picks</h2>
       <p>Filter by EE dose, progestin generation, and cycle pattern.</p>
       <div class="grid three">
         <label>EE dose <select id="pick-ee"><option value="">All</option></select></label>

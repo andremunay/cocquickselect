@@ -6,27 +6,66 @@
   <title>Combined Oral Contraceptive Pill Selection</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body data-page="home">
   <header class="site-header">
-    <h1>Combined Oral Contraceptive Pill Selection</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="wizard.html">🧭 COC Select</a>
-      <a href="picks.html">💊 Quick Picks</a>
-      <a href="contraindications.html">⛔ Contraindications</a>
-      <a href="qi.html">📈 QI</a>
+    <a class="site-brand" href="index.html">
+      <span class="brand-kicker">Resident Contraception Guide</span>
+      <span class="brand-title">COC QuickSelect</span>
+      <span class="brand-subtitle">Combined Oral Contraceptive Pill Selection</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="wizard.html">COC Select</a>
+      <a href="picks.html">Quick Picks</a>
+      <a href="contraindications.html">Contraindications</a>
+      <a href="qi.html">QI</a>
     </nav>
   </header>
 
-  <main class="container">
-    <section class="hero card">
-      <h2>Resident tool for contraception counseling</h2>
-      <p>A quick guide to choosing a Combined Oral Contraceptive/COC for your patient</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="wizard.html">Start Here</a>
+  <main class="container home-shell">
+    <section class="hero card hero-home">
+      <div class="eyebrow">Playful clinical reference</div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker">Safety-first counseling for busy resident clinic visits</p>
+          <h1>COC QuickSelect</h1>
+          <p class="hero-lead">A bright, resident-friendly guide to choosing a combined oral contraceptive while keeping contraindications, symptom goals, and counseling points close at hand.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="wizard.html">Open COC Select</a>
+            <a class="btn" href="picks.html">Browse Quick Picks</a>
+          </div>
+          <ul class="hero-badges">
+            <li>Category 3 and 4 screening</li>
+            <li>Dose and progestin guidance</li>
+            <li>Fast counseling support</li>
+          </ul>
+        </div>
+        <div class="hero-showcase" aria-hidden="true">
+          <div class="showcase-orb"></div>
+          <div class="showcase-strip"></div>
+          <div class="showcase-card"></div>
+          <div class="showcase-squiggle"></div>
+        </div>
       </div>
     </section>
 
+    <section class="grid three feature-grid">
+      <a class="card feature-card" href="wizard.html">
+        <span class="feature-tag">Guided Flow</span>
+        <h2>COC Select</h2>
+        <p>Walk through shared decision-making, screen contraindications, and narrow formulation options in a few clicks.</p>
+      </a>
+      <a class="card feature-card" href="picks.html">
+        <span class="feature-tag">Fast Filters</span>
+        <h2>Quick Picks</h2>
+        <p>Filter the medication list by estrogen dose, progestin type, and cycle pattern without leaving the page.</p>
+      </a>
+      <a class="card feature-card" href="contraindications.html">
+        <span class="feature-tag">Safety Deck</span>
+        <h2>Contraindications</h2>
+        <p>Keep hard stops and caution conditions visible when you need a quick refresher during clinic.</p>
+      </a>
+    </section>
   </main>
 
   <script src="assets/content.js"></script>
