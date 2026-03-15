@@ -216,8 +216,9 @@
     const proTips = $('#wiz-progestin-guide');
     if (proTips) {
       const ul = create('ul');
-      data.progestin.options.forEach((x) => ul.appendChild(create('li', x)));
+      (data.progestin.guideBullets || []).forEach((x) => ul.appendChild(create('li', x)));
       proTips.appendChild(ul);
+      (data.progestin.guideNotes || []).forEach((text) => proTips.appendChild(create('p', text)));
     }
 
     const cycleTips = $('#wiz-cycle-guide');

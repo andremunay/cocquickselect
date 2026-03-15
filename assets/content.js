@@ -87,6 +87,16 @@ window.COC_CONTENT = {
       '3rd gen — Desogestrel or Norgestimate (less androgenic; acne/hirsutism; fewer androgenic side effects)',
       '4th gen — Drospirenone (anti-androgenic + anti-mineralocorticoid; PMDD/bloating/acne/weight or mood concerns; may ↑ VTE risk vs LNG)'
     ],
+    guideBullets: [
+      'Norethindrone: common, practical starting option; inexpensive and widely available',
+      'Levonorgestrel: common, practical default option; well-studied and often used as a straightforward starting point',
+      'Norgestimate: less androgenic; often a good choice if acne is a concern',
+      'Drospirenone: may be helpful for acne, bloating/fluid retention, or PMDD-type symptoms'
+    ],
+    guideNotes: [
+      'Clinical pearl: Most combined pills are similarly effective for contraception. In practice, progestin choice is most useful for symptom goals (such as acne or PMDD-type symptoms) and side-effect counseling, rather than because one progestin is dramatically better than another. If VTE risk is a major counseling concern in an otherwise CHC-eligible patient, levonorgestrel-containing pills are often used as a lower-risk reference option, but overall CHC eligibility (US MEC) and patient risk factors matter more than small formulation differences.',
+      'US MEC (U.S. Medical Eligibility Criteria): A safety framework for contraceptive prescribing. For combined hormonal contraception, the key question is: "Can this patient safely use estrogen?"'
+    ],
     drospirenoneNote: 'Potassium monitoring is only recommended during the first month if the patient is taking other medications that increase potassium (spironolactone, ACE-I, ARBs, or other K-sparing meds).'
   },
   cyclePatterns: [
