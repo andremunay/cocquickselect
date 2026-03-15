@@ -71,9 +71,13 @@ window.COC_CONTENT = {
       'Providers can prioritize tolerability when selecting EE dose without compromising contraceptive effectiveness.'
     ],
     options: [
-      '10 mcg — Ultra-low dose (minimizes estrogen side effects; highest BTB risk; less predictable cycles)',
-      '20 mcg — Low dose (preferred starting dose; fewer estrogen side effects; moderate unscheduled bleeding esp. first 3–6 months)',
-      '30–35 mcg — Standard dose (best cycle control; fewer BTB issues; more estrogen-related side effects)'
+      '10 mcg - Ultra-low dose: lowest estrogen exposure; may reduce estrogen-related side effects, but breakthrough bleeding is more common and cycles may be less predictable',
+      '20 mcg - Low dose: often used as a starting point; generally well tolerated, though spotting is more common than with higher-dose pills',
+      '30-35 mcg - Standard dose: may improve bleeding predictability and reduce breakthrough bleeding, but estrogen-related side effects may be more noticeable (e.g., nausea, breast tenderness, headaches, bloating)'
+    ],
+    pearls: [
+      'Clinical pearl: Lower EE doses are often better tolerated but more likely to cause unscheduled bleeding; 30-35 mcg EE may be a better fit when cycle predictability is a priority or breakthrough bleeding occurs.',
+      'Clinical pearl: Estrogen dose matters for VTE risk overall - older 50 mcg EE pills have higher VTE risk than modern low-dose pills. However, within currently used low-dose formulations (20 vs 30-35 mcg EE), evidence that lower EE meaningfully reduces VTE risk is limited; in practice, dose selection is usually driven more by bleeding profile, tolerability, and overall CHC eligibility/risk factors than by small presumed VTE differences.'
     ]
   },
   progestin: {

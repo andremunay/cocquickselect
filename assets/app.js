@@ -25,7 +25,7 @@
   }
 
   function token(value) {
-    return (value || '').split(' — ')[0].trim();
+    return (value || '').split(/\s(?:—|-)\s/)[0].trim();
   }
 
   function conciseLabel(value) {
@@ -70,7 +70,7 @@
     const cycleToken = token(state.cycle);
 
     const list = data.medications.filter((m) => {
-      const eeMatch = !eeToken || m.ee === eeToken || (eeToken === '30–35 mcg' && (m.ee === '30 mcg' || m.ee === '35 mcg'));
+      const eeMatch = !eeToken || m.ee === eeToken || (['30-35 mcg', '30–35 mcg'].includes(eeToken) && (m.ee === '30 mcg' || m.ee === '35 mcg'));
       const proMatch = !proToken || m.progestin === proToken;
       const cycMatch = !cycleToken || m.cycle.includes(cycleToken);
       return eeMatch && proMatch && cycMatch;
@@ -210,6 +210,7 @@
       const ul = create('ul');
       data.estrogen.options.forEach((x) => ul.appendChild(create('li', typeof x === 'string' ? x : x.label)));
       eeTips.appendChild(ul);
+      (data.estrogen.pearls || []).forEach((text) => eeTips.appendChild(create('p', text)));
     }
 
     const proTips = $('#wiz-progestin-guide');
