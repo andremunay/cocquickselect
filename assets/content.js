@@ -2,40 +2,33 @@ window.COC_CONTENT = {
   siteName: 'Combined Oral Contraceptive Pill Selection',
   sdm: {
     heading: 'Shared Decision-Making in Contraceptive Counseling',
-    audienceLabel: '(For the Resident Clinician)',
+    audienceLabel: 'For the resident clinician',
     whyThisMattersHeading: 'Why This Matters',
-    whyThisMattersIntro: 'Contraception is not just pregnancy prevention.',
-    whyThisMatters: [
-      'Improved educational attainment',
-      'Greater workforce participation and income stability',
-      'Reduced maternal morbidity and mortality',
-      'Improved management of menstrual disorders (heavy bleeding, dysmenorrhea, endometriosis)',
-      'Treatment of acne, hirsutism, PMDD',
-      'Greater sexual autonomy and relationship stability',
-      'Improved quality of life'
-    ],
+    whyThisMattersIntro: 'Contraceptive counseling is not just about pregnancy prevention.',
+    whyThisMatters: [],
     whyThisMattersParagraphs: [
-      'Reproductive control is directly tied to health equity.',
-      'When patients cannot reliably control if and when they become pregnant, it affects physical health, mental health, career trajectory, and economic stability.',
-      'As primary care physicians, we are often the most accessible clinicians. Our comfort and competence in contraceptive counseling meaningfully affect patient outcomes.'
+      'Patients seek contraception for many reasons, including pregnancy prevention, menstrual suppression, treatment of heavy bleeding or dysmenorrhea, management of endometriosis symptoms, acne, hirsutism, PMDD, or simply greater control over their reproductive lives.',
+      'Access to contraception is also a matter of health equity and reproductive autonomy. When patients cannot reliably control if and when they become pregnant, the effects can extend beyond medical outcomes to physical and mental health, educational opportunities, employment, financial stability, and overall quality of life.',
+      'In primary care, we are often the most accessible clinicians for contraceptive care. Our comfort and competence in contraceptive counseling can reduce barriers to care, prevent unnecessary referrals, and meaningfully improve patient outcomes.'
     ],
     approachHeading: 'Approach: Patient-Centered, Evidence-Based',
-    approachIntro: 'ACOG and CDC emphasize that contraceptive counseling should:',
+    approachIntro: 'The CDC and ACOG emphasize that contraceptive counseling should be:',
     approachBullets: [
-      'Support reproductive autonomy',
-      'Avoid coercion',
-      'Be nonjudgmental',
-      'Present options neutrally',
-      'Align method selection with patient goals and medical safety'
+      'Patient-centered and non-directive',
+      'Grounded in reproductive autonomy',
+      'Free of coercion and judgment',
+      'Clear about risks, benefits, and alternatives',
+      'Aligned with both patient goals and medical safety'
     ],
-    roleStatement: 'Your role is not to “pick the best pill.”',
+    roleStatement: 'Your role is not to "pick the best pill."',
     roleBullets: [
       'Medically safe',
-      'Aligned with their priorities',
+      'Consistent with their priorities',
       'Realistic for their lifestyle',
-      'Acceptable to them.'
+      'Acceptable and sustainable for them'
     ],
-    roleIntro: 'Your role is to guide the patient toward a method that is:'
+    roleIntro: 'Your role is to help the patient choose a method that is:',
+    roleClosing: 'The best contraceptive method is not the one with the highest efficacy on paper - it is the one that is safe, desired, and workable in the context of the patient\'s real life.'
   },
   contraindications: {
     category4: [

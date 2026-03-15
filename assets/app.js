@@ -106,7 +106,7 @@
 
   function renderBullets(items) {
     const ul = create('ul');
-    items.forEach((item) => ul.appendChild(create('li', item)));
+    (items || []).forEach((item) => ul.appendChild(create('li', item)));
     return ul;
   }
 
@@ -120,8 +120,9 @@
     whySection.className = 'inline-guide';
     whySection.appendChild(create('h4', data.sdm.whyThisMattersHeading));
     whySection.appendChild(create('p', data.sdm.whyThisMattersIntro));
-    const whyList = renderBullets(data.sdm.whyThisMatters);
-    whySection.appendChild(whyList);
+    if (data.sdm.whyThisMatters?.length) {
+      whySection.appendChild(renderBullets(data.sdm.whyThisMatters));
+    }
     data.sdm.whyThisMattersParagraphs.forEach((paragraph) => whySection.appendChild(create('p', paragraph)));
     container.appendChild(whySection);
 
@@ -129,10 +130,17 @@
     approachSection.className = 'inline-guide';
     approachSection.appendChild(create('h4', data.sdm.approachHeading));
     approachSection.appendChild(create('p', data.sdm.approachIntro));
-    approachSection.appendChild(renderBullets(data.sdm.approachBullets));
+    if (data.sdm.approachBullets?.length) {
+      approachSection.appendChild(renderBullets(data.sdm.approachBullets));
+    }
     approachSection.appendChild(create('p', data.sdm.roleStatement));
     approachSection.appendChild(create('p', data.sdm.roleIntro));
-    approachSection.appendChild(renderBullets(data.sdm.roleBullets));
+    if (data.sdm.roleBullets?.length) {
+      approachSection.appendChild(renderBullets(data.sdm.roleBullets));
+    }
+    if (data.sdm.roleClosing) {
+      approachSection.appendChild(create('p', data.sdm.roleClosing));
+    }
     container.appendChild(approachSection);
   }
 
