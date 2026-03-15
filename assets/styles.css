@@ -271,7 +271,7 @@ pre {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
   align-items: center;
 }
@@ -279,6 +279,7 @@ pre {
 .hero-copy {
   position: relative;
   z-index: 1;
+  max-width: 46rem;
 }
 
 .hero-kicker {
@@ -336,210 +337,6 @@ pre {
   border: 2px solid rgba(37, 24, 59, 0.1);
   color: var(--ink);
   font-weight: 800;
-}
-
-.hero-showcase {
-  position: relative;
-  min-height: 310px;
-  border-radius: 32px;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.95), transparent 28%),
-    radial-gradient(circle at 80% 22%, rgba(255, 214, 229, 0.55), transparent 24%),
-    radial-gradient(circle at 32% 82%, rgba(189, 242, 214, 0.4), transparent 26%),
-    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(255, 240, 230, 0.96));
-  border: 3px solid rgba(37, 24, 59, 0.16);
-  box-shadow:
-    inset 0 0 0 6px rgba(255, 255, 255, 0.56),
-    0 18px 30px rgba(37, 24, 59, 0.1);
-  overflow: hidden;
-}
-
-.hero-showcase::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border-radius: 24px;
-  border: 2px dashed rgba(37, 24, 59, 0.12);
-  pointer-events: none;
-}
-
-.hero-illustration {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.hero-shadow {
-  fill: rgba(37, 24, 59, 0.1);
-}
-
-.hero-doodle path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 8;
-  opacity: 0.7;
-}
-
-.hero-doodle-a path {
-  stroke: #8fd9cb;
-}
-
-.hero-doodle-b path {
-  stroke: #ffd48d;
-}
-
-.sticker-piece {
-  filter: drop-shadow(0 10px 14px rgba(37, 24, 59, 0.12));
-}
-
-.sticker-back,
-.sticker-body,
-.timer-inner,
-.blister-label,
-.tray-tab,
-.day-cell rect,
-.pill-cell rect,
-.syringe-plunger,
-.syringe-plunger-cap,
-.syringe-window,
-.syringe-band,
-.syringe-tip {
-  stroke: rgba(37, 24, 59, 0.72);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.sticker-back,
-.sticker-body {
-  fill: #fffaf8;
-}
-
-.timer-body {
-  fill: url(#timerFace);
-}
-
-.sticker-highlight {
-  fill: rgba(255, 255, 255, 0.5);
-}
-
-.timer-inner {
-  fill: rgba(255, 250, 239, 0.9);
-}
-
-.timer-center {
-  fill: #ff9da8;
-  stroke: rgba(37, 24, 59, 0.72);
-  stroke-width: 3;
-}
-
-.timer-hand,
-.timer-mark {
-  fill: none;
-  stroke: rgba(37, 24, 59, 0.72);
-  stroke-linecap: round;
-}
-
-.timer-hand {
-  stroke-width: 5;
-}
-
-.timer-hand-short {
-  stroke-width: 4;
-}
-
-.timer-mark {
-  stroke-width: 3;
-}
-
-.dial-number,
-.mini-label,
-.day-label text {
-  fill: rgba(37, 24, 59, 0.8);
-  font-family: "Fredoka", "Trebuchet MS", sans-serif;
-  letter-spacing: 0.04em;
-}
-
-.dial-number {
-  font-size: 12px;
-}
-
-.blister-body {
-  fill: url(#blisterShell);
-}
-
-.blister-label,
-.tray-tab {
-  fill: rgba(255, 255, 255, 0.68);
-}
-
-.mini-label {
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.pill-cell rect {
-  fill: rgba(255, 255, 255, 0.45);
-}
-
-.pill-pill circle {
-  fill: #fff7bf;
-  stroke: rgba(37, 24, 59, 0.3);
-  stroke-width: 2;
-}
-
-.tray-body {
-  fill: url(#trayShell);
-}
-
-.day-cell rect {
-  fill: rgba(255, 255, 255, 0.72);
-}
-
-.day-label text {
-  font-size: 11px;
-}
-
-.tray-pill circle {
-  fill: #ffb2bb;
-  stroke: rgba(37, 24, 59, 0.34);
-  stroke-width: 2;
-}
-
-.syringe-body {
-  fill: url(#syringeBarrel);
-}
-
-.syringe-plunger,
-.syringe-plunger-cap,
-.syringe-band {
-  fill: #ffd6df;
-}
-
-.syringe-window {
-  fill: rgba(255, 255, 255, 0.72);
-}
-
-.syringe-line,
-.syringe-needle {
-  fill: none;
-  stroke: rgba(37, 24, 59, 0.72);
-  stroke-linecap: round;
-}
-
-.syringe-line {
-  stroke-width: 2.5;
-}
-
-.syringe-tip {
-  fill: #fff4bc;
-}
-
-.syringe-needle {
-  stroke-width: 3;
 }
 
 .feature-grid {
@@ -846,14 +643,6 @@ main .card:nth-of-type(3) {
   .hero-grid {
     grid-template-columns: 1fr;
   }
-
-  .hero-showcase {
-    min-height: 260px;
-  }
-
-  .hero-illustration {
-    min-height: 260px;
-  }
 }
 
 @media (max-width: 700px) {
@@ -887,9 +676,6 @@ main .card:nth-of-type(3) {
     font-size: clamp(2.2rem, 12vw, 3.2rem);
   }
 
-  .hero-showcase {
-    min-height: 220px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
