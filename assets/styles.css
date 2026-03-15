@@ -343,117 +343,203 @@ pre {
   min-height: 310px;
   border-radius: 32px;
   background:
-    linear-gradient(155deg, rgba(255, 214, 229, 0.96), rgba(255, 244, 179, 0.9)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
-  border: 2px solid rgba(37, 24, 59, 0.16);
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.95), transparent 28%),
+    radial-gradient(circle at 80% 22%, rgba(255, 214, 229, 0.55), transparent 24%),
+    radial-gradient(circle at 32% 82%, rgba(189, 242, 214, 0.4), transparent 26%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.98), rgba(255, 240, 230, 0.96));
+  border: 3px solid rgba(37, 24, 59, 0.16);
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 255, 255, 0.56),
+    0 18px 30px rgba(37, 24, 59, 0.1);
   overflow: hidden;
 }
 
-.showcase-orb,
-.showcase-strip,
-.showcase-card,
-.showcase-squiggle {
-  position: absolute;
-}
-
-.showcase-orb {
-  top: 1.1rem;
-  left: 1rem;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 4px solid rgba(37, 24, 59, 0.3);
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.8), transparent 38%),
-    linear-gradient(180deg, #ffe9a5, #ffd870);
-  box-shadow: inset 0 -14px 0 rgba(190, 234, 255, 0.7), 0 18px 24px rgba(37, 24, 59, 0.12);
-  animation: floaty 6s ease-in-out infinite;
-}
-
-.showcase-orb::after {
+.hero-showcase::before {
   content: "";
   position: absolute;
-  left: 46px;
-  bottom: -14px;
-  width: 38px;
-  height: 20px;
-  border-radius: 12px;
-  border: 3px solid rgba(37, 24, 59, 0.26);
-  background: linear-gradient(180deg, #fff3ca, #f5d76e);
+  inset: 12px;
+  border-radius: 24px;
+  border: 2px dashed rgba(37, 24, 59, 0.12);
+  pointer-events: none;
 }
 
-.showcase-strip {
-  top: 1.3rem;
-  right: 1rem;
-  width: 110px;
-  height: 228px;
-  border-radius: 28px;
-  border: 3px solid rgba(37, 24, 59, 0.24);
-  background:
-    radial-gradient(circle at 50% 10%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 21%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 32%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 43%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 54%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 65%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 76%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 50% 87%, rgba(255, 240, 170, 0.95) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    linear-gradient(180deg, #ffe463, #ffcf59);
-  box-shadow: 0 18px 24px rgba(37, 24, 59, 0.12);
+.hero-illustration {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.showcase-strip::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 16px;
-  bottom: 16px;
-  width: 10px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(37, 24, 59, 0.26), rgba(255, 255, 255, 0.56));
+.hero-shadow {
+  fill: rgba(37, 24, 59, 0.1);
 }
 
-.showcase-card {
-  left: 1.1rem;
-  right: 4.25rem;
-  bottom: 1rem;
-  height: 118px;
-  border-radius: 26px;
-  border: 3px solid rgba(37, 24, 59, 0.18);
-  background:
-    radial-gradient(circle at 14% 28%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 46% 28%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 62% 28%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 14% 58%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 30% 58%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 46% 58%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 62% 58%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 78% 58%, rgba(255, 255, 255, 0.94) 0 6px, rgba(190, 234, 255, 0.9) 7px 10px, transparent 11px),
-    radial-gradient(circle at 14% 84%, rgba(255, 231, 135, 0.98) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 30% 84%, rgba(255, 231, 135, 0.98) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 46% 84%, rgba(255, 231, 135, 0.98) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 62% 84%, rgba(255, 231, 135, 0.98) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    radial-gradient(circle at 78% 84%, rgba(255, 231, 135, 0.98) 0 6px, rgba(255, 255, 255, 0.92) 7px 10px, transparent 11px),
-    linear-gradient(180deg, #ffd4df, #ffb9cd);
-  box-shadow: 0 18px 24px rgba(37, 24, 59, 0.12);
+.hero-doodle path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 8;
+  opacity: 0.7;
 }
 
-.showcase-squiggle {
-  left: 7.5rem;
-  top: 8.75rem;
-  width: 118px;
-  height: 34px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 12px 50%, transparent 10px, var(--leaf) 11px 14px, transparent 15px),
-    radial-gradient(circle at 38px 50%, transparent 10px, var(--leaf) 11px 14px, transparent 15px),
-    radial-gradient(circle at 64px 50%, transparent 10px, var(--leaf) 11px 14px, transparent 15px),
-    radial-gradient(circle at 90px 50%, transparent 10px, var(--leaf) 11px 14px, transparent 15px);
-  transform: rotate(-8deg);
-  filter: drop-shadow(0 5px 8px rgba(37, 24, 59, 0.1));
+.hero-doodle-a path {
+  stroke: #8fd9cb;
+}
+
+.hero-doodle-b path {
+  stroke: #ffd48d;
+}
+
+.sticker-piece {
+  filter: drop-shadow(0 10px 14px rgba(37, 24, 59, 0.12));
+}
+
+.sticker-back,
+.sticker-body,
+.timer-inner,
+.blister-label,
+.tray-tab,
+.day-cell rect,
+.pill-cell rect,
+.syringe-plunger,
+.syringe-plunger-cap,
+.syringe-window,
+.syringe-band,
+.syringe-tip {
+  stroke: rgba(37, 24, 59, 0.72);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sticker-back,
+.sticker-body {
+  fill: #fffaf8;
+}
+
+.timer-body {
+  fill: url(#timerFace);
+}
+
+.sticker-highlight {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+.timer-inner {
+  fill: rgba(255, 250, 239, 0.9);
+}
+
+.timer-center {
+  fill: #ff9da8;
+  stroke: rgba(37, 24, 59, 0.72);
+  stroke-width: 3;
+}
+
+.timer-hand,
+.timer-mark {
+  fill: none;
+  stroke: rgba(37, 24, 59, 0.72);
+  stroke-linecap: round;
+}
+
+.timer-hand {
+  stroke-width: 5;
+}
+
+.timer-hand-short {
+  stroke-width: 4;
+}
+
+.timer-mark {
+  stroke-width: 3;
+}
+
+.dial-number,
+.mini-label,
+.day-label text {
+  fill: rgba(37, 24, 59, 0.8);
+  font-family: "Fredoka", "Trebuchet MS", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.dial-number {
+  font-size: 12px;
+}
+
+.blister-body {
+  fill: url(#blisterShell);
+}
+
+.blister-label,
+.tray-tab {
+  fill: rgba(255, 255, 255, 0.68);
+}
+
+.mini-label {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.pill-cell rect {
+  fill: rgba(255, 255, 255, 0.45);
+}
+
+.pill-pill circle {
+  fill: #fff7bf;
+  stroke: rgba(37, 24, 59, 0.3);
+  stroke-width: 2;
+}
+
+.tray-body {
+  fill: url(#trayShell);
+}
+
+.day-cell rect {
+  fill: rgba(255, 255, 255, 0.72);
+}
+
+.day-label text {
+  font-size: 11px;
+}
+
+.tray-pill circle {
+  fill: #ffb2bb;
+  stroke: rgba(37, 24, 59, 0.34);
+  stroke-width: 2;
+}
+
+.syringe-body {
+  fill: url(#syringeBarrel);
+}
+
+.syringe-plunger,
+.syringe-plunger-cap,
+.syringe-band {
+  fill: #ffd6df;
+}
+
+.syringe-window {
+  fill: rgba(255, 255, 255, 0.72);
+}
+
+.syringe-line,
+.syringe-needle {
+  fill: none;
+  stroke: rgba(37, 24, 59, 0.72);
+  stroke-linecap: round;
+}
+
+.syringe-line {
+  stroke-width: 2.5;
+}
+
+.syringe-tip {
+  fill: #fff4bc;
+}
+
+.syringe-needle {
+  stroke-width: 3;
 }
 
 .feature-grid {
@@ -729,17 +815,6 @@ main .card:nth-of-type(3) {
   }
 }
 
-@keyframes floaty {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
 @keyframes drift {
   from {
     transform: translate3d(0, 0, 0);
@@ -775,6 +850,10 @@ main .card:nth-of-type(3) {
   .hero-showcase {
     min-height: 260px;
   }
+
+  .hero-illustration {
+    min-height: 260px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -808,13 +887,8 @@ main .card:nth-of-type(3) {
     font-size: clamp(2.2rem, 12vw, 3.2rem);
   }
 
-  .showcase-strip {
-    width: 88px;
-    height: 196px;
-  }
-
-  .showcase-card {
-    right: 3.4rem;
+  .hero-showcase {
+    min-height: 220px;
   }
 }
 
