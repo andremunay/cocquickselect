@@ -105,6 +105,19 @@ window.COC_CONTENT = {
     '84/7 — Bleeding every 3 months; good for menstrual suppression',
     'Continuous — No placebo/hormone-free interval; no scheduled withdrawal bleeding; safe for endometrial stability if using a monophasic COC'
   ],
+  cycleGuideIntro: 'What do the numbers mean?',
+  cycleGuideBullets: [
+    '21/7: 21 active pills + 7 placebo/hormone-free days -> monthly withdrawal bleed',
+    '24/4: 24 active pills + 4 placebo/hormone-free days -> monthly withdrawal bleed with a shorter hormone-free interval; may reduce withdrawal symptoms and may result in lighter bleeding',
+    'Extended cycling (e.g., 84/7): 84 active pills + 7 placebo/hormone-free days -> fewer scheduled bleeds (often every 3 months)',
+    'Continuous cycling: no placebo/hormone-free interval -> no scheduled withdrawal bleed; safe and commonly used'
+  ],
+  cycleGuideNotes: [
+    'Clinical pearl: The bleed during placebo days is a withdrawal bleed, not a medically necessary period. Extended and continuous regimens are safe options for patients who want fewer periods, menstrual suppression, or less cyclic pain, headache, or bloating.',
+    'Monophasic = each active pill contains the same hormone dose. This site generally recommends monophasic COCs because they are easier to prescribe, easier to troubleshoot, and the simplest option for extended or continuous cycling.',
+    'Multiphasic (including biphasic, triphasic, or quadriphasic) pills vary hormone dose throughout the pack; they can work well for some patients, but are usually less straightforward to prescribe, troubleshoot, or use continuously than monophasic pills.',
+    'Practical tip: Any monophasic COC can usually be used continuously by skipping placebo pills and starting the next pack right away.'
+  ],
   missedPill: [
     'Miss 1: Take ASAP, continue as usual.',
     'Miss ≥2: Follow catch-up rules + use back-up x7 days.'

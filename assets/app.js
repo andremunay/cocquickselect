@@ -223,9 +223,11 @@
 
     const cycleTips = $('#wiz-cycle-guide');
     if (cycleTips) {
+      cycleTips.appendChild(create('p', data.cycleGuideIntro));
       const ul = create('ul');
-      data.cyclePatterns.forEach((x) => ul.appendChild(create('li', x)));
+      (data.cycleGuideBullets || []).forEach((x) => ul.appendChild(create('li', x)));
       cycleTips.appendChild(ul);
+      (data.cycleGuideNotes || []).forEach((text) => cycleTips.appendChild(create('p', text)));
     }
 
     const showWizardStep = (targetStep) => {
