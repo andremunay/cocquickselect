@@ -1,6 +1,12 @@
 (function () {
   const data = window.COC_CONTENT;
   if (!data) return;
+  const surveyQuestions = [
+    { id: "counseling", label: "How comfortable are you counseling on combined oral contraceptives?" },
+    { id: "selection", label: "How comfortable are you selecting a combined oral contraceptive pill?" },
+    { id: "troubleshooting", label: "How comfortable are you troubleshooting common pill issues?" }
+  ];
+  let surveySubmission = null;
 
   const $ = (sel) => document.querySelector(sel);
   const create = (tag, text) => {
@@ -69,6 +75,100 @@
     const ul = create("ul");
     (items || []).forEach((item) => ul.appendChild(create("li", item)));
     section.appendChild(ul);
+    container.appendChild(section);
+  }
+
+  function renderStep4Survey(container) {
+    if (!container) return;
+    container.innerHTML = "";
+
+    const section = create("section");
+    section.className = "survey-block";
+    section.appendChild(create("h4", "Resident comfort check"));
+
+    if (surveySubmission) {
+      const note = create("p", "Responses recorded locally for this session. Thank you.");
+      note.className = "survey-thanks";
+      section.appendChild(note);
+      container.appendChild(section);
+      return;
+    }
+
+    const intro = create("p", "Three quick questions before you leave this screen.");
+    intro.className = "survey-intro";
+    section.appendChild(intro);
+
+    const form = create("form");
+    form.className = "survey-form";
+    form.noValidate = true;
+
+    surveyQuestions.forEach((question) => {
+      const fieldset = create("fieldset");
+      fieldset.className = "survey-question";
+
+      const legend = create("legend", question.label);
+      fieldset.appendChild(legend);
+
+      const scale = create("div");
+      scale.className = "survey-scale";
+
+      [
+        { value: "1", label: "1 Low" },
+        { value: "2", label: "2" },
+        { value: "3", label: "3" },
+        { value: "4", label: "4" },
+        { value: "5", label: "5 High" }
+      ].forEach((option) => {
+        const choice = create("label");
+        choice.className = "survey-choice";
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = question.id;
+        input.value = option.value;
+        choice.appendChild(input);
+        choice.appendChild(create("span", option.label));
+        scale.appendChild(choice);
+      });
+
+      fieldset.appendChild(scale);
+      form.appendChild(fieldset);
+    });
+
+    const error = create("p", "Please answer all 3 questions.");
+    error.className = "survey-error hidden";
+    form.appendChild(error);
+
+    const actions = create("div");
+    actions.className = "row";
+    const submit = create("button", "Submit survey");
+    submit.type = "submit";
+    submit.className = "btn btn-primary";
+    actions.appendChild(submit);
+    form.appendChild(actions);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const answers = {};
+      let complete = true;
+
+      surveyQuestions.forEach((question) => {
+        const selected = form.querySelector(`input[name="${question.id}"]:checked`);
+        if (!selected) {
+          complete = false;
+          return;
+        }
+        answers[question.id] = selected.value;
+      });
+
+      error.classList.toggle("hidden", complete);
+      if (!complete) return;
+
+      surveySubmission = answers;
+      renderStep4Survey(container);
+    });
+
+    section.appendChild(form);
     container.appendChild(section);
   }
 
@@ -279,6 +379,7 @@
       showWizardStep(targetStep);
 
       const resultsContainer = $("#wizard-results");
+      const surveyContainer = $("#wizard-survey");
       if (targetStep === "4" || resultsContainer) {
         renderResults(resultsContainer, {
           cat4: $("#wiz-cat4")?.value || "No",
@@ -287,6 +388,9 @@
           pro: $("#wiz-progestin")?.value || "",
           cycle: $("#wiz-cycle")?.value || ""
         });
+        if (targetStep === "4") {
+          renderStep4Survey(surveyContainer);
+        }
       }
     }));
 

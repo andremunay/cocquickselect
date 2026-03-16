@@ -509,6 +509,73 @@ select {
   padding-left: 1.1rem;
 }
 
+.survey-block {
+  margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 22px;
+  border: 2px solid rgba(37, 24, 59, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(241, 250, 255, 0.92));
+  box-shadow: var(--shadow-soft);
+}
+
+.survey-block h4 {
+  margin-bottom: 0.35rem;
+}
+
+.survey-intro,
+.survey-thanks,
+.survey-error {
+  margin: 0.2rem 0 0.85rem;
+}
+
+.survey-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.survey-question {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.survey-question legend {
+  margin-bottom: 0.45rem;
+  font-weight: 800;
+}
+
+.survey-scale {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.survey-choice {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.4rem;
+  border-radius: 16px;
+  border: 2px solid rgba(37, 24, 59, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  text-align: center;
+  font-weight: 800;
+}
+
+.survey-choice input {
+  margin: 0;
+}
+
+.survey-error {
+  color: #9b1646;
+  font-weight: 800;
+}
+
+.survey-thanks {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
 details {
   margin: 0.4rem 0;
 }
@@ -705,6 +772,14 @@ main .card:nth-of-type(3) {
   .grid.two,
   .grid.three {
     grid-template-columns: 1fr;
+  }
+
+  .survey-scale {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .survey-choice:last-child {
+    grid-column: 1 / -1;
   }
 
   .hero-home h1 {
