@@ -309,7 +309,9 @@
     const previewSummary = $("#wizard-preview-summary");
     const navHint = $("#wizard-nav-hint");
     const safetyNext = $("#wizard-safety-next");
+    const goalErrors = $("#wizard-goal-errors");
     const stepperButtons = Array.from(document.querySelectorAll(".wizard-stepper-item"));
+    const wizardPanels = Array.from(document.querySelectorAll(".wizard-step"));
     const resetButton = $("#wizard-reset");
 
     const wizardState = {
@@ -327,6 +329,8 @@
     const eeOptions = data.estrogen.options;
     const progestinOptions = data.progestin.categories;
     const cycleOptions = data.cyclePatterns.categories;
+    const choiceGroups = new Map();
+    const goalMountFailures = [];
 
     introCopy.textContent = data.wizard.introCopy;
     data.wizard.introChecklist.forEach((item) => introList.appendChild(create("li", item)));
@@ -359,9 +363,19 @@
       data.cyclePatterns.guideNotes
     );
 
-    function renderChoiceGroup(container, config) {
-      if (!container) return;
+    function registerGoalMountFailure(label) {
+      goalMountFailures.push(label);
+    }
+
+    function createChoiceGroup(container, config) {
+      if (!container) {
+        if (config.isGoalGroup) registerGoalMountFailure(config.label);
+        return;
+      }
+
       container.innerHTML = "";
+      const buttons = new Map();
+
       config.options.forEach((option) => {
         const value = optionValue(option);
         const button = create("button");
@@ -387,54 +401,101 @@
           button.appendChild(detail);
         }
 
-        if (value === wizardState.selections[config.stateKey]) {
-          button.classList.add("is-selected");
-        }
-
         button.addEventListener("click", () => {
           wizardState.selections[config.stateKey] = value;
-          refreshWizard();
+          updateChoiceGroupState(config.stateKey);
+          refreshDerivedState();
         });
 
+        buttons.set(value, button);
         container.appendChild(button);
+      });
+
+      choiceGroups.set(config.stateKey, { buttons, stateKey: config.stateKey });
+      updateChoiceGroupState(config.stateKey);
+    }
+
+    function updateChoiceGroupState(stateKey) {
+      const group = choiceGroups.get(stateKey);
+      if (!group) return;
+
+      group.buttons.forEach((button, value) => {
+        const isSelected = wizardState.selections[stateKey] === value;
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
       });
     }
 
-    renderChoiceGroup($("#wiz-cat4-choices"), {
-      stateKey: "cat4",
-      options: [
-        { value: "No", label: "No Category 4 condition", helpText: "Proceed with the rest of the screen." },
-        { value: "Yes", label: "Yes, Category 4 present", helpText: "Stop COC prescribing and review alternatives." }
-      ]
-    });
-    renderChoiceGroup($("#wiz-cat3-choices"), {
-      stateKey: "cat3",
-      options: [
-        { value: "No", label: "No Category 3 condition", helpText: "Usual COC selection flow can continue." },
-        { value: "Yes", label: "Yes, Category 3 present", helpText: "Continue cautiously and counsel about alternatives." }
-      ]
-    });
-    renderChoiceGroup($("#wiz-ee-choices"), {
-      stateKey: "ee",
-      options: [
-        { value: "any", label: "Keep this broad", helpText: "Do not constrain EE dose unless needed." },
-        ...eeOptions
-      ]
-    });
-    renderChoiceGroup($("#wiz-progestin-choices"), {
-      stateKey: "pro",
-      options: [
-        { value: "any", label: "Keep this broad", helpText: "Use any practical progestin option." },
-        ...progestinOptions
-      ]
-    });
-    renderChoiceGroup($("#wiz-cycle-choices"), {
-      stateKey: "cycle",
-      options: [
-        { value: "any", label: "Keep this broad", helpText: "Allow any cycle pattern." },
-        ...cycleOptions
-      ]
-    });
+    function renderGoalMountFailures() {
+      if (!goalErrors) return;
+      goalErrors.innerHTML = "";
+
+      if (!goalMountFailures.length) {
+        goalErrors.classList.add("hidden");
+        return;
+      }
+
+      goalErrors.classList.remove("hidden");
+      const issue = renderStatusCard(
+        "neutral",
+        "Some formulation choices did not load.",
+        "Refresh the page before relying on this step. The missing sections are listed below."
+      );
+      issue.appendChild(renderBullets(goalMountFailures));
+      goalErrors.appendChild(issue);
+    }
+
+    [
+      {
+        container: $("#wiz-cat4-choices"),
+        stateKey: "cat4",
+        label: "Category 4 hard stop",
+        options: [
+          { value: "No", label: "No Category 4 condition", helpText: "Proceed with the rest of the screen." },
+          { value: "Yes", label: "Yes, Category 4 present", helpText: "Stop COC prescribing and review alternatives." }
+        ]
+      },
+      {
+        container: $("#wiz-cat3-choices"),
+        stateKey: "cat3",
+        label: "Category 3 caution",
+        options: [
+          { value: "No", label: "No Category 3 condition", helpText: "Usual COC selection flow can continue." },
+          { value: "Yes", label: "Yes, Category 3 present", helpText: "Continue cautiously and counsel about alternatives." }
+        ]
+      },
+      {
+        container: $("#wiz-ee-choices"),
+        stateKey: "ee",
+        label: "Ethinyl estradiol dose",
+        isGoalGroup: true,
+        options: [
+          { value: "any", label: "Keep this broad", helpText: "Do not constrain EE dose unless needed." },
+          ...eeOptions
+        ]
+      },
+      {
+        container: $("#wiz-progestin-choices"),
+        stateKey: "pro",
+        label: "Progestin goal",
+        isGoalGroup: true,
+        options: [
+          { value: "any", label: "Keep this broad", helpText: "Use any practical progestin option." },
+          ...progestinOptions
+        ]
+      },
+      {
+        container: $("#wiz-cycle-choices"),
+        stateKey: "cycle",
+        label: "Cycle pattern",
+        isGoalGroup: true,
+        options: [
+          { value: "any", label: "Keep this broad", helpText: "Allow any cycle pattern." },
+          ...cycleOptions
+        ]
+      }
+    ].forEach((groupConfig) => createChoiceGroup(groupConfig.container, groupConfig));
+    renderGoalMountFailures();
 
     function getProgestinOption(value) {
       return progestinOptions.find((option) => option.key === value);
@@ -463,6 +524,10 @@
       }
 
       return summary;
+    }
+
+    function getCurrentHeading() {
+      return document.querySelector(`.wizard-step[data-step="${wizardState.currentStep}"] h3`);
     }
 
     function buildMatchReasons(medication) {
@@ -646,27 +711,6 @@
       renderRecommendationCards(previewCards, data.wizard.previewLimit || 3);
     }
 
-    function showStep(step) {
-      const normalizedStep = String(step);
-      document.querySelectorAll(".wizard-step").forEach((panel) => {
-        panel.classList.toggle("hidden", panel.dataset.step !== normalizedStep);
-      });
-
-      wizardState.currentStep = Number(normalizedStep);
-
-      if (normalizedStep === "4") {
-        renderResults();
-        renderStep4Survey(surveyContainer);
-      }
-
-      updateStepper();
-
-      const activeHeading = document.querySelector(`.wizard-step[data-step="${normalizedStep}"] h3`);
-      if (activeHeading) {
-        activeHeading.focus();
-      }
-    }
-
     function updateNavHint() {
       let text = "Complete each step in order. Finished steps remain available from the stepper.";
 
@@ -694,6 +738,12 @@
       return false;
     }
 
+    function syncPanels() {
+      wizardPanels.forEach((panel) => {
+        panel.classList.toggle("hidden", Number(panel.dataset.step) !== wizardState.currentStep);
+      });
+    }
+
     function updateStepper() {
       updateNavHint();
 
@@ -712,109 +762,96 @@
       });
     }
 
-    function refreshWizard() {
-      renderChoiceGroup($("#wiz-cat4-choices"), {
-        stateKey: "cat4",
-        options: [
-          { value: "No", label: "No Category 4 condition", helpText: "Proceed with the rest of the screen." },
-          { value: "Yes", label: "Yes, Category 4 present", helpText: "Stop COC prescribing and review alternatives." }
-        ]
-      });
-      renderChoiceGroup($("#wiz-cat3-choices"), {
-        stateKey: "cat3",
-        options: [
-          { value: "No", label: "No Category 3 condition", helpText: "Usual COC selection flow can continue." },
-          { value: "Yes", label: "Yes, Category 3 present", helpText: "Continue cautiously and counsel about alternatives." }
-        ]
-      });
-      renderChoiceGroup($("#wiz-ee-choices"), {
-        stateKey: "ee",
-        options: [
-          { value: "any", label: "Keep this broad", helpText: "Do not constrain EE dose unless needed." },
-          ...eeOptions
-        ]
-      });
-      renderChoiceGroup($("#wiz-progestin-choices"), {
-        stateKey: "pro",
-        options: [
-          { value: "any", label: "Keep this broad", helpText: "Use any practical progestin option." },
-          ...progestinOptions
-        ]
-      });
-      renderChoiceGroup($("#wiz-cycle-choices"), {
-        stateKey: "cycle",
-        options: [
-          { value: "any", label: "Keep this broad", helpText: "Allow any cycle pattern." },
-          ...cycleOptions
-        ]
-      });
+    function syncCurrentStep(options) {
+      syncPanels();
+      updateStepper();
+      if (wizardState.currentStep === 4) {
+        renderResults();
+        renderStep4Survey(surveyContainer);
+      }
+      if (options?.focusHeading !== false) {
+        getCurrentHeading()?.focus();
+      }
+    }
 
+    function goToStep(step, options) {
+      if (!canAccessStep(step)) return;
+      wizardState.currentStep = Number(step);
+      syncCurrentStep(options);
+    }
+
+    function refreshDerivedState() {
+      updateChoiceGroupState("cat4");
+      updateChoiceGroupState("cat3");
+      updateChoiceGroupState("ee");
+      updateChoiceGroupState("pro");
+      updateChoiceGroupState("cycle");
       updateSafetyFeedback();
       updatePreview();
-
       if (wizardState.currentStep === 4) {
         renderResults();
       }
 
       if (wizardState.selections.cat4 === "Yes" && wizardState.currentStep === 3) {
-        wizardState.unlockedSteps.delete(3);
         wizardState.unlockedSteps.add(4);
-        showStep(4);
+        goToStep(4);
         return;
       }
 
       updateStepper();
     }
 
-    function goNext(fromStep) {
-      if (fromStep === 1) {
+    function advanceFrom(currentStep) {
+      if (currentStep === 1) {
         wizardState.unlockedSteps.add(2);
-        showStep(2);
+        goToStep(2);
         return;
       }
 
-      if (fromStep === 2) {
+      if (currentStep === 2) {
         if (wizardState.selections.cat4 === "Yes") {
           wizardState.unlockedSteps.add(4);
-          showStep(4);
+          goToStep(4);
           return;
         }
         wizardState.unlockedSteps.add(3);
-        showStep(3);
+        goToStep(3);
         return;
       }
 
-      if (fromStep === 3) {
+      if (currentStep === 3) {
         wizardState.unlockedSteps.add(4);
-        showStep(4);
+        goToStep(4);
       }
     }
 
-    function goPrev(fromStep) {
-      if (fromStep === 2) {
-        showStep(1);
+    function retreatFrom(currentStep) {
+      if (currentStep === 2) {
+        goToStep(1);
         return;
       }
 
-      if (fromStep === 3) {
-        showStep(2);
+      if (currentStep === 3) {
+        goToStep(2);
         return;
       }
 
-      if (fromStep === 4) {
-        showStep(wizardState.selections.cat4 === "Yes" ? 2 : 3);
+      if (currentStep === 4) {
+        goToStep(wizardState.selections.cat4 === "Yes" ? 2 : 3);
       }
     }
 
     document.querySelectorAll("[data-next]").forEach((button) => {
       button.addEventListener("click", () => {
-        goNext(Number(button.dataset.next) - 1);
+        const currentStep = Number(button.closest(".wizard-step")?.dataset.step || wizardState.currentStep);
+        advanceFrom(currentStep);
       });
     });
 
     document.querySelectorAll("[data-prev]").forEach((button) => {
       button.addEventListener("click", () => {
-        goPrev(Number(button.closest(".wizard-step")?.dataset.step || button.dataset.prev));
+        const currentStep = Number(button.closest(".wizard-step")?.dataset.step || wizardState.currentStep);
+        retreatFrom(currentStep);
       });
     });
 
@@ -822,12 +859,11 @@
       button.addEventListener("click", () => {
         const targetStep = Number(button.dataset.stepTarget);
         if (!canAccessStep(targetStep)) return;
-        showStep(targetStep);
+        goToStep(targetStep);
       });
     });
 
     resetButton?.addEventListener("click", () => {
-      wizardState.currentStep = 1;
       wizardState.unlockedSteps = new Set([1]);
       wizardState.selections = {
         cat4: "No",
@@ -836,13 +872,14 @@
         pro: "any",
         cycle: "any"
       };
+      wizardState.currentStep = 1;
       surveyState = { status: "idle", answers: null };
-      refreshWizard();
-      showStep(1);
+      refreshDerivedState();
+      syncCurrentStep();
     });
 
-    refreshWizard();
-    showStep(1);
+    refreshDerivedState();
+    syncCurrentStep({ focusHeading: false });
   }
 
   function initPicks() {
