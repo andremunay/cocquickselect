@@ -203,9 +203,31 @@
   function initWizard() {
     if (document.body.dataset.page !== "wizard") return;
     makeInlineGuidesCollapsible();
-    optionFill($("#wiz-ee"), data.estrogen.options.map((x) => ({ value: x, label: conciseLabel(x) })));
-    optionFill($("#wiz-progestin"), data.progestin.categories);
-    optionFill($("#wiz-cycle"), data.cyclePatterns.categories);
+    const wizEe = $("#wiz-ee");
+    const wizProgestin = $("#wiz-progestin");
+    const wizCycle = $("#wiz-cycle");
+    const step3Next = document.querySelector('.wizard-step[data-step="3"] [data-next="4"]');
+
+    optionFill(wizEe, data.estrogen.options.map((x) => ({ value: x, label: conciseLabel(x) })));
+    optionFill(wizProgestin, data.progestin.categories);
+    optionFill(wizCycle, data.cyclePatterns.categories);
+
+    const hasCompleteStep3Selection = () => (
+      !!wizEe?.value
+      && !!wizProgestin?.value
+      && !!wizCycle?.value
+    );
+
+    const syncStep3NextState = () => {
+      if (step3Next) {
+        step3Next.disabled = !hasCompleteStep3Selection();
+      }
+    };
+
+    [wizEe, wizProgestin, wizCycle].forEach((select) => {
+      select?.addEventListener("change", syncStep3NextState);
+    });
+    syncStep3NextState();
 
     const wizCat4 = $("#wiz-step-cat4-guide");
     if (wizCat4) {
@@ -253,6 +275,10 @@
 
     document.querySelectorAll("[data-next]").forEach((btn) => btn.addEventListener("click", () => {
       const next = btn.dataset.next;
+      if (next === "4" && !hasCompleteStep3Selection()) {
+        syncStep3NextState();
+        return;
+      }
       const cat4Value = $("#wiz-cat4")?.value || "No";
       let targetStep = next;
       if (next === "3" && cat4Value === "Yes") {

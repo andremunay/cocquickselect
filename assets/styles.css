@@ -397,6 +397,12 @@ pre {
   border-color: rgba(37, 24, 59, 0.28);
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
 .btn-primary {
   background: linear-gradient(180deg, #ffe67f, #ffc86b);
   border-color: rgba(37, 24, 59, 0.3);
