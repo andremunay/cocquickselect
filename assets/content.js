@@ -1,5 +1,29 @@
 window.COC_CONTENT = {
   siteName: "Combined Oral Contraceptive Pill Selection",
+  wizard: {
+    introCopy: "Use this when a patient wants a combined oral contraceptive and you need a fast, practical starting point.",
+    introChecklist: [
+      "Confirm that combined hormonal contraception fits the patient's goals.",
+      "Screen for estrogen contraindications before narrowing formulation details.",
+      "Use pill details to support counseling, not to replace shared decision-making."
+    ],
+    introNext: [
+      "Step 2 screens for US MEC Category 4 and Category 3 conditions.",
+      "Step 3 narrows dose, progestin, and cycle only if those details matter.",
+      "Step 4 turns the selected goals into ranked starting options and counseling notes."
+    ],
+    safetyCopy: "Ask the safety questions first. If a Category 4 condition is present, stop and choose a non-COC alternative.",
+    goalsCopy: "Leave any section broad if you do not need to constrain it. Narrow only the attributes that matter for tolerability, symptoms, or cycle goals.",
+    hardStopHeading: "Combined pills are unsafe to start today.",
+    hardStopBody: "A Category 4 condition is present. Do not prescribe a COC from this tool. Use the alternatives below and manage the underlying risk as appropriate.",
+    cautionHeading: "Use caution with combined pills.",
+    cautionBody: "A Category 3 condition is present. Risks usually outweigh benefits, so discuss alternatives first and use a COC only if no better fit exists after counseling.",
+    alternativesHeading: "Preferred next move",
+    recommendationHeading: "Ranked starting options",
+    recommendationEmpty: "No pills match the current goals. Broaden one of the formulation filters and review again.",
+    previewLimit: 3,
+    surveyHeading: "Resident comfort survey"
+  },
   sdm: {
     heading: "Shared Decision-Making in Contraceptive Counseling",
     audienceLabel: "For the resident clinician",
@@ -71,9 +95,24 @@ window.COC_CONTENT = {
       "Providers can prioritize tolerability when selecting EE dose without compromising contraceptive effectiveness."
     ],
     options: [
-      "10 mcg - Ultra-low dose: lowest estrogen exposure; may reduce estrogen-related side effects, but breakthrough bleeding is more common and cycles may be less predictable",
-      "20 mcg - Low dose: often used as a starting point; generally well tolerated, though spotting is more common than with higher-dose pills",
-      "30-35 mcg - Standard dose: may improve bleeding predictability and reduce breakthrough bleeding, but estrogen-related side effects may be more noticeable (e.g., nausea, breast tenderness, headaches, bloating)"
+      {
+        key: "10 mcg",
+        label: "10 mcg",
+        helpText: "Ultra-low dose",
+        detail: "Lowest estrogen exposure; more breakthrough bleeding and less predictable cycles."
+      },
+      {
+        key: "20 mcg",
+        label: "20 mcg",
+        helpText: "Low dose",
+        detail: "Common starting point; often well tolerated, with more spotting than higher-dose pills."
+      },
+      {
+        key: "30-35 mcg",
+        label: "30-35 mcg",
+        helpText: "Standard dose",
+        detail: "Often improves bleeding predictability, with more noticeable estrogen-related side effects."
+      }
     ],
     pearls: [
       "Clinical pearl: Lower EE doses are often better tolerated but more likely to cause unscheduled bleeding; 30-35 mcg EE may be a better fit when cycle predictability is a priority or breakthrough bleeding occurs.",
