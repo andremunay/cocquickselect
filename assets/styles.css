@@ -653,6 +653,7 @@ main .card:nth-of-type(3) {
 
 @media (max-width: 700px) {
   .site-header {
+    position: static;
     gap: 0.65rem;
     padding: 0.7rem 0.75rem;
   }

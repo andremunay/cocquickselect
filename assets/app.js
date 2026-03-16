@@ -104,15 +104,6 @@
       container.appendChild(ul);
     }
 
-    const miss = create("div");
-    miss.appendChild(create("h4", "Missed-pill instructions"));
-    const missUl = create("ul");
-    data.missedPill.forEach((line) => missUl.appendChild(create("li", line)));
-    miss.appendChild(missUl);
-    container.appendChild(miss);
-
-    renderBulletSection(container, "Side effects", data.recommendationOutput?.sideEffectsPlaceholder);
-    renderBulletSection(container, "How to start the medication", data.recommendationOutput?.startingMedicationPlaceholder);
     renderBulletSection(container, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
 
     if (state.pro === "drospirenone") {
