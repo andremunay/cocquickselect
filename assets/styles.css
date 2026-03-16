@@ -794,7 +794,6 @@ body[data-page="wizard"] .container {
 
 .wizard-summary-card,
 .wizard-decision-card,
-.wizard-preview-card,
 .wizard-completion-card,
 .wizard-survey-shell {
   border: 1px solid rgba(37, 24, 59, 0.1);
@@ -809,7 +808,6 @@ body[data-page="wizard"] .container {
 
 .wizard-summary-card h4,
 .wizard-decision-header h4,
-.wizard-preview-header h4,
 .wizard-completion-card h4,
 .wizard-survey-heading h4,
 .wizard-results-heading h4,
@@ -898,8 +896,7 @@ body[data-page="wizard"] .container {
 .wizard-choice-detail,
 .wizard-result-meta,
 .wizard-result-note,
-.wizard-inline-note,
-.wizard-preview-count {
+.wizard-inline-note {
   color: var(--ink-soft);
 }
 
@@ -950,14 +947,12 @@ body[data-page="wizard"] .container {
   padding-left: 1.1rem;
 }
 
-.wizard-preview-card,
 .wizard-completion-card,
 .wizard-survey-shell {
   padding: 1rem 1.05rem;
   margin-top: 1rem;
 }
 
-.wizard-preview-header,
 .wizard-result-header {
   display: flex;
   justify-content: space-between;
@@ -1219,7 +1214,6 @@ main .card:nth-of-type(3) {
     min-height: auto;
   }
 
-  .wizard-preview-header,
   .wizard-result-header {
     flex-direction: column;
   }

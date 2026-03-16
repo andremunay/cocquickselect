@@ -183,9 +183,6 @@ function createWizardSandbox() {
     ["#wizard-survey", create("div")],
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
-    ["#wizard-preview-cards", create("div")],
-    ["#wizard-preview-count", create("p")],
-    ["#wizard-preview-summary", create("div")],
     ["#wizard-nav-hint", create("p")],
     ["#wizard-safety-next", create("button")],
     ["#wizard-reset", create("button")],
@@ -257,7 +254,8 @@ function createWizardSandbox() {
   const sandbox = loadSandbox(document);
   return {
     sandbox,
-    previewCards: selectors.get("#wizard-preview-cards")
+    nextButtons: selectorLists.get("[data-next]"),
+    results: selectors.get("#wizard-results")
   };
 }
 
@@ -325,6 +323,9 @@ const picksEnv = createPicksSandbox();
 assert(!collectText(picksEnv.results).includes("undefined"), "Quick Picks should not render undefined text.");
 
 const wizardEnv = createWizardSandbox();
-assert(!collectText(wizardEnv.previewCards).includes("undefined"), "Wizard cards should not render undefined text.");
+wizardEnv.nextButtons[0].listeners.click({ target: wizardEnv.nextButtons[0] });
+wizardEnv.nextButtons[1].listeners.click({ target: wizardEnv.nextButtons[1] });
+wizardEnv.nextButtons[2].listeners.click({ target: wizardEnv.nextButtons[2] });
+assert(!collectText(wizardEnv.results).includes("undefined"), "Wizard results should not render undefined text.");
 
 console.log("medication data regression test passed");

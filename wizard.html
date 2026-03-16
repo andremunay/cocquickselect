@@ -26,35 +26,35 @@
     <section id="wizard" class="card wizard-card">
       <p class="section-kicker">Guided flow</p>
       <h2>COC Select</h2>
-      <p class="wizard-intro-lead">Move from safety screen to practical pill options in a few fast steps.</p>
+      <p class="wizard-intro-lead">Built for quick medication selection during a live visit.</p>
 
       <nav class="wizard-stepper" aria-label="Wizard progress">
         <button class="wizard-stepper-item is-active" type="button" data-step-target="1">
           <span class="wizard-stepper-index">1</span>
           <span class="wizard-stepper-copy">
             <span class="wizard-stepper-title">Intro</span>
-            <span class="wizard-stepper-subtitle">How to use the tool</span>
+            <span class="wizard-stepper-subtitle">Quick start</span>
           </span>
         </button>
         <button class="wizard-stepper-item" type="button" data-step-target="2" disabled>
           <span class="wizard-stepper-index">2</span>
           <span class="wizard-stepper-copy">
             <span class="wizard-stepper-title">Safety</span>
-            <span class="wizard-stepper-subtitle">US MEC hard stops</span>
+            <span class="wizard-stepper-subtitle">Safety check</span>
           </span>
         </button>
         <button class="wizard-stepper-item" type="button" data-step-target="3" disabled>
           <span class="wizard-stepper-index">3</span>
           <span class="wizard-stepper-copy">
             <span class="wizard-stepper-title">Goals</span>
-            <span class="wizard-stepper-subtitle">Dose, progestin, cycle</span>
+            <span class="wizard-stepper-subtitle">Set goals</span>
           </span>
         </button>
         <button class="wizard-stepper-item" type="button" data-step-target="4" disabled>
           <span class="wizard-stepper-index">4</span>
           <span class="wizard-stepper-copy">
             <span class="wizard-stepper-title">Options</span>
-            <span class="wizard-stepper-subtitle">Ranked suggestions</span>
+            <span class="wizard-stepper-subtitle">Review picks</span>
           </span>
         </button>
       </nav>
@@ -73,7 +73,7 @@
             <ul id="wiz-intro-list"></ul>
           </div>
           <div class="wizard-summary-card">
-            <h4>What happens next</h4>
+            <h4>Next</h4>
             <ul id="wiz-intro-next"></ul>
           </div>
         </div>
@@ -96,7 +96,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Category 4 hard stop</h4>
-              <p>If present, combined pills are unsafe to start.</p>
+              <p>Stop here if present.</p>
             </div>
             <div id="wiz-cat4-choices" class="wizard-choice-grid" role="group" aria-label="Category 4 screen"></div>
             <details class="wizard-details">
@@ -107,7 +107,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Category 3 caution</h4>
-              <p>If present, COCs are generally not recommended.</p>
+              <p>Counsel carefully if present.</p>
             </div>
             <div id="wiz-cat3-choices" class="wizard-choice-grid" role="group" aria-label="Category 3 screen"></div>
             <details class="wizard-details">
@@ -133,7 +133,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Ethinyl estradiol dose</h4>
-              <p>Pick a dose target only if it matters for tolerability or bleeding profile.</p>
+              <p>Only narrow this if it matters.</p>
             </div>
             <div id="wiz-ee-choices" class="wizard-choice-grid" role="group" aria-label="Ethinyl estradiol dose"></div>
             <details class="wizard-details">
@@ -144,7 +144,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Progestin goal</h4>
-              <p>Use symptom goals and counseling priorities to guide the pick.</p>
+              <p>Match this to symptoms or counseling goals.</p>
             </div>
             <div id="wiz-progestin-choices" class="wizard-choice-grid" role="group" aria-label="Progestin goal"></div>
             <details class="wizard-details">
@@ -155,7 +155,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Cycle pattern</h4>
-              <p>Choose a bleed pattern goal or leave it broad.</p>
+              <p>Set a bleed goal or leave broad.</p>
             </div>
             <div id="wiz-cycle-choices" class="wizard-choice-grid" role="group" aria-label="Cycle pattern"></div>
             <details class="wizard-details">
@@ -165,18 +165,6 @@
           </section>
         </div>
         <div id="wizard-goal-errors" class="wizard-status-stack hidden" aria-live="polite"></div>
-
-        <section class="wizard-preview-card" aria-live="polite">
-          <div class="wizard-preview-header">
-            <div>
-              <p class="wizard-preview-kicker">Live preview</p>
-              <h4 id="wizard-preview-title">Matching options</h4>
-            </div>
-            <p id="wizard-preview-count" class="wizard-preview-count"></p>
-          </div>
-          <div id="wizard-preview-summary" class="wizard-selection-summary"></div>
-          <div id="wizard-preview-cards" class="wizard-result-grid preview-grid"></div>
-        </section>
 
         <div class="row wizard-actions">
           <button class="btn" data-prev="2">Back</button>
@@ -188,14 +176,14 @@
         <div class="wizard-panel-heading">
           <p class="wizard-step-label">Step 4</p>
           <h3 tabindex="-1">Review the suggested options</h3>
-          <p class="wizard-step-copy">Use these cards as a starting point for counseling and ordering. Match quality reflects the goals selected above, not superiority of one pill over all others.</p>
+          <p class="wizard-step-copy">Start counseling and ordering from these options.</p>
         </div>
         <div id="wizard-results"></div>
         <section class="wizard-completion-card">
           <div class="wizard-completion-copy">
             <p class="wizard-preview-kicker">Done with prescribing</p>
-            <h4>Need the broader reference list?</h4>
-            <p>Open Quick Picks for the full filterable comparison table. The resident survey is optional and does not block the prescribing workflow.</p>
+            <h4>Need the full list?</h4>
+            <p>Open Quick Picks for the broader comparison table. The survey below is optional.</p>
           </div>
           <div class="row wizard-actions">
             <button class="btn" data-prev="3" id="wizard-results-back">Back</button>
@@ -205,9 +193,9 @@
         </section>
         <section class="wizard-survey-shell">
           <div class="wizard-survey-heading">
-            <p class="wizard-preview-kicker">Optional feedback</p>
+            <p class="wizard-preview-kicker">Optional survey</p>
             <h4>Resident comfort survey</h4>
-            <p>Four quick questions for local QI. Responses stay in this browser session only.</p>
+            <p>Four quick QI questions. Responses stay in this browser session.</p>
           </div>
           <div id="wizard-survey"></div>
         </section>

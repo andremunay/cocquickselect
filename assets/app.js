@@ -366,9 +366,6 @@
     const surveyContainer = $("#wizard-survey");
     const safetyFeedback = $("#wizard-safety-feedback");
     const resultsContainer = $("#wizard-results");
-    const previewCards = $("#wizard-preview-cards");
-    const previewCount = $("#wizard-preview-count");
-    const previewSummary = $("#wizard-preview-summary");
     const navHint = $("#wizard-nav-hint");
     const safetyNext = $("#wizard-safety-next");
     const goalErrors = $("#wizard-goal-errors");
@@ -532,7 +529,7 @@
         label: "Ethinyl estradiol dose",
         isGoalGroup: true,
         options: [
-          { value: "any", label: "Keep this broad", helpText: "Do not constrain EE dose unless needed." },
+          { value: "any", label: "Keep broad", helpText: "Only narrow if dose matters." },
           ...eeOptions
         ]
       },
@@ -542,7 +539,7 @@
         label: "Progestin goal",
         isGoalGroup: true,
         options: [
-          { value: "any", label: "Keep this broad", helpText: "Use any practical progestin option." },
+          { value: "any", label: "Keep broad", helpText: "Use any practical progestin." },
           ...progestinOptions
         ]
       },
@@ -552,7 +549,7 @@
         label: "Cycle pattern",
         isGoalGroup: true,
         options: [
-          { value: "any", label: "Keep this broad", helpText: "Allow any cycle pattern." },
+          { value: "any", label: "Keep broad", helpText: "Allow any cycle pattern." },
           ...cycleOptions
         ]
       }
@@ -684,14 +681,14 @@
         return;
       }
 
-      safetyFeedback.appendChild(renderStatusCard("success", "No Category 4 hard stop selected.", "Combined pills remain on the table based on the current screen."));
+      safetyFeedback.appendChild(renderStatusCard("success", "No Category 4 hard stop selected.", "Combined pills remain an option on this screen."));
 
       if (wizardState.selections.cat3 === "Yes") {
         const caution = renderStatusCard("warning", data.wizard.cautionHeading, data.wizard.cautionBody);
         data.contraindications.cat3Counseling.forEach((item) => caution.appendChild(create("p", item)));
         safetyFeedback.appendChild(caution);
       } else {
-        safetyFeedback.appendChild(renderStatusCard("neutral", "No Category 3 caution selected.", "Proceed to formulation goals if a COC still fits the patient's priorities."));
+        safetyFeedback.appendChild(renderStatusCard("neutral", "No Category 3 caution selected.", "Proceed to pill goals if a COC still fits."));
       }
 
       safetyNext.textContent = "Continue to formulation goals";
@@ -746,7 +743,7 @@
       const heading = create("div");
       heading.className = "wizard-results-heading";
       heading.appendChild(create("h4", data.wizard.recommendationHeading));
-      const lead = create("p", "These options satisfy the current goals. Reopen Step 3 to broaden or narrow the fit.");
+      const lead = create("p", "These options fit the current goals. Go back to Step 3 to adjust.");
       lead.className = "wizard-step-copy";
       heading.appendChild(lead);
       resultsContainer.appendChild(heading);
@@ -764,28 +761,19 @@
       renderBulletSection(resultsContainer, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
     }
 
-    function updatePreview() {
-      const matches = filterMedications(wizardState.selections);
-      previewCount.textContent = wizardState.selections.cat4 === "Yes"
-        ? "COC flow stopped"
-        : `${matches.length} match${matches.length === 1 ? "" : "es"}`;
-      renderSelectionPills(previewSummary);
-      renderRecommendationCards(previewCards, data.wizard.previewLimit || 3);
-    }
-
     function updateNavHint() {
-      let text = "Complete each step in order. Finished steps remain available from the stepper.";
+      let text = "Complete each step in order.";
 
       if (wizardState.currentStep === 1) {
-        text = "Safety unlocks after this quick intro.";
+        text = "Next: safety check.";
       } else if (wizardState.currentStep === 2 && wizardState.selections.cat4 === "Yes") {
-        text = "Formulation goals are skipped because a Category 4 condition makes COCs unsafe today.";
+        text = "Category 4 stops the COC flow here.";
       } else if (wizardState.currentStep === 2) {
-        text = "Finish the safety screen to unlock formulation goals.";
+        text = "Finish safety to unlock pill goals.";
       } else if (wizardState.currentStep === 3) {
-        text = "Keep any section broad if you do not need to constrain that pill attribute.";
+        text = "Leave filters broad unless a pill detail matters.";
       } else if (wizardState.currentStep === 4) {
-        text = "Use Back to adjust goals, or jump to an earlier step from the stepper.";
+        text = "Use Back to adjust goals.";
       }
 
       navHint.textContent = text;
@@ -849,7 +837,6 @@
       updateChoiceGroupState("pro");
       updateChoiceGroupState("cycle");
       updateSafetyFeedback();
-      updatePreview();
       if (wizardState.currentStep === 4) {
         renderResults();
       }

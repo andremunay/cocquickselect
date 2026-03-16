@@ -1,27 +1,26 @@
 window.COC_CONTENT = {
   siteName: "Combined Oral Contraceptive Pill Selection",
   wizard: {
-    introCopy: "Use this when a patient wants a combined oral contraceptive and you need a fast, practical starting point.",
+    introCopy: "Use this for a fast COC starting point during a visit.",
     introChecklist: [
-      "Confirm that combined hormonal contraception fits the patient's goals.",
-      "Screen for estrogen contraindications before narrowing formulation details.",
-      "Use pill details to support counseling, not to replace shared decision-making."
+      "Confirm a combined pill still fits the visit goal.",
+      "Screen safety before narrowing formulation details.",
+      "Use the result as a starting point for counseling."
     ],
     introNext: [
-      "Step 2 screens for US MEC Category 4 and Category 3 conditions.",
-      "Step 3 narrows dose, progestin, and cycle only if those details matter.",
-      "Step 4 turns the selected goals into ranked starting options and counseling notes."
+      "Step 2 checks Category 4 and Category 3 risk.",
+      "Step 3 narrows goals only if needed.",
+      "Step 4 shows ranked starting options."
     ],
-    safetyCopy: "Ask the safety questions first. If a Category 4 condition is present, stop and choose a non-COC alternative.",
-    goalsCopy: "Leave any section broad if you do not need to constrain it. Narrow only the attributes that matter for tolerability, symptoms, or cycle goals.",
+    safetyCopy: "If Category 4 is present, stop and choose a non-COC option.",
+    goalsCopy: "Leave filters broad unless a detail matters for this patient.",
     hardStopHeading: "Combined pills are unsafe to start today.",
-    hardStopBody: "A Category 4 condition is present. Do not prescribe a COC from this tool. Use the alternatives below and manage the underlying risk as appropriate.",
+    hardStopBody: "A Category 4 condition is present. Do not prescribe a COC. Use the alternatives below.",
     cautionHeading: "Use caution with combined pills.",
-    cautionBody: "A Category 3 condition is present. Risks usually outweigh benefits, so discuss alternatives first and use a COC only if no better fit exists after counseling.",
+    cautionBody: "A Category 3 condition is present. Discuss alternatives first and use a COC only if no better fit exists after counseling.",
     alternativesHeading: "Preferred next move",
     recommendationHeading: "Ranked starting options",
-    recommendationEmpty: "No pills match the current goals. Broaden one of the formulation filters and review again.",
-    previewLimit: 3,
+    recommendationEmpty: "No pills match the current goals. Broaden a filter and review again.",
     surveyHeading: "Resident comfort survey"
   },
   sdm: {
