@@ -215,165 +215,171 @@ window.COC_CONTENT = {
   medications: [
     {
       name: "Lo Loestrin Fe",
-      ee: "10 mcg",
+      ee: "10",
       progestin: "Norethindrone",
-      progestinCategory: "norethindrone",
-      cycle: "24/2/2",
-      cycleCategoryKeys: ["24-4"],
-      continuousEligible: false,
-      detail: "EE 10 mcg / Norethindrone 1 mg",
-      note: "ultra-low dose EE; no generic"
-    },
-    {
-      name: "Loestrin 1/20",
-      ee: "20 mcg",
-      progestin: "Norethindrone",
-      progestinCategory: "norethindrone",
-      cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / Norethindrone 1 mg",
-      note: "Generics: Junel Fe 1/20, Blisovi Fe 1/20, Microgestin Fe 1/20"
-    },
-    {
-      name: "Loestrin 24 Fe",
-      ee: "20 mcg",
-      progestin: "Norethindrone",
-      progestinCategory: "norethindrone",
       cycle: "24/4",
-      cycleCategoryKeys: ["24-4"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / Norethindrone 1 mg",
-      note: "Generics: Blisovi 24 Fe, Junel Fe 24, Hailey 24 Fe"
+      note: "Pack contains 24 combo active tablets (norethindrone acetate + EE 10 mcg), then 2 EE-only tablets (10 mcg), then 2 inert/iron tablets."
     },
     {
-      name: "Femlyv (ODT)",
-      ee: "20 mcg",
-      progestin: "Norethindrone acetate",
-      progestinCategory: "norethindrone",
-      cycle: "24/4",
-      cycleCategoryKeys: ["24-4"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / Norethindrone acetate 1 mg",
-      note: "Orally disintegrating tablet (ODT) for difficulty swallowing"
-    },
-    {
-      name: "Aviane",
-      ee: "20 mcg",
+      name: "Afirmelle-28; Aubra-28; Aubra EQ-28; Aviane-28; Falmina-28; Larissia-28; Lessina-28; Lutera-28; Orsythia-28; Vienva-28; generic levonorgestrel and ethinyl estradiol 0.1/0.02",
+      ee: "20",
       progestin: "Levonorgestrel",
-      progestinCategory: "levonorgestrel",
-      cycle: "21/7 or 24/4",
-      cycleCategoryKeys: ["21-7", "24-4"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / LNG 0.1 mg",
-      note: "Generic: Lessina"
-    },
-    {
-      name: "Levora / Nordette / Marlissa",
-      ee: "30 mcg",
-      progestin: "Levonorgestrel",
-      progestinCategory: "levonorgestrel",
       cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / LNG 0.15 mg"
+      note: "Standard 28-day regimen: 21 active + 7 placebo."
     },
     {
-      name: "Seasonale",
-      ee: "30 mcg",
+      name: "Tyblume",
+      ee: "20",
       progestin: "Levonorgestrel",
-      progestinCategory: "levonorgestrel",
-      cycle: "84/7",
-      cycleCategoryKeys: ["extended"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / LNG 0.15 mg",
-      note: "Generic: Jolessa"
+      cycle: "21/7",
+      note: "Chewable; 21 active + 7 placebo."
     },
     {
-      name: "Seasonique",
-      ee: "30 mcg",
+      name: "Balcoltra",
+      ee: "20",
       progestin: "Levonorgestrel",
-      progestinCategory: "levonorgestrel",
-      cycle: "84/7",
-      cycleCategoryKeys: ["extended"],
-      continuousEligible: false,
-      detail: "EE 30 mcg / LNG 0.15 mg",
-      note: "Listed as biphasic in the document. Generics: Amethia, Camrese"
-    },
-    {
-      name: "Desogen",
-      ee: "30 mcg",
-      progestin: "Desogestrel",
-      progestinCategory: "third-gen",
       cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / Desogestrel 0.15 mg",
-      note: "Generics: Apri, Reclipsen"
+      note: "21 active tablets (levonorgestrel/EE) + 7 inactive tablets containing ferrous bisglycinate."
     },
     {
-      name: "Ortho-Cept",
-      ee: "30 mcg",
-      progestin: "Desogestrel",
-      progestinCategory: "third-gen",
+      name: "Minzoya",
+      ee: "20",
+      progestin: "Levonorgestrel",
       cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / Desogestrel 0.15 mg",
-      note: "Generics: Isibloom, Caziant"
+      note: "Generic equivalent of Balcoltra's regimen; 21 active + 7 inert/iron."
     },
     {
-      name: "Ortho-Cyclen",
-      ee: "35 mcg",
+      name: "Altavera-28; Ayuna-28; Chateal-28; Chateal EQ-28; Kurvelo-28; Levora-28; Lillow-28; Marlissa-28; Portia-28; generic levonorgestrel and ethinyl estradiol 0.15/0.03",
+      ee: "30",
+      progestin: "Levonorgestrel",
+      cycle: "21/7",
+      note: "Standard 28-day regimen: 21 active + 7 placebo."
+    },
+    {
+      name: "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE; Noreth-Estrad-Fe 1-0.02(21)-75; Tarina FE; Tarina FE 1-20 EQ",
+      ee: "20",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21 active pills + 7 ferrous fumarate placebo pills."
+    },
+    {
+      name: "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE",
+      ee: "30",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21 active pills + 7 ferrous fumarate placebo pills."
+    },
+    {
+      name: "Balziva-28; Briellyn; Philith; Vyfemla; Wymzya FE; Noret-Estra-Fe 0.4-0.035(21)-75",
+      ee: "35",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "Includes standard tablets and chewable/iron variants."
+    },
+    {
+      name: "Necon; Nortrel; Wera",
+      ee: "35",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "Standard 28-day regimen."
+    },
+    {
+      name: "Alyacen; Dasetta; Nortrel; Pirmella",
+      ee: "35",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "28-day products in the 1 mg/35 mcg family."
+    },
+    {
+      name: "Aurovela 1 mg-20 mcg; Junel 1 mg-20 mcg; Larin 21 1-20; Loestrin 21 1-20; Microgestin 21 1-20; Norethind-Eth Estrad 1-0.02",
+      ee: "20",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21-tablet packs; no inert tablets included."
+    },
+    {
+      name: "Aurovela 21 1.5-30; Junel 1.5 mg-30 mcg; Hailey 21 1.5 mg-30 mcg; Larin 1.5 mg-30 mcg; Loestrin 21 1.5-30; Microgestin 21 1.5-30; Norethin-EE 1.5-0.03 (21)",
+      ee: "30",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21-tablet packs; no inert tablets included."
+    },
+    {
+      name: "Estarylla; Femynor-28; Mili; Mono-Linyah-28; Nymyo; Previfem; Sprintec-28; Vylibra-28; generic norgestimate and ethinyl estradiol 0.25/0.035",
+      ee: "35",
       progestin: "Norgestimate",
-      progestinCategory: "third-gen",
       cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 35 mcg / Norgestimate 0.25 mg",
-      note: "Generics: Sprintec, MonoNessa, Estarylla"
+      note: "Standard 28-day regimen: 21 active + 7 placebo."
     },
     {
-      name: "Yaz",
-      ee: "20 mcg",
+      name: "Ortho Tri-Cyclen; Tri-Sprintec; Tri-Estarylla; Tri-Femynor; Tri-Nymyo; Tri-VyLibra",
+      ee: "35",
+      progestin: "Norgestimate",
+      cycle: "21/7",
+      note: "Triphasic norgestimate dosing with EE 35 mcg."
+    },
+    {
+      name: "Apri-28; Cyred-28; Cyred EQ-28; Emoquette-28; Enskyce-28; Isibloom-28; Juleber-28; Kalliga-28; Reclipsen-28; generic desogestrel/ethinyl estradiol 0.15/0.03",
+      ee: "30",
+      progestin: "Desogestrel",
+      cycle: "21/7",
+      note: "Standard 28-day regimen: 21 active + 7 placebo."
+    },
+    {
+      name: "Azurette 28; Bekyree 28; Kariva 28; Mircette 28; Pimtrea; Simuya 28; Viorele 28; Volnea 0.15-0.02-0.01",
+      ee: "20 (then 10)",
+      progestin: "Desogestrel",
+      cycle: "21/7",
+      note: "21 desogestrel/EE 20 mcg tablets followed by EE-only 10 mcg tablets in the tail end of the pack."
+    },
+    {
+      name: "Yasmin-28; Ocella; Syeda-28; Zarah; Zumandimine 3-0.03; Safyral; Tydemy 3-0.03-0.451",
+      ee: "30",
       progestin: "Drospirenone",
-      progestinCategory: "drospirenone",
+      cycle: "21/7",
+      note: "3 mg drospirenone / 30 mcg EE family."
+    },
+    {
+      name: "Yaz; Gianvi; Jasmiel; Nikki; Loryna; Lo-Zumandimine; Beyaz",
+      ee: "20",
+      progestin: "Drospirenone",
       cycle: "24/4",
-      cycleCategoryKeys: ["24-4"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / Drospirenone 3 mg",
-      note: "Generics: Loryna, Vestura, Nikki. FDA-approved for PMDD and moderate acne"
+      note: "24 active + 4 inert."
     },
     {
-      name: "Yasmin",
-      ee: "30 mcg",
-      progestin: "Drospirenone",
-      progestinCategory: "drospirenone",
-      cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / Drospirenone 3 mg",
-      note: "Generics: Ocella, Syeda, Zarah"
-    },
-    {
-      name: "Beyaz",
-      ee: "20 mcg",
-      progestin: "Drospirenone",
-      progestinCategory: "drospirenone",
+      name: "Aurovela 24 FE; Blisovi 24; Charlotte 24 FE; Gemmily; Hailey 24 FE; Junel FE 24; Larin 24 FE; Melodetta 24 FE; Merzee; Mibelas; Microgestin 24 FE; Minastrin 24 FE; Noreth-Estrad-FE 1-0.02(24)-75; Tarina 24 FE; Taytulla",
+      ee: "20",
+      progestin: "Norethindrone",
       cycle: "24/4",
-      cycleCategoryKeys: ["24-4"],
-      continuousEligible: true,
-      detail: "EE 20 mcg / Drospirenone 3 mg + levomefolate calcium"
+      note: "24 active hormone days + 4 placebo/iron days."
     },
     {
-      name: "Safyral",
-      ee: "30 mcg",
-      progestin: "Drospirenone",
-      progestinCategory: "drospirenone",
-      cycle: "21/7",
-      cycleCategoryKeys: ["21-7"],
-      continuousEligible: true,
-      detail: "EE 30 mcg / Drospirenone 3 mg + levomefolate calcium"
+      name: "LoSeasonique; Amethia Lo; Camrese Lo; Lojaimiess; Lo Simpesse",
+      ee: "20 (then 10)",
+      progestin: "Levonorgestrel",
+      cycle: "Extended cycling",
+      note: "84 active tablets of levonorgestrel/EE 0.1/0.02 followed by 7 tablets of EE 0.01."
+    },
+    {
+      name: "Introvale; Iclevia; Jolessa; Setlakin",
+      ee: "30",
+      progestin: "Levonorgestrel",
+      cycle: "Extended cycling",
+      note: "84 active levonorgestrel/EE 0.15/0.03 tablets plus 7 inert tablets."
+    },
+    {
+      name: "Seasonique; Amethia; Ashlyna; Camrese; Daysee; Jaimiess; Simpesse",
+      ee: "30 (then 10)",
+      progestin: "Levonorgestrel",
+      cycle: "Extended cycling",
+      note: "84 active levonorgestrel/EE 0.15/0.03 tablets followed by 7 tablets of EE 0.01."
+    },
+    {
+      name: "Amethyst; generic equivalents",
+      ee: "20",
+      progestin: "Levonorgestrel",
+      cycle: "Continuous cycling",
+      note: "Continuous daily active tablets; no planned hormone-free interval."
     }
   ]
 };

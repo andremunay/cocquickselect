@@ -42,9 +42,71 @@
     });
   }
 
+  function normalizeEeBucket(value) {
+    const raw = (value || "").trim();
+    if (raw.startsWith("10")) return "10 mcg";
+    if (raw.startsWith("20")) return "20 mcg";
+    if (raw.startsWith("30") || raw.startsWith("35")) return "30-35 mcg";
+    return raw;
+  }
+
+  function normalizeProgestinCategory(value) {
+    const key = (value || "").trim().toLowerCase();
+    if (key === "norethindrone") return "norethindrone";
+    if (key === "levonorgestrel") return "levonorgestrel";
+    if (key === "desogestrel" || key === "norgestimate") return "third-gen";
+    if (key === "drospirenone") return "drospirenone";
+    return key;
+  }
+
+  function normalizeCycleCategoryKeys(value) {
+    if (value === "21/7") return ["21-7"];
+    if (value === "24/4") return ["24-4"];
+    if (value === "Extended cycling") return ["extended"];
+    if (value === "Continuous cycling") return ["continuous"];
+    return [];
+  }
+
+  function matchesNamePrefix(medication, prefix) {
+    return (medication.name || "").startsWith(prefix);
+  }
+
+  function normalizeContinuousEligibility(medication) {
+    if (matchesNamePrefix(medication, "Lo Loestrin Fe")) return false;
+    if (matchesNamePrefix(medication, "Azurette 28;")) return false;
+    if (matchesNamePrefix(medication, "Ortho Tri-Cyclen;")) return false;
+    if (matchesNamePrefix(medication, "LoSeasonique;")) return false;
+    if (matchesNamePrefix(medication, "Seasonique;")) return false;
+    if (medication.cycle === "Continuous cycling") return true;
+    if (medication.cycle === "Extended cycling") return matchesNamePrefix(medication, "Introvale;");
+    return medication.cycle === "21/7" || medication.cycle === "24/4";
+  }
+
+  function normalizeHasGenericOption(medication) {
+    return /generic/i.test(`${medication.name || ""} ${medication.note || ""}`);
+  }
+
+  function normalizeMedication(medication) {
+    return {
+      ...medication,
+      eeBucket: normalizeEeBucket(medication.ee),
+      progestinCategory: normalizeProgestinCategory(medication.progestin),
+      cycleCategoryKeys: normalizeCycleCategoryKeys(medication.cycle),
+      continuousEligible: normalizeContinuousEligibility(medication),
+      hasGenericOption: normalizeHasGenericOption(medication)
+    };
+  }
+
+  function formatEeDisplay(value) {
+    if (!value) return "";
+    return /mcg/i.test(value) ? value : `${value} mcg`;
+  }
+
+  const medications = (data.medications || []).map(normalizeMedication);
+
   function matchesEeSelection(medication, selectedEe) {
     const eeToken = token(selectedEe);
-    return !eeToken || eeToken === "any" || medication.ee === eeToken || (eeToken === "30-35 mcg" && (medication.ee === "30 mcg" || medication.ee === "35 mcg"));
+    return !eeToken || eeToken === "any" || medication.eeBucket === eeToken;
   }
 
   function matchesProgestinSelection(medication, selectedProgestin) {
@@ -60,7 +122,7 @@
   }
 
   function filterMedications(filters) {
-    return data.medications.filter((medication) => (
+    return medications.filter((medication) => (
       matchesEeSelection(medication, filters.ee)
       && matchesProgestinSelection(medication, filters.pro)
       && matchesCycleSelection(medication, filters.cycle)
@@ -237,7 +299,7 @@
 
     const titleWrap = create("div");
     titleWrap.appendChild(create("h4", medication.name));
-    const meta = create("p", `${medication.detail} | ${medication.cycle}`);
+    const meta = create("p", `Estrogen: ${formatEeDisplay(medication.ee)} | Progestin: ${medication.progestin} | Cycle: ${medication.cycle}`);
     meta.className = "wizard-result-meta";
     titleWrap.appendChild(meta);
     header.appendChild(titleWrap);
@@ -552,7 +614,7 @@
         }
       }
 
-      if (!reasons.length && /Generic/i.test(medication.note || "")) {
+      if (!reasons.length && medication.hasGenericOption) {
         reasons.push("Includes common generic options for practical prescribing.");
       }
 
@@ -574,7 +636,7 @@
       if (ee !== "any" && matchesEeSelection(medication, ee)) score += 1;
       if (pro !== "any" && matchesProgestinSelection(medication, pro)) score += 1;
       if (cycle !== "any" && matchesCycleSelection(medication, cycle)) score += 1;
-      if (/Generic/i.test(medication.note || "")) score += 0.25;
+      if (medication.hasGenericOption) score += 0.25;
       if (medication.continuousEligible) score += 0.1;
 
       return score;
@@ -884,8 +946,7 @@
 
   function initPicks() {
     if (document.body.dataset.page !== "picks") return;
-    const ees = [...new Set(data.medications.map((medication) => medication.ee))];
-    optionFill($("#pick-ee"), ees);
+    optionFill($("#pick-ee"), data.estrogen.options);
     optionFill($("#pick-progestin"), data.progestin.categories);
     optionFill($("#pick-cycle"), data.cyclePatterns.categories);
 
@@ -905,14 +966,14 @@
       table.className = "results-table";
       const thead = create("thead");
       const headRow = create("tr");
-      ["Medication", "Estrogen", "Progestin", "Cycle", "Details / Notes"].forEach((label) => headRow.appendChild(create("th", label)));
+      ["Medication", "Estrogen (mcg)", "Progestin", "Cycle", "Details / Notes"].forEach((label) => headRow.appendChild(create("th", label)));
       thead.appendChild(headRow);
       table.appendChild(thead);
 
       const tbody = create("tbody");
       rows.forEach((medication) => {
         const tr = create("tr");
-        [medication.name, medication.ee, medication.progestin, medication.cycle, `${medication.detail}${medication.note ? ` - ${medication.note}` : ""}`]
+        [medication.name, medication.ee, medication.progestin, medication.cycle, medication.note || ""]
           .forEach((text) => tr.appendChild(create("td", text)));
         tbody.appendChild(tr);
       });
@@ -923,6 +984,13 @@
     ["#pick-ee", "#pick-progestin", "#pick-cycle"].forEach((id) => $(id).addEventListener("change", render));
     render();
   }
+
+  window.__COC_TESTING__ = {
+    normalizeMedication,
+    getNormalizedMedications: () => medications.slice(),
+    filterMedications,
+    formatEeDisplay
+  };
 
   initShared();
   initWizard();
