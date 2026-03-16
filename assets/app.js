@@ -2,9 +2,10 @@
   const data = window.COC_CONTENT;
   if (!data) return;
   const surveyQuestions = [
-    { id: "counseling", label: "How comfortable are you counseling on combined oral contraceptives?" },
-    { id: "selection", label: "How comfortable are you selecting a combined oral contraceptive pill?" },
-    { id: "troubleshooting", label: "How comfortable are you troubleshooting common pill issues?" }
+    { id: "helpful_confidence", label: "Did this site help you and increase your confidence in prescribing COCs?" },
+    { id: "knowledge", label: "Did this site increase your birth control knowledge?" },
+    { id: "reuse", label: "How likely are you to use this site again?" },
+    { id: "recommend", label: "How likely are you to recommend this site to a colleague?" }
   ];
   let surveyState = { status: "idle", answers: null };
 
@@ -102,7 +103,7 @@
       return;
     }
 
-    const intro = create("p", "Three quick questions. 1 = low comfort, 5 = high comfort.");
+    const intro = create("p", "Four quick questions. 1 = low, 5 = high.");
     intro.className = "survey-intro";
     section.appendChild(intro);
 
@@ -142,7 +143,7 @@
       form.appendChild(fieldset);
     });
 
-    const error = create("p", "Please answer all 3 questions.");
+    const error = create("p", "Please answer all 4 questions.");
     error.className = "survey-error hidden";
     form.appendChild(error);
 
