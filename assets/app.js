@@ -34,15 +34,15 @@
 
   function matchesEeSelection(medication, selectedEe) {
     const eeToken = token(selectedEe);
-    return !eeToken || medication.ee === eeToken || (eeToken === "30-35 mcg" && (medication.ee === "30 mcg" || medication.ee === "35 mcg"));
+    return !eeToken || eeToken === "any" || medication.ee === eeToken || (eeToken === "30-35 mcg" && (medication.ee === "30 mcg" || medication.ee === "35 mcg"));
   }
 
   function matchesProgestinSelection(medication, selectedProgestin) {
-    return !selectedProgestin || medication.progestinCategory === selectedProgestin;
+    return !selectedProgestin || selectedProgestin === "any" || medication.progestinCategory === selectedProgestin;
   }
 
   function matchesCycleSelection(medication, selectedCycle) {
-    if (!selectedCycle) return true;
+    if (!selectedCycle || selectedCycle === "any") return true;
     const categories = medication.cycleCategoryKeys || [];
     if (selectedCycle === "continuous") return !!medication.continuousEligible;
     if (selectedCycle === "extended") return categories.includes("extended") || !!medication.continuousEligible;
