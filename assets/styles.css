@@ -566,6 +566,11 @@ select {
   margin: 0;
 }
 
+.survey-choice span {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
 .survey-error {
   color: #9b1646;
   font-weight: 800;
@@ -772,14 +777,6 @@ main .card:nth-of-type(3) {
   .grid.two,
   .grid.three {
     grid-template-columns: 1fr;
-  }
-
-  .survey-scale {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .survey-choice:last-child {
-    grid-column: 1 / -1;
   }
 
   .hero-home h1 {

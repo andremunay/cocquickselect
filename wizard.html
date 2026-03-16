@@ -102,9 +102,18 @@
       <div class="wizard-step hidden" data-step="4">
         <h3>Step 4: Suggested Options</h3>
         <div id="wizard-results"></div>
-        <div id="wizard-survey"></div>
         <div class="row">
           <button class="btn" data-prev="3">Back</button>
+          <button class="btn btn-primary" data-next="5">Continue</button>
+        </div>
+      </div>
+
+      <div class="wizard-step hidden" data-step="5">
+        <h3>Step 5: Resident comfort check</h3>
+        <div id="wizard-survey"></div>
+        <div class="row">
+          <button class="btn" data-prev="4">Back</button>
+          <button class="btn" type="button" id="wizard-survey-skip">Skip survey</button>
           <a class="btn" href="picks.html">Open full Quick Picks</a>
         </div>
       </div>

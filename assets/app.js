@@ -6,7 +6,7 @@
     { id: "selection", label: "How comfortable are you selecting a combined oral contraceptive pill?" },
     { id: "troubleshooting", label: "How comfortable are you troubleshooting common pill issues?" }
   ];
-  let surveySubmission = null;
+  let surveyState = { status: "idle", answers: null };
 
   const $ = (sel) => document.querySelector(sel);
   const create = (tag, text) => {
@@ -86,7 +86,7 @@
     section.className = "survey-block";
     section.appendChild(create("h4", "Resident comfort check"));
 
-    if (surveySubmission) {
+    if (surveyState.status === "submitted") {
       const note = create("p", "Responses recorded locally for this session. Thank you.");
       note.className = "survey-thanks";
       section.appendChild(note);
@@ -94,7 +94,15 @@
       return;
     }
 
-    const intro = create("p", "Three quick questions before you leave this screen.");
+    if (surveyState.status === "skipped") {
+      const note = create("p", "Survey skipped for this session. No responses were stored.");
+      note.className = "survey-thanks";
+      section.appendChild(note);
+      container.appendChild(section);
+      return;
+    }
+
+    const intro = create("p", "Three quick questions. 1 = low comfort, 5 = high comfort.");
     intro.className = "survey-intro";
     section.appendChild(intro);
 
@@ -113,11 +121,11 @@
       scale.className = "survey-scale";
 
       [
-        { value: "1", label: "1 Low" },
+        { value: "1", label: "1" },
         { value: "2", label: "2" },
         { value: "3", label: "3" },
         { value: "4", label: "4" },
-        { value: "5", label: "5 High" }
+        { value: "5", label: "5" }
       ].forEach((option) => {
         const choice = create("label");
         choice.className = "survey-choice";
@@ -164,7 +172,7 @@
       error.classList.toggle("hidden", complete);
       if (!complete) return;
 
-      surveySubmission = answers;
+      surveyState = { status: "submitted", answers };
       renderStep4Survey(container);
     });
 
@@ -298,6 +306,8 @@
     const wizProgestin = $("#wiz-progestin");
     const wizCycle = $("#wiz-cycle");
     const step3Next = document.querySelector('.wizard-step[data-step="3"] [data-next="4"]');
+    const surveyContainer = $("#wizard-survey");
+    const surveySkip = $("#wizard-survey-skip");
 
     optionFill(wizEe, data.estrogen.options.map((x) => ({ value: x, label: conciseLabel(x) })));
     optionFill(wizProgestin, data.progestin.categories);
@@ -364,6 +374,11 @@
       document.querySelector(`[data-step="${targetStep}"]`)?.classList.remove("hidden");
     };
 
+    surveySkip?.addEventListener("click", () => {
+      surveyState = { status: "skipped", answers: null };
+      renderStep4Survey(surveyContainer);
+    });
+
     document.querySelectorAll("[data-next]").forEach((btn) => btn.addEventListener("click", () => {
       const next = btn.dataset.next;
       if (next === "4" && !hasCompleteStep3Selection()) {
@@ -379,7 +394,6 @@
       showWizardStep(targetStep);
 
       const resultsContainer = $("#wizard-results");
-      const surveyContainer = $("#wizard-survey");
       if (targetStep === "4" || resultsContainer) {
         renderResults(resultsContainer, {
           cat4: $("#wiz-cat4")?.value || "No",
@@ -388,7 +402,7 @@
           pro: $("#wiz-progestin")?.value || "",
           cycle: $("#wiz-cycle")?.value || ""
         });
-        if (targetStep === "4") {
+        if (targetStep === "5") {
           renderStep4Survey(surveyContainer);
         }
       }
