@@ -250,6 +250,8 @@ function createWizardSandbox() {
   return {
     sandbox,
     nextButtons: selectorLists.get("[data-next]"),
+    proChoices: selectors.get("#wiz-progestin-choices"),
+    proGuide: selectors.get("#wiz-progestin-guide"),
     results: selectors.get("#wizard-results")
   };
 }
@@ -322,5 +324,9 @@ wizardEnv.nextButtons[0].listeners.click({ target: wizardEnv.nextButtons[0] });
 wizardEnv.nextButtons[1].listeners.click({ target: wizardEnv.nextButtons[1] });
 wizardEnv.nextButtons[2].listeners.click({ target: wizardEnv.nextButtons[2] });
 assert(!collectText(wizardEnv.results).includes("undefined"), "Wizard results should not render undefined text.");
+assert(collectText(wizardEnv.proChoices).includes("Norgestimate/Desogestrel"), "Wizard progestin choices should use the simplified Norgestimate/Desogestrel label.");
+assert(!collectText(wizardEnv.proChoices).includes("3rd gen"), "Wizard progestin choices should not render the old 3rd gen label.");
+assert(collectText(wizardEnv.proGuide).includes("Norgestimate/Desogestrel"), "Wizard progestin guide should use the simplified Norgestimate/Desogestrel label.");
+assert(!collectText(wizardEnv.proGuide).includes("3rd gen"), "Wizard progestin guide should not render the old 3rd gen label.");
 
 console.log("medication data regression test passed");

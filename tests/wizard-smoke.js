@@ -110,6 +110,11 @@ function assert(condition, message) {
   }
 }
 
+function collectText(node) {
+  if (!node) return "";
+  return `${node.textContent || ""}${node.children.map((child) => collectText(child)).join("")}`;
+}
+
 function createEnvironment() {
   const selectors = new Map();
   const selectorLists = new Map();
@@ -238,9 +243,21 @@ function createEnvironment() {
     eeChoices: selectors.get("#wiz-ee-choices"),
     proChoices: selectors.get("#wiz-progestin-choices"),
     cycleChoices: selectors.get("#wiz-cycle-choices"),
+    eeGuide: selectors.get("#wiz-ee-guide"),
+    proGuide: selectors.get("#wiz-progestin-guide"),
+    cycleGuide: selectors.get("#wiz-cycle-guide"),
     results: selectors.get("#wizard-results"),
     safetyFeedback: selectors.get("#wizard-safety-feedback")
   };
+}
+
+function assertChoiceLabels(container, expectedLabels, message) {
+  const actualLabels = container.children.map((button) => collectText(button));
+  assert(JSON.stringify(actualLabels) === JSON.stringify(expectedLabels), message);
+  assert(
+    container.children.every((button) => button.children.length === 1),
+    "Simplified choice cards should render title text only."
+  );
 }
 
 function runHappyPathAssertions(env) {
@@ -248,6 +265,8 @@ function runHappyPathAssertions(env) {
   env.next1.click();
   assert(!env.step2.classList.contains("hidden"), "Step 2 should be visible after starting safety screen.");
   assert(env.stepper2.classList.contains("is-active"), "Stepper should activate Step 2 after advancing from Intro.");
+  assertChoiceLabels(env.cat4Choices, ["No", "Yes"], "Category 4 choices should render Yes/No labels.");
+  assertChoiceLabels(env.cat3Choices, ["No", "Yes"], "Category 3 choices should render Yes/No labels.");
 
   env.next2.click();
   assert(!env.step3.classList.contains("hidden"), "Step 3 should be visible after continuing from Safety.");
@@ -255,6 +274,27 @@ function runHappyPathAssertions(env) {
   assert(env.eeChoices.children.length > 0, "EE choice cards should be rendered.");
   assert(env.proChoices.children.length > 0, "Progestin choice cards should be rendered.");
   assert(env.cycleChoices.children.length > 0, "Cycle choice cards should be rendered.");
+  assertChoiceLabels(env.eeChoices, ["Keep broad", "10 mcg", "20 mcg", "30-35 mcg"], "EE choices should render title-only labels.");
+  assertChoiceLabels(
+    env.proChoices,
+    ["Keep broad", "Norethindrone", "Levonorgestrel", "Norgestimate/Desogestrel", "Drospirenone"],
+    "Progestin choices should render simplified labels."
+  );
+  assertChoiceLabels(
+    env.cycleChoices,
+    ["Keep broad", "21/7", "24/4", "Extended cycling", "Continuous cycling"],
+    "Cycle choices should render title-only labels."
+  );
+  assert(collectText(env.eeGuide).includes("Ultra-low dose"), "EE guide should retain the explanatory copy.");
+  assert(
+    collectText(env.proGuide).includes("Norgestimate/Desogestrel: Less androgenic"),
+    "Progestin guide should retain the explanatory copy for Norgestimate/Desogestrel."
+  );
+  assert(!collectText(env.proGuide).includes("3rd gen"), "Progestin guide should not render the old 3rd gen label.");
+  assert(
+    collectText(env.cycleGuide).includes("monthly withdrawal bleed"),
+    "Cycle guide should retain the explanatory copy."
+  );
 
   env.next3.click();
   assert(!env.step4.classList.contains("hidden"), "Step 4 should be visible after continuing from Goals.");

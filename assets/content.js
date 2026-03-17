@@ -119,7 +119,7 @@ window.COC_CONTENT = {
       },
       {
         key: "third-gen",
-        label: "3rd gen (Norgestimate/Desogestrel)",
+        label: "Norgestimate/Desogestrel",
         helpText: "Less androgenic; acne/hirsutism; fewer androgenic side effects"
       },
       {
@@ -131,7 +131,7 @@ window.COC_CONTENT = {
     guideBullets: [
       "Norethindrone: common, practical starting option; inexpensive and widely available",
       "Levonorgestrel: common, practical default option; well-studied and often used as a straightforward starting point",
-      "3rd gen (Norgestimate or Desogestrel): less androgenic; often a good choice if acne is a concern",
+      "Norgestimate/Desogestrel: less androgenic; often a good choice if acne is a concern",
       "Drospirenone: may be helpful for acne, bloating/fluid retention, or PMDD-type symptoms"
     ],
     guideNotes: [

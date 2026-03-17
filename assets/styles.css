@@ -876,6 +876,12 @@ body[data-page="wizard"] .container {
   transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 
+.wizard-choice-simple {
+  min-height: 88px;
+  align-items: center;
+  gap: 0;
+}
+
 .wizard-choice:hover {
   transform: translateY(-1px);
   border-color: rgba(91, 35, 158, 0.24);

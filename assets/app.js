@@ -423,12 +423,14 @@
 
       container.innerHTML = "";
       const buttons = new Map();
+      const showDescriptions = config.showDescriptions !== false;
 
       config.options.forEach((option) => {
         const value = optionValue(option);
         const button = create("button");
         button.type = "button";
         button.className = "wizard-choice";
+        if (!showDescriptions) button.classList.add("wizard-choice-simple");
         button.dataset.stateKey = config.stateKey;
         button.dataset.value = value;
         button.setAttribute("aria-pressed", String(wizardState.selections[config.stateKey] === value));
@@ -437,13 +439,13 @@
         title.className = "wizard-choice-title";
         button.appendChild(title);
 
-        if (option.helpText) {
+        if (showDescriptions && option.helpText) {
           const help = create("span", option.helpText);
           help.className = "wizard-choice-help";
           button.appendChild(help);
         }
 
-        if (option.detail) {
+        if (showDescriptions && option.detail) {
           const detail = create("span", option.detail);
           detail.className = "wizard-choice-detail";
           button.appendChild(detail);
@@ -498,18 +500,20 @@
         container: $("#wiz-cat4-choices"),
         stateKey: "cat4",
         label: "Category 4 hard stop",
+        showDescriptions: false,
         options: [
-          { value: "No", label: "No Category 4 condition", helpText: "Proceed with the rest of the screen." },
-          { value: "Yes", label: "Yes, Category 4 present", helpText: "Stop COC prescribing and review alternatives." }
+          { value: "No", label: "No", helpText: "Proceed with the rest of the screen." },
+          { value: "Yes", label: "Yes", helpText: "Stop COC prescribing and review alternatives." }
         ]
       },
       {
         container: $("#wiz-cat3-choices"),
         stateKey: "cat3",
         label: "Category 3 caution",
+        showDescriptions: false,
         options: [
-          { value: "No", label: "No Category 3 condition", helpText: "Usual COC selection flow can continue." },
-          { value: "Yes", label: "Yes, Category 3 present", helpText: "Continue cautiously and counsel about alternatives." }
+          { value: "No", label: "No", helpText: "Usual COC selection flow can continue." },
+          { value: "Yes", label: "Yes", helpText: "Continue cautiously and counsel about alternatives." }
         ]
       },
       {
@@ -517,6 +521,7 @@
         stateKey: "ee",
         label: "Ethinyl estradiol dose",
         isGoalGroup: true,
+        showDescriptions: false,
         options: [
           { value: "any", label: "Keep broad", helpText: "Only narrow if dose matters." },
           ...eeOptions
@@ -527,6 +532,7 @@
         stateKey: "pro",
         label: "Progestin goal",
         isGoalGroup: true,
+        showDescriptions: false,
         options: [
           { value: "any", label: "Keep broad", helpText: "Use any practical progestin." },
           ...progestinOptions
@@ -537,6 +543,7 @@
         stateKey: "cycle",
         label: "Cycle pattern",
         isGoalGroup: true,
+        showDescriptions: false,
         options: [
           { value: "any", label: "Keep broad", helpText: "Allow any cycle pattern." },
           ...cycleOptions
