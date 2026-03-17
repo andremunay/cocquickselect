@@ -862,6 +862,11 @@ body[data-page="wizard"] .container {
   gap: 0.75rem;
 }
 
+.wizard-choice-grid-compact {
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 0.5rem;
+}
+
 .wizard-choice {
   display: grid;
   gap: 0.32rem;
@@ -880,6 +885,15 @@ body[data-page="wizard"] .container {
   min-height: 88px;
   align-items: center;
   gap: 0;
+}
+
+.wizard-choice-grid-compact .wizard-choice {
+  padding: 0.72rem 0.8rem;
+  border-radius: 16px;
+}
+
+.wizard-choice-grid-compact .wizard-choice-simple {
+  min-height: 60px;
 }
 
 .wizard-choice:hover {
@@ -1176,6 +1190,14 @@ main .card:nth-of-type(3) {
   .site-header nav {
     gap: 0.45rem;
     width: 100%;
+  }
+
+  .wizard-choice-grid-compact .wizard-choice {
+    padding: 0.78rem 0.9rem;
+  }
+
+  .wizard-choice-grid-compact .wizard-choice-simple {
+    min-height: 64px;
   }
 
   .site-header nav a {
