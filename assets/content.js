@@ -1,19 +1,6 @@
 window.COC_CONTENT = {
   siteName: "Combined Oral Contraceptive Pill Selection",
   wizard: {
-    introCopy: "Use this for a fast COC starting point during a visit.",
-    introChecklist: [
-      "Confirm a combined pill still fits the visit goal.",
-      "Screen safety before narrowing formulation details.",
-      "Use the result as a starting point for counseling."
-    ],
-    introNext: [
-      "Step 2 checks Category 4 and Category 3 risk.",
-      "Step 3 narrows goals only if needed.",
-      "Step 4 shows ranked starting options."
-    ],
-    safetyCopy: "If Category 4 is present, stop and choose a non-COC option.",
-    goalsCopy: "Leave filters broad unless a detail matters for this patient.",
     hardStopHeading: "Combined pills are unsafe to start today.",
     hardStopBody: "A Category 4 condition is present. Do not prescribe a COC. Use the alternatives below.",
     cautionHeading: "Use caution with combined pills.",

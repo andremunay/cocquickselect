@@ -358,11 +358,6 @@
   function initWizard() {
     if (document.body.dataset.page !== "wizard") return;
 
-    const introCopy = $("#wiz-intro-copy");
-    const introList = $("#wiz-intro-list");
-    const introNext = $("#wiz-intro-next");
-    const safetyCopy = $("#wiz-safety-copy");
-    const goalsCopy = $("#wiz-goals-copy");
     const surveyContainer = $("#wizard-survey");
     const safetyFeedback = $("#wizard-safety-feedback");
     const resultsContainer = $("#wizard-results");
@@ -390,12 +385,6 @@
     const cycleOptions = data.cyclePatterns.categories;
     const choiceGroups = new Map();
     const goalMountFailures = [];
-
-    introCopy.textContent = data.wizard.introCopy;
-    data.wizard.introChecklist.forEach((item) => introList.appendChild(create("li", item)));
-    data.wizard.introNext.forEach((item) => introNext.appendChild(create("li", item)));
-    safetyCopy.textContent = data.wizard.safetyCopy;
-    goalsCopy.textContent = data.wizard.goalsCopy;
 
     function mountBulletGuide(container, items, paragraphs) {
       if (!container) return;
@@ -670,25 +659,10 @@
     function updateSafetyFeedback() {
       safetyFeedback.innerHTML = "";
 
-      if (wizardState.selections.cat4 === "Yes") {
-        safetyFeedback.appendChild(renderStatusCard("danger", data.wizard.hardStopHeading, data.wizard.hardStopBody));
-        const altBlock = create("section");
-        altBlock.className = "wizard-status neutral";
-        altBlock.appendChild(create("h4", data.wizard.alternativesHeading));
-        altBlock.appendChild(renderAlternativesList());
-        safetyFeedback.appendChild(altBlock);
-        safetyNext.textContent = "See alternative next steps";
-        return;
-      }
-
-      safetyFeedback.appendChild(renderStatusCard("success", "No Category 4 hard stop selected.", "Combined pills remain an option on this screen."));
-
-      if (wizardState.selections.cat3 === "Yes") {
+      if (wizardState.selections.cat4 !== "Yes" && wizardState.selections.cat3 === "Yes") {
         const caution = renderStatusCard("warning", data.wizard.cautionHeading, data.wizard.cautionBody);
         data.contraindications.cat3Counseling.forEach((item) => caution.appendChild(create("p", item)));
         safetyFeedback.appendChild(caution);
-      } else {
-        safetyFeedback.appendChild(renderStatusCard("neutral", "No Category 3 caution selected.", "Proceed to pill goals if a COC still fits."));
       }
 
       safetyNext.textContent = "Continue to formulation goals";

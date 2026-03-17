@@ -49,10 +49,20 @@ class FakeElement {
     this.classList = new FakeClassList(this);
     this.attributes = {};
     this.textContent = "";
-    this.innerHTML = "";
+    this._innerHTML = "";
     this.value = "";
     this.disabled = false;
     this.listeners = {};
+  }
+
+  get innerHTML() {
+    return this._innerHTML;
+  }
+
+  set innerHTML(value) {
+    this._innerHTML = value;
+    this.children = [];
+    this.textContent = "";
   }
 
   appendChild(child) {
@@ -134,11 +144,6 @@ function createEnvironment() {
   const h4 = create("h3");
 
   [
-    ["#wiz-intro-copy", create("p")],
-    ["#wiz-intro-list", create("ul")],
-    ["#wiz-intro-next", create("ul")],
-    ["#wiz-safety-copy", create("p")],
-    ["#wiz-goals-copy", create("p")],
     ["#wizard-survey", create("div")],
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
@@ -229,10 +234,12 @@ function createEnvironment() {
     stepper3,
     stepper4,
     cat4Choices: selectors.get("#wiz-cat4-choices"),
+    cat3Choices: selectors.get("#wiz-cat3-choices"),
     eeChoices: selectors.get("#wiz-ee-choices"),
     proChoices: selectors.get("#wiz-progestin-choices"),
     cycleChoices: selectors.get("#wiz-cycle-choices"),
-    results: selectors.get("#wizard-results")
+    results: selectors.get("#wizard-results"),
+    safetyFeedback: selectors.get("#wizard-safety-feedback")
   };
 }
 
@@ -258,9 +265,23 @@ function runCategory4SkipAssertions(env) {
   env.next1.click();
   assert(env.cat4Choices.children.length >= 2, "Safety choice cards should be rendered.");
   env.cat4Choices.children[1].click();
+  assert(env.safetyFeedback.children.length === 0, "Category 4 should not render an in-step warning card.");
   env.next2.click();
   assert(!env.step4.classList.contains("hidden"), "Category 4 should skip directly to Step 4.");
   assert(env.results.children.length > 0, "Step 4 should render hard-stop content after Category 4 skip.");
+}
+
+function runSafetyFeedbackAssertions(env) {
+  env.next1.click();
+  assert(env.safetyFeedback.children.length === 0, "Default safety state should render no feedback cards.");
+  env.cat3Choices.children[1].click();
+  assert(env.safetyFeedback.children.length === 1, "Category 3 should render one caution card.");
+  assert(
+    env.safetyFeedback.children[0].children[0].textContent === "Use caution with combined pills.",
+    "Category 3 caution card should use the existing caution heading."
+  );
+  env.cat4Choices.children[1].click();
+  assert(env.safetyFeedback.children.length === 0, "Category 4 should suppress the in-step caution card.");
 }
 
 const happyPathEnv = createEnvironment();
@@ -268,5 +289,8 @@ runHappyPathAssertions(happyPathEnv);
 
 const category4Env = createEnvironment();
 runCategory4SkipAssertions(category4Env);
+
+const safetyFeedbackEnv = createEnvironment();
+runSafetyFeedbackAssertions(safetyFeedbackEnv);
 
 console.log("wizard smoke test passed");

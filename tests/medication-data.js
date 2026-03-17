@@ -175,11 +175,6 @@ function createWizardSandbox() {
   step4.classList.add("hidden");
 
   [
-    ["#wiz-intro-copy", create("p")],
-    ["#wiz-intro-list", create("ul")],
-    ["#wiz-intro-next", create("ul")],
-    ["#wiz-safety-copy", create("p")],
-    ["#wiz-goals-copy", create("p")],
     ["#wizard-survey", create("div")],
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
