@@ -159,7 +159,6 @@ function createEnvironment() {
   [
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
-    ["#wizard-safety-next", create("button")],
     ["#wizard-reset", create("button")],
     ["#wizard-goal-errors", create("div")],
     [".wizard-step[data-step=\"1\"] #wiz-sdm-content", create("div")],
@@ -202,22 +201,10 @@ function createEnvironment() {
   prev4.dataset.prev = "3";
   prev4.parentNode = step4;
 
-  const stepper1 = create("button");
-  stepper1.dataset.stepTarget = "1";
-  const stepper2 = create("button");
-  stepper2.dataset.stepTarget = "2";
-  stepper2.disabled = true;
-  const stepper3 = create("button");
-  stepper3.dataset.stepTarget = "3";
-  stepper3.disabled = true;
-  const stepper4 = create("button");
-  stepper4.dataset.stepTarget = "4";
-  stepper4.disabled = true;
-
   setList(".wizard-step", [step1, step2, step3, step4]);
   setList("[data-next]", [next1, next2, next3]);
   setList("[data-prev]", [prev2, prev3, prev4]);
-  setList(".wizard-stepper-item", [stepper1, stepper2, stepper3, stepper4]);
+  setList(".wizard-stepper-item", []);
 
   const document = {
     body,
@@ -241,9 +228,6 @@ function createEnvironment() {
     next1,
     next2,
     next3,
-    stepper2,
-    stepper3,
-    stepper4,
     cat4Choices: selectors.get("#wiz-cat4-choices"),
     cat3Choices: selectors.get("#wiz-cat3-choices"),
     eeChoices: selectors.get("#wiz-ee-choices"),
@@ -270,13 +254,11 @@ function runHappyPathAssertions(env) {
   assert(!env.step1.classList.contains("hidden"), "Step 1 should be visible at init.");
   env.next1.click();
   assert(!env.step2.classList.contains("hidden"), "Step 2 should be visible after starting safety screen.");
-  assert(env.stepper2.classList.contains("is-active"), "Stepper should activate Step 2 after advancing from Intro.");
   assertChoiceLabels(env.cat4Choices, ["No", "Yes"], "Category 4 choices should render Yes/No labels.");
   assertChoiceLabels(env.cat3Choices, ["No", "Yes"], "Category 3 choices should render Yes/No labels.");
 
   env.next2.click();
   assert(!env.step3.classList.contains("hidden"), "Step 3 should be visible after continuing from Safety.");
-  assert(env.stepper3.classList.contains("is-active"), "Stepper should activate Step 3 after continuing from Safety.");
   assert(env.eeChoices.children.length > 0, "EE choice cards should be rendered.");
   assert(env.proChoices.children.length > 0, "Progestin choice cards should be rendered.");
   assert(env.cycleChoices.children.length > 0, "Cycle choice cards should be rendered.");
@@ -304,14 +286,13 @@ function runHappyPathAssertions(env) {
 
   env.next3.click();
   assert(!env.step4.classList.contains("hidden"), "Step 4 should be visible after continuing from Goals.");
-  assert(env.stepper4.classList.contains("is-active"), "Stepper should activate Step 4 after continuing from Goals.");
 }
 
 function runCategory4SkipAssertions(env) {
   env.next1.click();
   assert(env.cat4Choices.children.length >= 2, "Safety choice cards should be rendered.");
   env.cat4Choices.children[1].click();
-  assert(env.safetyFeedback.children.length === 0, "Category 4 should not render an in-step warning card.");
+  assert(env.safetyFeedback.children.length > 0, "Category 4 should render in-step hard-stop feedback.");
   env.next2.click();
   assert(!env.step4.classList.contains("hidden"), "Category 4 should skip directly to Step 4.");
   assert(env.results.children.length > 0, "Step 4 should render hard-stop content after Category 4 skip.");
@@ -321,44 +302,27 @@ function runSafetyFeedbackAssertions(env) {
   env.next1.click();
   assert(env.safetyFeedback.children.length === 0, "Default safety state should render no feedback cards.");
   env.cat3Choices.children[1].click();
-  assert(env.safetyFeedback.children.length === 1, "Category 3 should render one caution card.");
-  assert(
-    env.safetyFeedback.children[0].children[0].textContent === "Use caution with combined pills.",
-    "Category 3 caution card should use the existing caution heading."
-  );
+  assert(env.safetyFeedback.children.length === 0, "Category 3 should not render an in-step status panel.");
   env.cat4Choices.children[1].click();
-  assert(env.safetyFeedback.children.length === 0, "Category 4 should suppress the in-step caution card.");
+  assert(env.safetyFeedback.children.length > 0, "Category 4 should render the hard-stop feedback block.");
 }
 
 function runMarkupAssertions() {
   const wizardHtml = fs.readFileSync("wizard.html", "utf8");
-  const qiHtml = fs.readFileSync("qi.html", "utf8");
 
+  assertIncludes(wizardHtml, "Step 1: Shared Decision-Making in Contraceptive Counseling", "Step 1 should use the older heading tone.");
+  assertIncludes(wizardHtml, "Step 2: Contraindication Screen", "Step 2 should use the older heading tone.");
+  assertIncludes(wizardHtml, "Step 3: Dose, Progestin, Cycle", "Step 3 should use the older heading tone.");
+  assertIncludes(wizardHtml, "Step 4: Suggested Options", "Step 4 should use the older heading tone.");
   assertIncludes(wizardHtml, "<summary>Category 4 quick guide</summary>", "Step 2 should restore the Category 4 quick guide label.");
   assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
   assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
   assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
   assertIncludes(wizardHtml, "<summary>Cycle pattern quick guide</summary>", "Step 3 should restore the cycle quick guide label.");
-  assertIncludes(wizardHtml, 'href="qi.html#resident-survey"', "Step 4 should link to the moved resident survey.");
-  assertIncludes(wizardHtml, "Open resident survey", "Step 4 should include the resident survey button.");
+  assertIncludes(wizardHtml, '>Next</button>', "Wizard should restore the old Next CTA language.");
 
-  assertExcludes(wizardHtml, 'id="wizard-nav-hint"', "Wizard nav hint element should be removed.");
-  assertExcludes(wizardHtml, "Guided flow", "Wizard header kicker should be removed.");
-  assertExcludes(wizardHtml, "<h2>COC Select</h2>", "Wizard title heading should be removed.");
-  assertExcludes(wizardHtml, "Built for quick medication selection during a live visit.", "Wizard intro lead should be removed.");
-  assertExcludes(wizardHtml, "What this means", "Legacy quick-guide summary text should be removed.");
-  assertExcludes(wizardHtml, "Done with prescribing", "Step 4 prescribing card should be removed.");
-  assertExcludes(wizardHtml, "Need the full list?", "Step 4 completion card heading should be removed.");
-  assertExcludes(wizardHtml, 'id="wizard-survey"', "Wizard should no longer contain the inline survey mount.");
-  assertExcludes(wizardHtml, "wizard-survey-shell", "Wizard should no longer contain the inline survey shell.");
-  assertExcludes(fs.readFileSync("assets/content.js", "utf8"), "Ranked starting options", "Step 4 results heading text should be removed from content.");
-  assertExcludes(fs.readFileSync("assets/app.js", "utf8"), "These options fit the current goals. Go back to Step 3 to adjust.", "Step 4 results subtitle should be removed.");
-  assertExcludes(fs.readFileSync("assets/app.js", "utf8"), "Prescribing guidance remains available above.", "Survey copy should no longer be wizard-specific.");
-
-  assertIncludes(qiHtml, 'id="resident-survey"', "QI page should contain the resident survey anchor section.");
-  assertIncludes(qiHtml, 'id="qi-survey"', "QI page should contain the survey mount.");
-  assertIncludes(qiHtml, '<script src="assets/content.js"></script>', "QI page should load shared content JS for survey rendering.");
-  assertIncludes(qiHtml, '<script src="assets/app.js"></script>', "QI page should load app JS for survey rendering.");
+  assertExcludes(wizardHtml, "wizard-stepper", "Dedicated stepper markup should be removed.");
+  assertExcludes(fs.readFileSync("assets/styles.css", "utf8"), ".wizard-stepper", "Dedicated stepper CSS should be removed.");
 }
 
 const happyPathEnv = createEnvironment();

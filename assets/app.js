@@ -360,9 +360,7 @@
 
     const safetyFeedback = $("#wizard-safety-feedback");
     const resultsContainer = $("#wizard-results");
-    const safetyNext = $("#wizard-safety-next");
     const goalErrors = $("#wizard-goal-errors");
-    const stepperButtons = Array.from(document.querySelectorAll(".wizard-stepper-item"));
     const wizardPanels = Array.from(document.querySelectorAll(".wizard-step"));
     const resetButton = $("#wizard-reset");
 
@@ -663,14 +661,13 @@
 
     function updateSafetyFeedback() {
       safetyFeedback.innerHTML = "";
-
-      if (wizardState.selections.cat4 !== "Yes" && wizardState.selections.cat3 === "Yes") {
-        const caution = renderStatusCard("warning", data.wizard.cautionHeading, data.wizard.cautionBody);
-        data.contraindications.cat3Counseling.forEach((item) => caution.appendChild(create("p", item)));
-        safetyFeedback.appendChild(caution);
-      }
-
-      safetyNext.textContent = "Continue to formulation goals";
+      if (wizardState.selections.cat4 !== "Yes") return;
+      safetyFeedback.appendChild(renderStatusCard("danger", data.wizard.hardStopHeading, data.wizard.hardStopBody));
+      const altBlock = create("section");
+      altBlock.className = "wizard-status neutral";
+      altBlock.appendChild(create("h4", data.wizard.alternativesHeading));
+      altBlock.appendChild(renderAlternativesList());
+      safetyFeedback.appendChild(altBlock);
     }
 
     function renderSelectionPills(container) {
@@ -719,11 +716,6 @@
         resultsContainer.appendChild(caution);
       }
 
-      const summary = create("div");
-      summary.className = "wizard-selection-summary";
-      renderSelectionPills(summary);
-      resultsContainer.appendChild(summary);
-
       const grid = create("div");
       grid.className = "wizard-result-grid";
       resultsContainer.appendChild(grid);
@@ -732,40 +724,14 @@
       renderBulletSection(resultsContainer, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
     }
 
-    function canAccessStep(step) {
-      const numericStep = Number(step);
-      if (numericStep === 1) return true;
-      if (numericStep === 2) return wizardState.unlockedSteps.has(2);
-      if (numericStep === 3) return wizardState.unlockedSteps.has(3) && wizardState.selections.cat4 !== "Yes";
-      if (numericStep === 4) return wizardState.unlockedSteps.has(4);
-      return false;
-    }
-
     function syncPanels() {
       wizardPanels.forEach((panel) => {
         panel.classList.toggle("hidden", Number(panel.dataset.step) !== wizardState.currentStep);
       });
     }
 
-    function updateStepper() {
-      stepperButtons.forEach((button) => {
-        const step = Number(button.dataset.stepTarget);
-        const isCurrent = step === wizardState.currentStep;
-        const isUnlocked = canAccessStep(step);
-        const isCompleted = isUnlocked && step < wizardState.currentStep;
-        const isSkipped = step === 3 && wizardState.selections.cat4 === "Yes" && wizardState.unlockedSteps.has(4);
-
-        button.classList.toggle("is-active", isCurrent);
-        button.classList.toggle("is-completed", isCompleted);
-        button.classList.toggle("is-skipped", isSkipped);
-        button.disabled = !isUnlocked && !isCurrent;
-        button.setAttribute("aria-current", isCurrent ? "step" : "false");
-      });
-    }
-
     function syncCurrentStep(options) {
       syncPanels();
-      updateStepper();
       if (wizardState.currentStep === 4) {
         renderResults();
       }
@@ -775,7 +741,6 @@
     }
 
     function goToStep(step, options) {
-      if (!canAccessStep(step)) return;
       wizardState.currentStep = Number(step);
       syncCurrentStep(options);
     }
@@ -796,8 +761,6 @@
         goToStep(4);
         return;
       }
-
-      updateStepper();
     }
 
     function advanceFrom(currentStep) {
@@ -851,14 +814,6 @@
       button.addEventListener("click", () => {
         const currentStep = Number(button.closest(".wizard-step")?.dataset.step || wizardState.currentStep);
         retreatFrom(currentStep);
-      });
-    });
-
-    stepperButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const targetStep = Number(button.dataset.stepTarget);
-        if (!canAccessStep(targetStep)) return;
-        goToStep(targetStep);
       });
     });
 

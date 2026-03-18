@@ -24,55 +24,22 @@
 
   <main class="container">
     <section id="wizard" class="card wizard-card">
-      <nav class="wizard-stepper" aria-label="Wizard progress">
-        <button class="wizard-stepper-item is-active" type="button" data-step-target="1">
-          <span class="wizard-stepper-index">1</span>
-          <span class="wizard-stepper-copy">
-            <span class="wizard-stepper-title">Intro</span>
-            <span class="wizard-stepper-subtitle">Quick start</span>
-          </span>
-        </button>
-        <button class="wizard-stepper-item" type="button" data-step-target="2" disabled>
-          <span class="wizard-stepper-index">2</span>
-          <span class="wizard-stepper-copy">
-            <span class="wizard-stepper-title">Safety</span>
-            <span class="wizard-stepper-subtitle">Safety check</span>
-          </span>
-        </button>
-        <button class="wizard-stepper-item" type="button" data-step-target="3" disabled>
-          <span class="wizard-stepper-index">3</span>
-          <span class="wizard-stepper-copy">
-            <span class="wizard-stepper-title">Goals</span>
-            <span class="wizard-stepper-subtitle">Set goals</span>
-          </span>
-        </button>
-        <button class="wizard-stepper-item" type="button" data-step-target="4" disabled>
-          <span class="wizard-stepper-index">4</span>
-          <span class="wizard-stepper-copy">
-            <span class="wizard-stepper-title">Options</span>
-            <span class="wizard-stepper-subtitle">Review picks</span>
-          </span>
-        </button>
-      </nav>
-
       <div class="wizard-step" data-step="1">
         <div class="wizard-panel-heading">
-          <p class="wizard-step-label">Step 1</p>
-          <h3 tabindex="-1">Start with a quick frame</h3>
+          <h3 tabindex="-1">Step 1: Shared Decision-Making in Contraceptive Counseling</h3>
         </div>
         <details class="wizard-details">
           <summary>Shared decision-making reminders</summary>
           <div id="wiz-sdm-content"></div>
         </details>
         <div class="row wizard-actions">
-          <button class="btn btn-primary" data-next="2">Start safety screen</button>
+          <button class="btn btn-primary" data-next="2">Next</button>
         </div>
       </div>
 
       <div class="wizard-step hidden" data-step="2">
         <div class="wizard-panel-heading">
-          <p class="wizard-step-label">Step 2</p>
-          <h3 tabindex="-1">Check if estrogen is safe today</h3>
+          <h3 tabindex="-1">Step 2: Contraindication Screen</h3>
         </div>
         <div class="wizard-grid-two">
           <section class="wizard-decision-card">
@@ -99,20 +66,19 @@
         <div id="wizard-safety-feedback" class="wizard-status-stack" aria-live="polite"></div>
         <div class="row wizard-actions">
           <button class="btn" data-prev="1">Back</button>
-          <button class="btn btn-primary" data-next="3" id="wizard-safety-next">Continue to formulation goals</button>
+          <button class="btn btn-primary" data-next="3" id="wizard-safety-next">Next</button>
         </div>
       </div>
 
       <div class="wizard-step hidden" data-step="3">
         <div class="wizard-panel-heading">
-          <p class="wizard-step-label">Step 3</p>
-          <h3 tabindex="-1">Choose the practical pill goals</h3>
+          <h3 tabindex="-1">Step 3: Dose, Progestin, Cycle</h3>
         </div>
         <div class="wizard-goal-groups">
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Ethinyl estradiol dose</h4>
-              <p>Only narrow this if it matters.</p>
+              <p>Choose an EE dose or keep it broad.</p>
             </div>
             <div id="wiz-ee-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Ethinyl estradiol dose"></div>
             <details class="wizard-details">
@@ -123,7 +89,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Progestin goal</h4>
-              <p>Match this to symptoms or counseling goals.</p>
+              <p>Choose a progestin goal or keep it broad.</p>
             </div>
             <div id="wiz-progestin-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Progestin goal"></div>
             <details class="wizard-details">
@@ -134,7 +100,7 @@
           <section class="wizard-decision-card">
             <div class="wizard-decision-header">
               <h4>Cycle pattern</h4>
-              <p>Set a bleed goal or leave broad.</p>
+              <p>Choose a cycle pattern or keep it broad.</p>
             </div>
             <div id="wiz-cycle-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Cycle pattern"></div>
             <details class="wizard-details">
@@ -147,14 +113,13 @@
 
         <div class="row wizard-actions">
           <button class="btn" data-prev="2">Back</button>
-          <button class="btn btn-primary" data-next="4">Review ranked options</button>
+          <button class="btn btn-primary" data-next="4">Next</button>
         </div>
       </div>
 
       <div class="wizard-step hidden" data-step="4">
         <div class="wizard-panel-heading">
-          <p class="wizard-step-label">Step 4</p>
-          <h3 tabindex="-1">Review the suggested options</h3>
+          <h3 tabindex="-1">Step 4: Suggested Options</h3>
         </div>
         <div id="wizard-results"></div>
         <div class="row wizard-actions">
