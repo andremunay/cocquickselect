@@ -345,6 +345,10 @@ function runMarkupAssertions() {
   assertExcludes(wizardHtml, "<h2>COC Select</h2>", "Wizard title heading should be removed.");
   assertExcludes(wizardHtml, "Built for quick medication selection during a live visit.", "Wizard intro lead should be removed.");
   assertExcludes(wizardHtml, "What this means", "Legacy quick-guide summary text should be removed.");
+  assertExcludes(wizardHtml, "Done with prescribing", "Step 4 prescribing card should be removed.");
+  assertExcludes(wizardHtml, "Need the full list?", "Step 4 completion card heading should be removed.");
+  assertExcludes(fs.readFileSync("assets/content.js", "utf8"), "Ranked starting options", "Step 4 results heading text should be removed from content.");
+  assertExcludes(fs.readFileSync("assets/app.js", "utf8"), "These options fit the current goals. Go back to Step 3 to adjust.", "Step 4 results subtitle should be removed.");
 }
 
 const happyPathEnv = createEnvironment();

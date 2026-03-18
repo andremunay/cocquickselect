@@ -6,7 +6,6 @@ window.COC_CONTENT = {
     cautionHeading: "Use caution with combined pills.",
     cautionBody: "A Category 3 condition is present. Discuss alternatives first and use a COC only if no better fit exists after counseling.",
     alternativesHeading: "Preferred next move",
-    recommendationHeading: "Ranked starting options",
     recommendationEmpty: "No pills match the current goals. Broaden a filter and review again.",
     surveyHeading: "Resident comfort survey"
   },

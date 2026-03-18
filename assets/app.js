@@ -720,14 +720,6 @@
         resultsContainer.appendChild(caution);
       }
 
-      const heading = create("div");
-      heading.className = "wizard-results-heading";
-      heading.appendChild(create("h4", data.wizard.recommendationHeading));
-      const lead = create("p", "These options fit the current goals. Go back to Step 3 to adjust.");
-      lead.className = "wizard-step-copy";
-      heading.appendChild(lead);
-      resultsContainer.appendChild(heading);
-
       const summary = create("div");
       summary.className = "wizard-selection-summary";
       renderSelectionPills(summary);
