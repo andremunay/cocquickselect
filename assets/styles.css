@@ -663,18 +663,11 @@ body[data-page="wizard"] .container {
   opacity: 0.45;
 }
 
-.wizard-intro-lead {
-  max-width: 46rem;
-  margin: 0.25rem 0 1.15rem;
-  font-size: 1.02rem;
-  color: var(--ink-soft);
-}
-
 .wizard-stepper {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
-  margin: 1.25rem 0 0.7rem;
+  margin: 0 0 1.05rem;
 }
 
 .wizard-stepper-item {
@@ -748,12 +741,6 @@ body[data-page="wizard"] .container {
 .wizard-stepper-subtitle {
   color: var(--ink-soft);
   font-size: 0.84rem;
-}
-
-.wizard-nav-hint {
-  margin: 0 0 1.2rem;
-  color: var(--ink-soft);
-  font-size: 0.94rem;
 }
 
 .wizard-panel-heading {
@@ -862,9 +849,13 @@ body[data-page="wizard"] .container {
   gap: 0.75rem;
 }
 
-.wizard-choice-grid-compact {
-  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
-  gap: 0.5rem;
+.wizard-choice-grid-chip {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 0.55rem;
+}
+
+.wizard-choice-grid-dual {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .wizard-choice {
@@ -887,13 +878,18 @@ body[data-page="wizard"] .container {
   gap: 0;
 }
 
-.wizard-choice-grid-compact .wizard-choice {
-  padding: 0.72rem 0.8rem;
-  border-radius: 16px;
+.wizard-choice-grid-chip .wizard-choice {
+  min-height: auto;
+  min-width: 0;
+  padding: 0.68rem 0.82rem;
+  border-radius: 999px;
+  box-shadow: none;
 }
 
-.wizard-choice-grid-compact .wizard-choice-simple {
-  min-height: 60px;
+.wizard-choice-grid-chip .wizard-choice-simple {
+  min-height: auto;
+  justify-items: center;
+  padding: 0.68rem 0.82rem;
 }
 
 .wizard-choice:hover {
@@ -908,8 +904,13 @@ body[data-page="wizard"] .container {
   box-shadow: 0 12px 22px rgba(91, 35, 158, 0.1);
 }
 
+.wizard-choice-grid-chip .wizard-choice.is-selected {
+  box-shadow: 0 8px 16px rgba(91, 35, 158, 0.12);
+}
+
 .wizard-choice-title {
   font-weight: 900;
+  line-height: 1.2;
 }
 
 .wizard-choice-help,
@@ -1157,7 +1158,9 @@ main .card:nth-of-type(3) {
 
   .wizard-hero-grid,
   .wizard-grid-two,
-  .wizard-choice-grid {
+  .wizard-choice-grid,
+  .wizard-choice-grid-chip,
+  .wizard-choice-grid-dual {
     grid-template-columns: 1fr;
   }
 }
@@ -1192,12 +1195,12 @@ main .card:nth-of-type(3) {
     width: 100%;
   }
 
-  .wizard-choice-grid-compact .wizard-choice {
-    padding: 0.78rem 0.9rem;
+  .wizard-choice-grid-chip .wizard-choice {
+    padding: 0.72rem 0.88rem;
   }
 
-  .wizard-choice-grid-compact .wizard-choice-simple {
-    min-height: 64px;
+  .wizard-choice-grid-chip .wizard-choice-simple {
+    min-height: auto;
   }
 
   .site-header nav a {

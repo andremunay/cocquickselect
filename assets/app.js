@@ -361,7 +361,6 @@
     const surveyContainer = $("#wizard-survey");
     const safetyFeedback = $("#wizard-safety-feedback");
     const resultsContainer = $("#wizard-results");
-    const navHint = $("#wizard-nav-hint");
     const safetyNext = $("#wizard-safety-next");
     const goalErrors = $("#wizard-goal-errors");
     const stepperButtons = Array.from(document.querySelectorAll(".wizard-stepper-item"));
@@ -742,24 +741,6 @@
       renderBulletSection(resultsContainer, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
     }
 
-    function updateNavHint() {
-      let text = "Complete each step in order.";
-
-      if (wizardState.currentStep === 1) {
-        text = "Next: safety check.";
-      } else if (wizardState.currentStep === 2 && wizardState.selections.cat4 === "Yes") {
-        text = "Category 4 stops the COC flow here.";
-      } else if (wizardState.currentStep === 2) {
-        text = "Finish safety to unlock pill goals.";
-      } else if (wizardState.currentStep === 3) {
-        text = "Leave filters broad unless a pill detail matters.";
-      } else if (wizardState.currentStep === 4) {
-        text = "Use Back to adjust goals.";
-      }
-
-      navHint.textContent = text;
-    }
-
     function canAccessStep(step) {
       const numericStep = Number(step);
       if (numericStep === 1) return true;
@@ -776,8 +757,6 @@
     }
 
     function updateStepper() {
-      updateNavHint();
-
       stepperButtons.forEach((button) => {
         const step = Number(button.dataset.stepTarget);
         const isCurrent = step === wizardState.currentStep;

@@ -24,10 +24,6 @@
 
   <main class="container">
     <section id="wizard" class="card wizard-card">
-      <p class="section-kicker">Guided flow</p>
-      <h2>COC Select</h2>
-      <p class="wizard-intro-lead">Built for quick medication selection during a live visit.</p>
-
       <nav class="wizard-stepper" aria-label="Wizard progress">
         <button class="wizard-stepper-item is-active" type="button" data-step-target="1">
           <span class="wizard-stepper-index">1</span>
@@ -59,8 +55,6 @@
         </button>
       </nav>
 
-      <p id="wizard-nav-hint" class="wizard-nav-hint" aria-live="polite"></p>
-
       <div class="wizard-step" data-step="1">
         <div class="wizard-panel-heading">
           <p class="wizard-step-label">Step 1</p>
@@ -85,9 +79,9 @@
             <div class="wizard-decision-header">
               <h4>Category 4 hard stop</h4>
             </div>
-            <div id="wiz-cat4-choices" class="wizard-choice-grid wizard-choice-grid-compact" role="group" aria-label="Category 4 screen"></div>
+            <div id="wiz-cat4-choices" class="wizard-choice-grid wizard-choice-grid-chip wizard-choice-grid-dual" role="group" aria-label="Category 4 screen"></div>
             <details class="wizard-details">
-              <summary>What this means</summary>
+              <summary>Category 4 quick guide</summary>
               <div id="wiz-step-cat4-guide"></div>
             </details>
           </section>
@@ -95,9 +89,9 @@
             <div class="wizard-decision-header">
               <h4>Category 3 caution</h4>
             </div>
-            <div id="wiz-cat3-choices" class="wizard-choice-grid wizard-choice-grid-compact" role="group" aria-label="Category 3 screen"></div>
+            <div id="wiz-cat3-choices" class="wizard-choice-grid wizard-choice-grid-chip wizard-choice-grid-dual" role="group" aria-label="Category 3 screen"></div>
             <details class="wizard-details">
-              <summary>What this means</summary>
+              <summary>Category 3 quick guide</summary>
               <div id="wiz-step-cat3-guide"></div>
             </details>
           </section>
@@ -120,9 +114,9 @@
               <h4>Ethinyl estradiol dose</h4>
               <p>Only narrow this if it matters.</p>
             </div>
-            <div id="wiz-ee-choices" class="wizard-choice-grid wizard-choice-grid-compact" role="group" aria-label="Ethinyl estradiol dose"></div>
+            <div id="wiz-ee-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Ethinyl estradiol dose"></div>
             <details class="wizard-details">
-              <summary>What this means</summary>
+              <summary>EE dose quick guide</summary>
               <div id="wiz-ee-guide"></div>
             </details>
           </section>
@@ -131,9 +125,9 @@
               <h4>Progestin goal</h4>
               <p>Match this to symptoms or counseling goals.</p>
             </div>
-            <div id="wiz-progestin-choices" class="wizard-choice-grid wizard-choice-grid-compact" role="group" aria-label="Progestin goal"></div>
+            <div id="wiz-progestin-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Progestin goal"></div>
             <details class="wizard-details">
-              <summary>What this means</summary>
+              <summary>Progestin goal quick guide</summary>
               <div id="wiz-progestin-guide"></div>
             </details>
           </section>
@@ -142,9 +136,9 @@
               <h4>Cycle pattern</h4>
               <p>Set a bleed goal or leave broad.</p>
             </div>
-            <div id="wiz-cycle-choices" class="wizard-choice-grid wizard-choice-grid-compact" role="group" aria-label="Cycle pattern"></div>
+            <div id="wiz-cycle-choices" class="wizard-choice-grid wizard-choice-grid-chip" role="group" aria-label="Cycle pattern"></div>
             <details class="wizard-details">
-              <summary>What this means</summary>
+              <summary>Cycle pattern quick guide</summary>
               <div id="wiz-cycle-guide"></div>
             </details>
           </section>

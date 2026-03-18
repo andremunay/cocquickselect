@@ -115,6 +115,14 @@ function collectText(node) {
   return `${node.textContent || ""}${node.children.map((child) => collectText(child)).join("")}`;
 }
 
+function assertIncludes(source, text, message) {
+  assert(source.includes(text), message);
+}
+
+function assertExcludes(source, text, message) {
+  assert(!source.includes(text), message);
+}
+
 function createEnvironment() {
   const selectors = new Map();
   const selectorLists = new Map();
@@ -152,7 +160,6 @@ function createEnvironment() {
     ["#wizard-survey", create("div")],
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
-    ["#wizard-nav-hint", create("p")],
     ["#wizard-safety-next", create("button")],
     ["#wizard-reset", create("button")],
     ["#wizard-goal-errors", create("div")],
@@ -324,6 +331,22 @@ function runSafetyFeedbackAssertions(env) {
   assert(env.safetyFeedback.children.length === 0, "Category 4 should suppress the in-step caution card.");
 }
 
+function runMarkupAssertions() {
+  const wizardHtml = fs.readFileSync("wizard.html", "utf8");
+
+  assertIncludes(wizardHtml, "<summary>Category 4 quick guide</summary>", "Step 2 should restore the Category 4 quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
+  assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Cycle pattern quick guide</summary>", "Step 3 should restore the cycle quick guide label.");
+
+  assertExcludes(wizardHtml, 'id="wizard-nav-hint"', "Wizard nav hint element should be removed.");
+  assertExcludes(wizardHtml, "Guided flow", "Wizard header kicker should be removed.");
+  assertExcludes(wizardHtml, "<h2>COC Select</h2>", "Wizard title heading should be removed.");
+  assertExcludes(wizardHtml, "Built for quick medication selection during a live visit.", "Wizard intro lead should be removed.");
+  assertExcludes(wizardHtml, "What this means", "Legacy quick-guide summary text should be removed.");
+}
+
 const happyPathEnv = createEnvironment();
 runHappyPathAssertions(happyPathEnv);
 
@@ -332,5 +355,7 @@ runCategory4SkipAssertions(category4Env);
 
 const safetyFeedbackEnv = createEnvironment();
 runSafetyFeedbackAssertions(safetyFeedbackEnv);
+
+runMarkupAssertions();
 
 console.log("wizard smoke test passed");
