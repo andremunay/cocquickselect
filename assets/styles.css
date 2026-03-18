@@ -974,6 +974,10 @@ body[data-page="wizard"] .container {
   margin-top: 1rem;
 }
 
+#resident-survey {
+  scroll-margin-top: 6rem;
+}
+
 .wizard-result-header {
   display: flex;
   justify-content: space-between;

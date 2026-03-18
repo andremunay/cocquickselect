@@ -175,7 +175,7 @@
     container.appendChild(approachSection);
   }
 
-  function renderStep4Survey(container) {
+  function renderSurvey(container) {
     if (!container) return;
     container.innerHTML = "";
 
@@ -184,7 +184,7 @@
     section.appendChild(create("h4", data.wizard?.surveyHeading || "Resident comfort survey"));
 
     if (surveyState.status === "submitted") {
-      const note = create("p", "Responses recorded locally for this session. Thank you.");
+      const note = create("p", "Responses recorded locally for this page view. Thank you.");
       note.className = "survey-thanks";
       section.appendChild(note);
       container.appendChild(section);
@@ -192,7 +192,7 @@
     }
 
     if (surveyState.status === "skipped") {
-      const note = create("p", "Survey hidden for this session. Prescribing guidance remains available above.");
+      const note = create("p", "Survey hidden for this page view.");
       note.className = "survey-thanks";
       section.appendChild(note);
       container.appendChild(section);
@@ -250,7 +250,7 @@
     skip.className = "btn";
     skip.addEventListener("click", () => {
       surveyState = { status: "skipped", answers: null };
-      renderStep4Survey(container);
+      renderSurvey(container);
     });
     actions.appendChild(skip);
 
@@ -275,7 +275,7 @@
       if (!complete) return;
 
       surveyState = { status: "submitted", answers };
-      renderStep4Survey(container);
+      renderSurvey(container);
     });
 
     section.appendChild(form);
@@ -358,7 +358,6 @@
   function initWizard() {
     if (document.body.dataset.page !== "wizard") return;
 
-    const surveyContainer = $("#wizard-survey");
     const safetyFeedback = $("#wizard-safety-feedback");
     const resultsContainer = $("#wizard-results");
     const safetyNext = $("#wizard-safety-next");
@@ -769,7 +768,6 @@
       updateStepper();
       if (wizardState.currentStep === 4) {
         renderResults();
-        renderStep4Survey(surveyContainer);
       }
       if (options?.focusHeading !== false) {
         getCurrentHeading()?.focus();
@@ -883,6 +881,11 @@
     syncCurrentStep({ focusHeading: false });
   }
 
+  function initQi() {
+    if (document.body.dataset.page !== "qi") return;
+    renderSurvey($("#qi-survey"));
+  }
+
   function initPicks() {
     if (document.body.dataset.page !== "picks") return;
     optionFill($("#pick-ee"), data.estrogen.options);
@@ -933,5 +936,6 @@
 
   initShared();
   initWizard();
+  initQi();
   initPicks();
 })();

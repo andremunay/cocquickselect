@@ -157,7 +157,6 @@ function createEnvironment() {
   const h4 = create("h3");
 
   [
-    ["#wizard-survey", create("div")],
     ["#wizard-safety-feedback", create("div")],
     ["#wizard-results", create("div")],
     ["#wizard-safety-next", create("button")],
@@ -333,12 +332,15 @@ function runSafetyFeedbackAssertions(env) {
 
 function runMarkupAssertions() {
   const wizardHtml = fs.readFileSync("wizard.html", "utf8");
+  const qiHtml = fs.readFileSync("qi.html", "utf8");
 
   assertIncludes(wizardHtml, "<summary>Category 4 quick guide</summary>", "Step 2 should restore the Category 4 quick guide label.");
   assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
   assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
   assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
   assertIncludes(wizardHtml, "<summary>Cycle pattern quick guide</summary>", "Step 3 should restore the cycle quick guide label.");
+  assertIncludes(wizardHtml, 'href="qi.html#resident-survey"', "Step 4 should link to the moved resident survey.");
+  assertIncludes(wizardHtml, "Open resident survey", "Step 4 should include the resident survey button.");
 
   assertExcludes(wizardHtml, 'id="wizard-nav-hint"', "Wizard nav hint element should be removed.");
   assertExcludes(wizardHtml, "Guided flow", "Wizard header kicker should be removed.");
@@ -347,8 +349,16 @@ function runMarkupAssertions() {
   assertExcludes(wizardHtml, "What this means", "Legacy quick-guide summary text should be removed.");
   assertExcludes(wizardHtml, "Done with prescribing", "Step 4 prescribing card should be removed.");
   assertExcludes(wizardHtml, "Need the full list?", "Step 4 completion card heading should be removed.");
+  assertExcludes(wizardHtml, 'id="wizard-survey"', "Wizard should no longer contain the inline survey mount.");
+  assertExcludes(wizardHtml, "wizard-survey-shell", "Wizard should no longer contain the inline survey shell.");
   assertExcludes(fs.readFileSync("assets/content.js", "utf8"), "Ranked starting options", "Step 4 results heading text should be removed from content.");
   assertExcludes(fs.readFileSync("assets/app.js", "utf8"), "These options fit the current goals. Go back to Step 3 to adjust.", "Step 4 results subtitle should be removed.");
+  assertExcludes(fs.readFileSync("assets/app.js", "utf8"), "Prescribing guidance remains available above.", "Survey copy should no longer be wizard-specific.");
+
+  assertIncludes(qiHtml, 'id="resident-survey"', "QI page should contain the resident survey anchor section.");
+  assertIncludes(qiHtml, 'id="qi-survey"', "QI page should contain the survey mount.");
+  assertIncludes(qiHtml, '<script src="assets/content.js"></script>', "QI page should load shared content JS for survey rendering.");
+  assertIncludes(qiHtml, '<script src="assets/app.js"></script>', "QI page should load app JS for survey rendering.");
 }
 
 const happyPathEnv = createEnvironment();
