@@ -1,72 +1,201 @@
 window.COC_CONTENT = {
   siteName: "Combined Oral Contraceptive Pill Selection",
   wizard: {
-    hardStopHeading: "Combined pills are unsafe to start today.",
-    hardStopBody: "A Category 4 condition is present. Do not prescribe a COC. Use the alternatives below.",
-    cautionHeading: "Use caution with combined pills.",
-    cautionBody: "A Category 3 condition is present. Discuss alternatives first and use a COC only if no better fit exists after counseling.",
+    hardStopHeading: "Do not start estrogen today.",
+    hardStopBody: "A Category 4 condition is present. Do not start estrogen (pill/patch/ring). Use a progestin-only or nonhormonal method instead.",
+    cautionHeading: "Usually avoid estrogen.",
+    cautionBody: "A Category 3 condition is present. Estrogen is usually not first-line; prefer a progestin-only or nonhormonal method and review the current U.S. MEC if estrogen is still being considered.",
     alternativesHeading: "Preferred next move",
     recommendationEmpty: "No pills match the current goals. Broaden a filter and review again.",
     surveyHeading: "Resident comfort survey"
   },
   sdm: {
     heading: "Shared Decision-Making in Contraceptive Counseling",
-    audienceLabel: "For the resident clinician",
+    audienceLabel: "For the Resident Clinician",
     whyThisMattersHeading: "Why This Matters",
     whyThisMattersIntro: "Contraceptive counseling is not just about pregnancy prevention.",
     whyThisMatters: [],
     whyThisMattersParagraphs: [
-      "Patients seek contraception for many reasons, including pregnancy prevention, menstrual suppression, treatment of heavy bleeding or dysmenorrhea, management of endometriosis symptoms, acne, hirsutism, PMDD, or simply greater control over their reproductive lives.",
-      "Access to contraception is also a matter of health equity and reproductive autonomy. When patients cannot reliably control if and when they become pregnant, the effects can extend beyond medical outcomes to physical and mental health, educational opportunities, employment, financial stability, and overall quality of life.",
-      "In primary care, we are often the most accessible clinicians for contraceptive care. Our comfort and competence in contraceptive counseling can reduce barriers to care, prevent unnecessary referrals, and meaningfully improve patient outcomes."
+      "Patients may seek contraception for pregnancy prevention, menstrual suppression, treatment of heavy bleeding or dysmenorrhea, endometriosis symptom control, acne, hirsutism, PMDD, or greater reproductive control.",
+      "Access to contraception is also a matter of health equity and reproductive autonomy. In primary care, we are often the most accessible clinicians for contraceptive care. Thoughtful counseling can reduce barriers, avoid unnecessary referrals, and improve timely access to treatment."
     ],
-    approachHeading: "Approach: Patient-Centered, Evidence-Based",
-    approachIntro: "The CDC and ACOG emphasize that contraceptive counseling should be:",
+    approachHeading: "Counseling Principles",
+    approachIntro: "Contraceptive counseling should be:",
     approachBullets: [
       "Patient-centered and non-directive",
       "Grounded in reproductive autonomy",
       "Free of coercion and judgment",
       "Clear about risks, benefits, and alternatives",
-      "Aligned with both patient goals and medical safety"
+      "Aligned with patient goals and medical safety"
     ],
-    roleStatement: 'Your role is not to "pick the best pill."',
-    roleBullets: [
-      "Medically safe",
-      "Consistent with their priorities",
-      "Realistic for their lifestyle",
-      "Acceptable and sustainable for them"
-    ],
-    roleIntro: "Your role is to help the patient choose a method that is:",
-    roleClosing: "The best contraceptive method is not the one with the highest efficacy on paper - it is the one that is safe, desired, and workable in the context of the patient's real life."
+    roleStatement: "",
+    roleBullets: [],
+    roleIntro: "",
+    roleClosing: ""
   },
   contraindications: {
+    mecLink: {
+      href: "https://www.cdc.gov/contraception/hcp/usmec/combined-hormonal-contraceptives.html",
+      label: "CDC U.S. MEC Appendix D: Combined Hormonal Contraceptives"
+    },
+    category4Lead: [
+      "If YES -> do not start estrogen (pill/patch/ring).",
+      "Use a progestin-only or nonhormonal method instead. If the history is complex, check the current U.S. MEC before prescribing."
+    ],
+    category4Guide: [
+      {
+        title: "Age >=35 and smoking >=15 cigarettes/day",
+        details: ["Heavy smoking + estrogen = unacceptable thrombotic risk."]
+      },
+      {
+        title: "Hypertension >=160/100 mmHg",
+        details: ["Severe hypertension = avoid estrogen."]
+      },
+      {
+        title: "Hypertension with vascular disease",
+        details: ["Examples: CAD, PAD, prior stroke/TIA, diabetic nephropathy/retinopathy, or other clinically significant vascular complications."]
+      },
+      {
+        title: "Current DVT/PE",
+        details: ["Active clot = estrogen contraindicated."]
+      },
+      {
+        title: "History of DVT/PE with high recurrence risk",
+        details: ["Examples: estrogen-associated VTE, pregnancy-associated VTE, idiopathic VTE, recurrent VTE, active cancer, or known thrombophilia."]
+      },
+      {
+        title: "Known thrombophilia / thrombogenic mutation",
+        details: ["Examples: Factor V Leiden, prothrombin mutation, protein C/S deficiency, antithrombin deficiency, antiphospholipid syndrome."]
+      },
+      {
+        title: "Known ischemic heart disease",
+        details: ["Prior MI, angina, or known CAD."]
+      },
+      {
+        title: "History of stroke or TIA"
+      },
+      {
+        title: "Complicated valvular heart disease",
+        details: ["Examples: pulmonary hypertension, atrial fibrillation risk, or endocarditis risk."]
+      },
+      {
+        title: "Migraine with aura",
+        details: ["Aura = focal neurologic symptoms (e.g., visual changes, numbness, speech symptoms)."]
+      },
+      {
+        title: "Current breast cancer"
+      },
+      {
+        title: "Severe decompensated cirrhosis"
+      },
+      {
+        title: "Hepatocellular adenoma or malignant liver tumor"
+      },
+      {
+        title: "Diabetes with nephropathy, retinopathy, neuropathy, other vascular disease, or duration >20 years"
+      },
+      {
+        title: "<21 days postpartum"
+      },
+      {
+        title: "Major surgery with prolonged immobilization"
+      },
+      {
+        title: "SLE with positive or unknown antiphospholipid antibodies"
+      }
+    ],
+    category4ReminderHeading: "Clinical Reminder",
+    category4Reminder: [
+      "Category 4 = unacceptable health risk. Do not use CHC.",
+      "If the patient still wants estrogen-containing contraception, stop and re-check the U.S. MEC before prescribing. The CDC summary chart is a subset only; the full U.S. MEC should be used for nuanced cases."
+    ],
+    category3Lead: [
+      "If YES -> estrogen (pill/patch/ring) is usually not first-line.",
+      "Prefer a progestin-only or nonhormonal method. If estrogen is still being considered, review the current U.S. MEC and document counseling."
+    ],
+    category3Guide: [
+      {
+        title: "Age >=35 and smoking <15 cigarettes/day",
+        details: ["Estrogen usually not recommended; safer alternatives preferred."]
+      },
+      {
+        title: "Hypertension (SBP 140-159 or DBP 90-99)"
+      },
+      {
+        title: "Hypertension that is adequately controlled on medication",
+        details: ["Even when \"controlled,\" estrogen may still increase cardiovascular risk."]
+      },
+      {
+        title: "History of DVT/PE at lower risk for recurrence",
+        details: ["Not all prior VTE is Category 4. Lower-risk prior VTE is often Category 3 - if the history is unclear, check the full U.S. MEC."]
+      },
+      {
+        title: "Superficial venous thrombosis (current or history)",
+        details: ["May signal increased VTE risk."]
+      },
+      {
+        title: "Past breast cancer (>5 years disease-free)",
+        details: ["Usually avoid hormonal methods if acceptable alternatives exist; check full MEC if considering hormones."]
+      },
+      {
+        title: "Malabsorptive bariatric surgery (oral pills only)",
+        details: [
+          "May reduce absorption of oral pills. Prefer non-oral or non-estrogen methods.",
+          "Note: This applies to oral contraceptive pills, not patch or ring."
+        ]
+      },
+      {
+        title: "Inflammatory bowel disease with increased VTE risk",
+        details: ["Examples: active disease, recent surgery, immobilization, corticosteroid use, dehydration, or other VTE risk factors."]
+      },
+      {
+        title: "Postpartum 21-42 days with VTE risk factors",
+        details: ["Not a Category 4 hard stop, but usually avoid estrogen during this window."]
+      },
+      {
+        title: "SLE without antiphospholipid antibodies (depending on clinical context)",
+        details: ["Can be nuanced - check U.S. MEC if lupus history is complex."]
+      }
+    ],
+    category3ReminderHeading: "Clinical Reminder",
+    category3Reminder: [
+      "Category 3 = risks usually outweigh benefits.",
+      "This does not always mean \"never,\" but estrogen should generally be avoided unless there is a strong reason and safer alternatives are not acceptable."
+    ],
     category4: [
       "Age >=35 and smoking >=15 cigarettes/day",
-      "Multiple cardiovascular risk factors (e.g., older age, smoking, diabetes, hypertension)",
       "Hypertension >=160/100 mmHg",
-      "Venous thromboembolism (unless on full anticoagulation)",
+      "Hypertension with vascular disease",
+      "Current DVT/PE",
+      "History of DVT/PE with high recurrence risk",
+      "Known thrombophilia / thrombogenic mutation",
       "Known ischemic heart disease",
-      "History of stroke",
-      "Complicated valvular heart disease (pulmonary HTN, atrial fibrillation, or endocarditis risk)",
+      "History of stroke or TIA",
+      "Complicated valvular heart disease",
+      "Migraine with aura",
       "Current breast cancer",
       "Severe decompensated cirrhosis",
-      "Hepatocellular adenoma or malignant hepatoma",
-      "Migraine with aura",
-      "Diabetes >20 years or with complications (nephropathy, retinopathy, neuropathy)",
-      "Known thrombogenic variants (e.g., Factor V Leiden) - generally contraindicated; may consider only in mild cases without personal or family VTE history"
+      "Hepatocellular adenoma or malignant liver tumor",
+      "Diabetes with nephropathy, retinopathy, neuropathy, other vascular disease, or duration >20 years",
+      "<21 days postpartum",
+      "Major surgery with prolonged immobilization",
+      "SLE with positive or unknown antiphospholipid antibodies"
     ],
     category3: [
       "Age >=35 and smoking <15 cigarettes/day",
       "Hypertension (SBP 140-159 or DBP 90-99)",
-      "Hypertension controlled on meds",
-      "Past breast cancer (>5 years, no current disease)",
-      "Malabsorptive bariatric surgery (decreased absorption; recommend non-oral methods)",
+      "Hypertension that is adequately controlled on medication",
+      "History of DVT/PE at lower risk for recurrence",
       "Superficial venous thrombosis (current or history)",
-      "Inflammatory bowel disease with VTE risk factors (active disease, surgery, immobilization, corticosteroids, vitamin deficiencies, dehydration)"
+      "Past breast cancer (>5 years disease-free)",
+      "Malabsorptive bariatric surgery (oral pills only)",
+      "Inflammatory bowel disease with increased VTE risk",
+      "Postpartum 21-42 days with VTE risk factors",
+      "SLE without antiphospholipid antibodies (depending on clinical context)"
     ],
     cat3Counseling: [
-      "COCs are generally not recommended because risks usually outweigh benefits; may be considered only if no better alternatives after thorough counseling on potential risks.",
-      "Ongoing follow-up is recommended to ensure continued safety."
+      "Category 3 = risks usually outweigh benefits.",
+      "This does not always mean \"never,\" but estrogen should generally be avoided unless there is a strong reason and safer alternatives are not acceptable."
     ],
     hardStopText: "Do NOT prescribe COCs. Consider alternative contraception options.",
     alternatives: ["POP (placeholder)", "IUD (placeholder)", "Implant (placeholder)", "Shot (placeholder)"]

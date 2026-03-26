@@ -744,6 +744,25 @@ body[data-page="wizard"] .container {
   margin-top: 0.9rem;
 }
 
+.guide-list {
+  margin: 0.45rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.guide-list li + li {
+  margin-top: 0.7rem;
+}
+
+.guide-item-title {
+  display: block;
+}
+
+.guide-item-detail,
+.guide-item-note,
+.guide-link-row {
+  margin: 0.18rem 0 0;
+}
+
 .wizard-goal-groups {
   display: grid;
   gap: 1rem;

@@ -262,15 +262,15 @@ function runHappyPathAssertions(env) {
   assert(env.eeChoices.children.length > 0, "EE choice cards should be rendered.");
   assert(env.proChoices.children.length > 0, "Progestin choice cards should be rendered.");
   assert(env.cycleChoices.children.length > 0, "Cycle choice cards should be rendered.");
-  assertChoiceLabels(env.eeChoices, ["Keep broad", "10 mcg", "20 mcg", "30-35 mcg"], "EE choices should render title-only labels.");
+  assertChoiceLabels(env.eeChoices, ["All", "10 mcg", "20 mcg", "30-35 mcg"], "EE choices should render title-only labels.");
   assertChoiceLabels(
     env.proChoices,
-    ["Keep broad", "Norethindrone", "Levonorgestrel", "Norgestimate/Desogestrel", "Drospirenone"],
+    ["All", "Norethindrone", "Levonorgestrel", "Norgestimate/Desogestrel", "Drospirenone"],
     "Progestin choices should render simplified labels."
   );
   assertChoiceLabels(
     env.cycleChoices,
-    ["Keep broad", "21/7", "24/4", "Extended cycling", "Continuous cycling"],
+    ["All", "21/7", "24/4", "Extended cycling", "Continuous cycling"],
     "Cycle choices should render title-only labels."
   );
   assert(collectText(env.eeGuide).includes("Ultra-low dose"), "EE guide should retain the explanatory copy.");

@@ -135,6 +135,84 @@
     return ul;
   }
 
+  function renderGuideList(items) {
+    const ul = create("ul");
+    ul.className = "guide-list";
+
+    (items || []).forEach((item) => {
+      const li = create("li");
+
+      if (typeof item === "string") {
+        li.textContent = item;
+        ul.appendChild(li);
+        return;
+      }
+
+      const title = create("strong", item.title || "");
+      title.className = "guide-item-title";
+      li.appendChild(title);
+
+      (item.details || []).forEach((detail, index) => {
+        const paragraph = create("p", detail);
+        paragraph.className = index === 0 ? "guide-item-detail" : "guide-item-note";
+        li.appendChild(paragraph);
+      });
+
+      ul.appendChild(li);
+    });
+
+    return ul;
+  }
+
+  function renderParagraphs(container, paragraphs, className) {
+    (paragraphs || []).forEach((paragraph) => {
+      const element = create("p", paragraph);
+      if (className) element.className = className;
+      container.appendChild(element);
+    });
+  }
+
+  function renderMecLink(container) {
+    const linkData = data.contraindications?.mecLink;
+    if (!container || !linkData?.href) return;
+
+    const row = create("p");
+    row.className = "guide-link-row";
+
+    const label = create("strong", "Current U.S. MEC: ");
+    row.appendChild(label);
+
+    const link = create("a", linkData.label || linkData.href);
+    link.href = linkData.href;
+    link.target = "_blank";
+    link.rel = "noreferrer noopener";
+    row.appendChild(link);
+
+    container.appendChild(row);
+  }
+
+  function mountContraindicationGuide(container, leadParagraphs, items, reminderHeading, reminderParagraphs) {
+    if (!container) return;
+    container.innerHTML = "";
+
+    const lead = create("div");
+    lead.className = "wizard-detail-block";
+    renderParagraphs(lead, leadParagraphs);
+    renderMecLink(lead);
+    container.appendChild(lead);
+
+    const listBlock = create("div");
+    listBlock.className = "wizard-detail-block";
+    listBlock.appendChild(renderGuideList(items));
+    container.appendChild(listBlock);
+
+    const reminder = create("div");
+    reminder.className = "wizard-detail-block";
+    reminder.appendChild(create("h4", reminderHeading));
+    renderParagraphs(reminder, reminderParagraphs);
+    container.appendChild(reminder);
+  }
+
   function renderAlternativesList() {
     const ul = create("ul");
     data.contraindications.alternatives.forEach((item) => ul.appendChild(create("li", item)));
@@ -160,12 +238,18 @@
     const approachSection = create("div");
     approachSection.className = "wizard-detail-block";
     approachSection.appendChild(create("h4", data.sdm.approachHeading));
-    approachSection.appendChild(create("p", data.sdm.approachIntro));
+    if (data.sdm.approachIntro) {
+      approachSection.appendChild(create("p", data.sdm.approachIntro));
+    }
     if (data.sdm.approachBullets?.length) {
       approachSection.appendChild(renderBullets(data.sdm.approachBullets));
     }
-    approachSection.appendChild(create("p", data.sdm.roleStatement));
-    approachSection.appendChild(create("p", data.sdm.roleIntro));
+    if (data.sdm.roleStatement) {
+      approachSection.appendChild(create("p", data.sdm.roleStatement));
+    }
+    if (data.sdm.roleIntro) {
+      approachSection.appendChild(create("p", data.sdm.roleIntro));
+    }
     if (data.sdm.roleBullets?.length) {
       approachSection.appendChild(renderBullets(data.sdm.roleBullets));
     }
@@ -336,22 +420,50 @@
     const step1Sdm = document.querySelector('.wizard-step[data-step="1"] #wiz-sdm-content');
     renderSdmSection(step1Sdm);
 
+    const cat4Intro = $("#cat4-intro");
+    if (cat4Intro) {
+      cat4Intro.innerHTML = "";
+      renderParagraphs(cat4Intro, data.contraindications.category4Lead);
+      renderMecLink(cat4Intro);
+    }
+
     const cat4 = $("#cat4-list");
     if (cat4) {
       cat4.innerHTML = "";
-      data.contraindications.category4.forEach((item) => cat4.appendChild(create("li", item)));
+      cat4.appendChild(renderGuideList(data.contraindications.category4Guide || data.contraindications.category4));
+    }
+
+    const cat4Reminder = $("#cat4-reminder");
+    if (cat4Reminder) {
+      cat4Reminder.innerHTML = "";
+      const section = create("div");
+      section.className = "wizard-detail-block";
+      section.appendChild(create("h4", data.contraindications.category4ReminderHeading || "Clinical Reminder"));
+      renderParagraphs(section, data.contraindications.category4Reminder);
+      cat4Reminder.appendChild(section);
+    }
+
+    const cat3Intro = $("#cat3-intro");
+    if (cat3Intro) {
+      cat3Intro.innerHTML = "";
+      renderParagraphs(cat3Intro, data.contraindications.category3Lead);
+      renderMecLink(cat3Intro);
     }
 
     const cat3 = $("#cat3-list");
     if (cat3) {
       cat3.innerHTML = "";
-      data.contraindications.category3.forEach((item) => cat3.appendChild(create("li", item)));
+      cat3.appendChild(renderGuideList(data.contraindications.category3Guide || data.contraindications.category3));
     }
 
     const c3 = $("#cat3-counsel");
     if (c3) {
       c3.innerHTML = "";
-      data.contraindications.cat3Counseling.forEach((item) => c3.appendChild(create("p", item)));
+      const section = create("div");
+      section.className = "wizard-detail-block";
+      section.appendChild(create("h4", data.contraindications.category3ReminderHeading || "Clinical Reminder"));
+      renderParagraphs(section, data.contraindications.category3Reminder || data.contraindications.cat3Counseling);
+      c3.appendChild(section);
     }
   }
 
@@ -389,8 +501,20 @@
       (paragraphs || []).forEach((paragraph) => container.appendChild(create("p", paragraph)));
     }
 
-    mountBulletGuide($("#wiz-step-cat4-guide"), data.contraindications.category4);
-    mountBulletGuide($("#wiz-step-cat3-guide"), data.contraindications.category3, data.contraindications.cat3Counseling);
+    mountContraindicationGuide(
+      $("#wiz-step-cat4-guide"),
+      data.contraindications.category4Lead,
+      data.contraindications.category4Guide || data.contraindications.category4,
+      data.contraindications.category4ReminderHeading || "Clinical Reminder",
+      data.contraindications.category4Reminder
+    );
+    mountContraindicationGuide(
+      $("#wiz-step-cat3-guide"),
+      data.contraindications.category3Lead,
+      data.contraindications.category3Guide || data.contraindications.category3,
+      data.contraindications.category3ReminderHeading || "Clinical Reminder",
+      data.contraindications.category3Reminder || data.contraindications.cat3Counseling
+    );
     mountBulletGuide(
       $("#wiz-ee-guide"),
       eeOptions.map((option) => `${option.label}: ${option.helpText}. ${option.detail}`),
@@ -499,17 +623,17 @@
         showDescriptions: false,
         options: [
           { value: "No", label: "No", helpText: "Proceed with the rest of the screen." },
-          { value: "Yes", label: "Yes", helpText: "Stop COC prescribing and review alternatives." }
+          { value: "Yes", label: "Yes", helpText: "Do not start estrogen; review alternatives." }
         ]
       },
       {
         container: $("#wiz-cat3-choices"),
         stateKey: "cat3",
-        label: "Category 3 caution",
+        label: "Category 3 usually avoid",
         showDescriptions: false,
         options: [
           { value: "No", label: "No", helpText: "Usual COC selection flow can continue." },
-          { value: "Yes", label: "Yes", helpText: "Continue cautiously and counsel about alternatives." }
+          { value: "Yes", label: "Yes", helpText: "Usually avoid estrogen and review alternatives." }
         ]
       },
       {
@@ -519,7 +643,7 @@
         isGoalGroup: true,
         showDescriptions: false,
         options: [
-          { value: "any", label: "Keep broad", helpText: "Only narrow if dose matters." },
+          { value: "any", label: "All", helpText: "Only narrow if dose matters." },
           ...eeOptions
         ]
       },
@@ -530,7 +654,7 @@
         isGoalGroup: true,
         showDescriptions: false,
         options: [
-          { value: "any", label: "Keep broad", helpText: "Use any practical progestin." },
+          { value: "any", label: "All", helpText: "Use any practical progestin." },
           ...progestinOptions
         ]
       },
@@ -541,7 +665,7 @@
         isGoalGroup: true,
         showDescriptions: false,
         options: [
-          { value: "any", label: "Keep broad", helpText: "Allow any cycle pattern." },
+          { value: "any", label: "All", helpText: "Allow any cycle pattern." },
           ...cycleOptions
         ]
       }
