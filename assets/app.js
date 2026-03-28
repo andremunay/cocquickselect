@@ -9,7 +9,7 @@
     { id: "recommend", label: "How likely are you to recommend this site to a colleague?" }
   ];
 
-  let surveyState = { status: "idle", answers: null };
+  const SURVEY_STORAGE_KEY = "cocquickselect-survey-state";
 
   const $ = (sel) => document.querySelector(sel);
   const create = (tag, text) => {
@@ -17,6 +17,76 @@
     if (text) el.textContent = text;
     return el;
   };
+
+  function getDefaultSurveyState() {
+    return { status: "idle", answers: null };
+  }
+
+  function getStorage() {
+    try {
+      return window.localStorage || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function normalizeSurveyState(value) {
+    if (!value || typeof value !== "object") return getDefaultSurveyState();
+
+    const status = value.status;
+    if (status !== "idle" && status !== "skipped" && status !== "submitted") {
+      return getDefaultSurveyState();
+    }
+
+    return {
+      status,
+      answers: status === "submitted" && value.answers && typeof value.answers === "object"
+        ? { ...value.answers }
+        : null
+    };
+  }
+
+  const surveyStorage = {
+    load() {
+      const storage = getStorage();
+      if (!storage) return getDefaultSurveyState();
+
+      try {
+        const raw = storage.getItem(SURVEY_STORAGE_KEY);
+        if (!raw) return getDefaultSurveyState();
+        return normalizeSurveyState(JSON.parse(raw));
+      } catch (error) {
+        return getDefaultSurveyState();
+      }
+    },
+    save(nextState) {
+      const storage = getStorage();
+      const normalized = normalizeSurveyState(nextState);
+      if (!storage) return normalized;
+
+      try {
+        storage.setItem(SURVEY_STORAGE_KEY, JSON.stringify(normalized));
+      } catch (error) {
+        return normalized;
+      }
+
+      return normalized;
+    },
+    clear() {
+      const storage = getStorage();
+      if (!storage) return getDefaultSurveyState();
+
+      try {
+        storage.removeItem(SURVEY_STORAGE_KEY);
+      } catch (error) {
+        return getDefaultSurveyState();
+      }
+
+      return getDefaultSurveyState();
+    }
+  };
+
+  let surveyState = surveyStorage.load();
 
   function token(value) {
     return (value || "").split(/\s-\s/)[0].trim();
@@ -264,20 +334,40 @@
 
     const section = create("section");
     section.className = "survey-block";
-    section.appendChild(create("h4", data.wizard?.surveyHeading || "Resident comfort survey"));
+    section.appendChild(create("h4", data.wizard?.surveyHeading || "Resident Survey"));
 
     if (surveyState.status === "submitted") {
-      const note = create("p", "Responses recorded locally for this page view. Thank you.");
+      const note = create("p", "Responses saved on this browser. Thank you.");
       note.className = "survey-thanks";
       section.appendChild(note);
+
+      const reset = create("button", "Retake survey");
+      reset.type = "button";
+      reset.className = "btn";
+      reset.addEventListener("click", () => {
+        surveyState = surveyStorage.clear();
+        renderSurvey(container);
+      });
+      section.appendChild(reset);
+
       container.appendChild(section);
       return;
     }
 
     if (surveyState.status === "skipped") {
-      const note = create("p", "Survey hidden for this page view.");
+      const note = create("p", "Survey hidden on this browser.");
       note.className = "survey-thanks";
       section.appendChild(note);
+
+      const show = create("button", "Show survey again");
+      show.type = "button";
+      show.className = "btn";
+      show.addEventListener("click", () => {
+        surveyState = surveyStorage.clear();
+        renderSurvey(container);
+      });
+      section.appendChild(show);
+
       container.appendChild(section);
       return;
     }
@@ -332,7 +422,7 @@
     skip.type = "button";
     skip.className = "btn";
     skip.addEventListener("click", () => {
-      surveyState = { status: "skipped", answers: null };
+      surveyState = surveyStorage.save({ status: "skipped", answers: null });
       renderSurvey(container);
     });
     actions.appendChild(skip);
@@ -357,7 +447,7 @@
       error.classList.toggle("hidden", complete);
       if (!complete) return;
 
-      surveyState = { status: "submitted", answers };
+      surveyState = surveyStorage.save({ status: "submitted", answers });
       renderSurvey(container);
     });
 
@@ -373,9 +463,26 @@
     container.appendChild(section);
   }
 
-  function renderResultCard(medication, reasons, scoreLabel) {
+  function renderResultCard(medication, reasons, scoreLabel, isSelected, onSelect) {
     const article = create("article");
     article.className = "wizard-result-card";
+    article.classList.add("wizard-result-card-button");
+    article.setAttribute("role", "button");
+    article.setAttribute("tabindex", "0");
+    article.setAttribute("aria-expanded", String(isSelected));
+    article.setAttribute("aria-pressed", String(isSelected));
+    if (isSelected) {
+      article.classList.add("is-selected");
+    }
+    if (typeof onSelect === "function") {
+      article.addEventListener("click", () => onSelect(medication));
+      article.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect(medication);
+        }
+      });
+    }
 
     const header = create("div");
     header.className = "wizard-result-header";
@@ -410,6 +517,18 @@
       const caution = create("p", data.progestin.drospirenoneNote);
       caution.className = "wizard-inline-note";
       article.appendChild(caution);
+    }
+
+    if (isSelected) {
+      const orderingBlock = create("section");
+      orderingBlock.className = "wizard-detail-block wizard-ordering-panel";
+      orderingBlock.appendChild(create("h4", "How to order in Epic systems"));
+
+      const selectedNote = create("p", `Ordering placeholder for ${medication.name}.`);
+      selectedNote.className = "wizard-result-note";
+      orderingBlock.appendChild(selectedNote);
+      orderingBlock.appendChild(renderBullets(data.recommendationOutput?.epicOrderingPlaceholder));
+      article.appendChild(orderingBlock);
     }
 
     return article;
@@ -478,6 +597,7 @@
     const wizardState = {
       currentStep: 1,
       unlockedSteps: new Set([1]),
+      selectedRecommendation: null,
       selections: {
         cat4: "No",
         cat3: "No",
@@ -758,7 +878,7 @@
       if (score >= 3) return "Strong match";
       if (score >= 2) return "Focused match";
       if (score >= 1) return "Goal-aligned";
-      return "Broad fit";
+      return null;
     }
 
     function getRankedMedications() {
@@ -821,8 +941,23 @@
         return;
       }
 
+      const availableNames = ranked.map(({ medication }) => medication.name);
+      if (!availableNames.includes(wizardState.selectedRecommendation)) {
+        wizardState.selectedRecommendation = null;
+      }
+
       ranked.slice(0, limit || ranked.length).forEach(({ medication, score }) => {
-        container.appendChild(renderResultCard(medication, buildMatchReasons(medication), getScoreLabel(score)));
+        const isSelected = wizardState.selectedRecommendation === medication.name;
+        container.appendChild(renderResultCard(
+          medication,
+          buildMatchReasons(medication),
+          getScoreLabel(score),
+          isSelected,
+          (selectedMedication) => {
+            wizardState.selectedRecommendation = selectedMedication.name;
+            renderResults();
+          }
+        ));
       });
     }
 
@@ -843,8 +978,6 @@
       grid.className = "wizard-result-grid";
       resultsContainer.appendChild(grid);
       renderRecommendationCards(grid);
-
-      renderBulletSection(resultsContainer, "How to order in Epic systems", data.recommendationOutput?.epicOrderingPlaceholder);
     }
 
     function syncPanels() {
@@ -942,6 +1075,7 @@
 
     resetButton?.addEventListener("click", () => {
       wizardState.unlockedSteps = new Set([1]);
+      wizardState.selectedRecommendation = null;
       wizardState.selections = {
         cat4: "No",
         cat3: "No",
@@ -950,7 +1084,6 @@
         cycle: "any"
       };
       wizardState.currentStep = 1;
-      surveyState = { status: "idle", answers: null };
       refreshDerivedState();
       syncCurrentStep();
     });
@@ -1009,7 +1142,9 @@
     normalizeMedication,
     getNormalizedMedications: () => medications.slice(),
     filterMedications,
-    formatEeDisplay
+    formatEeDisplay,
+    surveyStorage,
+    getSurveyStorageKey: () => SURVEY_STORAGE_KEY
   };
 
   initShared();

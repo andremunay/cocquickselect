@@ -7,7 +7,7 @@ window.COC_CONTENT = {
     cautionBody: "A Category 3 condition is present. Estrogen is usually not first-line; prefer a progestin-only or nonhormonal method and review the current U.S. MEC if estrogen is still being considered.",
     alternativesHeading: "Preferred next move",
     recommendationEmpty: "No pills match the current goals. Broaden a filter and review again.",
-    surveyHeading: "Resident comfort survey"
+    surveyHeading: "Resident Survey"
   },
   sdm: {
     heading: "Shared Decision-Making in Contraceptive Counseling",

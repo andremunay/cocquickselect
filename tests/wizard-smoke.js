@@ -123,7 +123,28 @@ function assertExcludes(source, text, message) {
   assert(!source.includes(text), message);
 }
 
-function createEnvironment() {
+function createLocalStorageMock() {
+  const store = new Map();
+
+  return {
+    getItem(key) {
+      return store.has(key) ? store.get(key) : null;
+    },
+    setItem(key, value) {
+      store.set(key, String(value));
+    },
+    removeItem(key) {
+      store.delete(key);
+    },
+    clear() {
+      store.clear();
+    }
+  };
+}
+
+function createEnvironment(options = {}) {
+  const page = options.page || "wizard";
+  const storage = options.storage || createLocalStorageMock();
   const selectors = new Map();
   const selectorLists = new Map();
   const create = (tag) => new FakeElement(tag);
@@ -137,7 +158,7 @@ function createEnvironment() {
   }
 
   const body = create("body");
-  body.dataset.page = "wizard";
+  body.dataset.page = page;
 
   const step1 = create("section");
   step1.dataset.step = "1";
@@ -161,6 +182,7 @@ function createEnvironment() {
     ["#wizard-results", create("div")],
     ["#wizard-reset", create("button")],
     ["#wizard-goal-errors", create("div")],
+    ["#qi-survey", create("div")],
     [".wizard-step[data-step=\"1\"] #wiz-sdm-content", create("div")],
     ["#wiz-step-cat4-guide", create("div")],
     ["#wiz-step-cat3-guide", create("div")],
@@ -213,8 +235,9 @@ function createEnvironment() {
     querySelectorAll: (selector) => selectorLists.get(selector) || []
   };
 
-  const sandbox = { window: {}, document, console };
+  const sandbox = { window: {}, document, console, localStorage: storage };
   sandbox.window = sandbox;
+  sandbox.localStorage = storage;
 
   vm.createContext(sandbox);
   vm.runInContext(fs.readFileSync("assets/content.js", "utf8"), sandbox, { filename: "assets/content.js" });
@@ -236,8 +259,11 @@ function createEnvironment() {
     eeGuide: selectors.get("#wiz-ee-guide"),
     proGuide: selectors.get("#wiz-progestin-guide"),
     cycleGuide: selectors.get("#wiz-cycle-guide"),
+    qiSurvey: selectors.get("#qi-survey"),
     results: selectors.get("#wizard-results"),
-    safetyFeedback: selectors.get("#wizard-safety-feedback")
+    safetyFeedback: selectors.get("#wizard-safety-feedback"),
+    storage,
+    testing: sandbox.__COC_TESTING__
   };
 }
 
@@ -307,22 +333,90 @@ function runSafetyFeedbackAssertions(env) {
   assert(env.safetyFeedback.children.length > 0, "Category 4 should render the hard-stop feedback block.");
 }
 
+function runStep4InteractionAssertions(env) {
+  env.next1.click();
+  env.next2.click();
+  env.next3.click();
+
+  const resultsText = collectText(env.results);
+  assert(!resultsText.includes("How to order in Epic systems"), "Step 4 should not render the Epic ordering placeholder before a card is selected.");
+  assert(!resultsText.includes("Broad fit"), "Step 4 should no longer render the Broad fit label.");
+
+  const initialGrid = env.results.children[0];
+  assert(initialGrid && initialGrid.children.length > 0, "Step 4 should render recommendation cards.");
+
+  initialGrid.children[0].click();
+
+  const updatedGrid = env.results.children[0];
+  const selectedCard = updatedGrid.children[0];
+  assert(selectedCard.classList.contains("is-selected"), "Clicking a Step 4 card should visibly select it.");
+  assert(
+    collectText(selectedCard).includes("How to order in Epic systems"),
+    "Selecting a Step 4 card should open the inline Epic ordering placeholder."
+  );
+}
+
+function runSurveyPersistenceAssertions() {
+  const storage = createLocalStorageMock();
+  const qiEnv = createEnvironment({ page: "qi", storage });
+  const surveyStorageKey = qiEnv.testing.getSurveyStorageKey();
+
+  storage.setItem(surveyStorageKey, JSON.stringify({
+    status: "submitted",
+    answers: {
+      helpful_confidence: "5",
+      knowledge: "4",
+      reuse: "5",
+      recommend: "5"
+    }
+  }));
+
+  const hydratedSubmittedEnv = createEnvironment({ page: "qi", storage });
+  assert(
+    collectText(hydratedSubmittedEnv.qiSurvey).includes("Responses saved on this browser. Thank you."),
+    "Saved submitted survey state should rehydrate on the QI page."
+  );
+
+  storage.setItem(surveyStorageKey, JSON.stringify({ status: "skipped", answers: null }));
+
+  const hydratedSkippedEnv = createEnvironment({ page: "qi", storage });
+  assert(
+    collectText(hydratedSkippedEnv.qiSurvey).includes("Survey hidden on this browser."),
+    "Saved skipped survey state should rehydrate on the QI page."
+  );
+}
+
 function runMarkupAssertions() {
   const wizardHtml = fs.readFileSync("wizard.html", "utf8");
+  const qiHtml = fs.readFileSync("qi.html", "utf8");
+  const contraindicationsHtml = fs.readFileSync("contraindications.html", "utf8");
+  const contentJs = fs.readFileSync("assets/content.js", "utf8");
 
   assertIncludes(wizardHtml, "Step 1: Shared Decision-Making in Contraceptive Counseling", "Step 1 should use the older heading tone.");
   assertIncludes(wizardHtml, "Step 2: Contraindication Screen", "Step 2 should use the older heading tone.");
   assertIncludes(wizardHtml, "Step 3: Dose, Progestin, Cycle", "Step 3 should use the older heading tone.");
   assertIncludes(wizardHtml, "Step 4: Suggested Options", "Step 4 should use the older heading tone.");
+  assertIncludes(wizardHtml, "Choose an EE dose.</p>", "Step 3 should remove the keep it broad copy from the EE card.");
+  assertIncludes(wizardHtml, "Choose a progestin goal.</p>", "Step 3 should remove the keep it broad copy from the progestin card.");
+  assertIncludes(wizardHtml, "Choose a cycle pattern.</p>", "Step 3 should remove the keep it broad copy from the cycle card.");
   assertIncludes(wizardHtml, "<summary>Category 4 quick guide</summary>", "Step 2 should restore the Category 4 quick guide label.");
   assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
   assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
   assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
   assertIncludes(wizardHtml, "<summary>Cycle pattern quick guide</summary>", "Step 3 should restore the cycle quick guide label.");
   assertIncludes(wizardHtml, '>Next</button>', "Wizard should restore the old Next CTA language.");
+  assertExcludes(wizardHtml, "keep it broad", "Step 3 should no longer mention keep it broad.");
 
   assertExcludes(wizardHtml, "wizard-stepper", "Dedicated stepper markup should be removed.");
   assertExcludes(fs.readFileSync("assets/styles.css", "utf8"), ".wizard-stepper", "Dedicated stepper CSS should be removed.");
+
+  assertIncludes(qiHtml, "<h2>QI Goals</h2>", "QI should rename Targets to Goals.");
+  assertIncludes(qiHtml, "<summary>Why this matters and how success will be measured</summary>", "QI explainer content should be collapsible.");
+  assertIncludes(qiHtml, "<h3>Resident Survey</h3>", "QI should rename the resident survey heading.");
+  assertIncludes(contentJs, 'surveyHeading: "Resident Survey"', "Shared survey heading should be renamed.");
+
+  assertIncludes(contraindicationsHtml, "<summary>Category 4 quick guide</summary>", "Contraindications should make Category 4 collapsible.");
+  assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
 }
 
 const happyPathEnv = createEnvironment();
@@ -334,6 +428,10 @@ runCategory4SkipAssertions(category4Env);
 const safetyFeedbackEnv = createEnvironment();
 runSafetyFeedbackAssertions(safetyFeedbackEnv);
 
+const step4InteractionEnv = createEnvironment();
+runStep4InteractionAssertions(step4InteractionEnv);
+
+runSurveyPersistenceAssertions();
 runMarkupAssertions();
 
 console.log("wizard smoke test passed");
