@@ -418,6 +418,8 @@ function runMarkupAssertions() {
   assertIncludes(contraindicationsHtml, "<summary>Category 4 quick guide</summary>", "Contraindications should make Category 4 collapsible.");
   assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
   assertExcludes(contraindicationsHtml, '<details class="wizard-details" open>', "Contraindications quick guides should start collapsed.");
+  assertIncludes(contraindicationsHtml, '<summary>Category 4 quick guide</summary>\n          <div id="cat4-intro"></div>', "Category 4 intro should live inside the collapsible quick guide.");
+  assertIncludes(contraindicationsHtml, '<summary>Category 3 quick guide</summary>\n          <div id="cat3-intro"></div>', "Category 3 intro should live inside the collapsible quick guide.");
 }
 
 const happyPathEnv = createEnvironment();
