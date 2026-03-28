@@ -414,6 +414,7 @@ function runMarkupAssertions() {
   assertIncludes(qiHtml, "<summary>Why this matters and how success will be measured</summary>", "QI explainer content should be collapsible.");
   assertIncludes(qiHtml, "<h3>Resident Survey</h3>", "QI should rename the resident survey heading.");
   assertIncludes(contentJs, 'surveyHeading: "Resident Survey"', "Shared survey heading should be renamed.");
+  assertExcludes(qiHtml, '<details class="wizard-details" open>', "QI collapsible sections should start collapsed.");
 
   assertIncludes(contraindicationsHtml, "<summary>Category 4 quick guide</summary>", "Contraindications should make Category 4 collapsible.");
   assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
