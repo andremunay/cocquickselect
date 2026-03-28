@@ -417,6 +417,7 @@ function runMarkupAssertions() {
 
   assertIncludes(contraindicationsHtml, "<summary>Category 4 quick guide</summary>", "Contraindications should make Category 4 collapsible.");
   assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
+  assertExcludes(contraindicationsHtml, '<details class="wizard-details" open>', "Contraindications quick guides should start collapsed.");
 }
 
 const happyPathEnv = createEnvironment();
