@@ -258,29 +258,20 @@ function createWizardSandbox() {
 
 const expectedOrder = [
   "Lo Loestrin Fe",
-  "Afirmelle-28; Aubra-28; Aubra EQ-28; Aviane-28; Falmina-28; Larissia-28; Lessina-28; Lutera-28; Orsythia-28; Vienva-28; generic levonorgestrel and ethinyl estradiol 0.1/0.02",
-  "Tyblume",
-  "Balcoltra",
-  "Minzoya",
-  "Altavera-28; Ayuna-28; Chateal-28; Chateal EQ-28; Kurvelo-28; Levora-28; Lillow-28; Marlissa-28; Portia-28; generic levonorgestrel and ethinyl estradiol 0.15/0.03",
-  "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE; Noreth-Estrad-Fe 1-0.02(21)-75; Tarina FE; Tarina FE 1-20 EQ",
-  "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE",
-  "Balziva-28; Briellyn; Philith; Vyfemla; Wymzya FE; Noret-Estra-Fe 0.4-0.035(21)-75",
-  "Necon; Nortrel; Wera",
-  "Alyacen; Dasetta; Nortrel; Pirmella",
-  "Aurovela 1 mg-20 mcg; Junel 1 mg-20 mcg; Larin 21 1-20; Loestrin 21 1-20; Microgestin 21 1-20; Norethind-Eth Estrad 1-0.02",
-  "Aurovela 21 1.5-30; Junel 1.5 mg-30 mcg; Hailey 21 1.5 mg-30 mcg; Larin 1.5 mg-30 mcg; Loestrin 21 1.5-30; Microgestin 21 1.5-30; Norethin-EE 1.5-0.03 (21)",
-  "Estarylla; Femynor-28; Mili; Mono-Linyah-28; Nymyo; Previfem; Sprintec-28; Vylibra-28; generic norgestimate and ethinyl estradiol 0.25/0.035",
-  "Ortho Tri-Cyclen; Tri-Sprintec; Tri-Estarylla; Tri-Femynor; Tri-Nymyo; Tri-VyLibra",
-  "Apri-28; Cyred-28; Cyred EQ-28; Emoquette-28; Enskyce-28; Isibloom-28; Juleber-28; Kalliga-28; Reclipsen-28; generic desogestrel/ethinyl estradiol 0.15/0.03",
-  "Azurette 28; Bekyree 28; Kariva 28; Mircette 28; Pimtrea; Simuya 28; Viorele 28; Volnea 0.15-0.02-0.01",
-  "Yasmin-28; Ocella; Syeda-28; Zarah; Zumandimine 3-0.03; Safyral; Tydemy 3-0.03-0.451",
-  "Yaz; Gianvi; Jasmiel; Nikki; Loryna; Lo-Zumandimine; Beyaz",
-  "Aurovela 24 FE; Blisovi 24; Charlotte 24 FE; Gemmily; Hailey 24 FE; Junel FE 24; Larin 24 FE; Melodetta 24 FE; Merzee; Mibelas; Microgestin 24 FE; Minastrin 24 FE; Noreth-Estrad-FE 1-0.02(24)-75; Tarina 24 FE; Taytulla",
-  "LoSeasonique; Amethia Lo; Camrese Lo; Lojaimiess; Lo Simpesse",
-  "Introvale; Iclevia; Jolessa; Setlakin",
-  "Seasonique; Amethia; Ashlyna; Camrese; Daysee; Jaimiess; Simpesse",
-  "Amethyst; generic equivalents"
+  "Aviane / Vienva / Lessina / Lutera",
+  "Levora / Portia / Marlissa / Kurvelo",
+  "LoSeasonique / Camrese Lo",
+  "Seasonique / Camrese / Daysee",
+  "Introvale / Jolessa / Setlakin",
+  "Amethyst",
+  "Loestrin Fe 1/20 / Junel Fe 1/20 / Blisovi Fe 1/20 / Microgestin Fe 1/20",
+  "Loestrin Fe 1.5/30 / Junel Fe 1.5/30 / Blisovi Fe 1.5/30 / Microgestin Fe 1.5/30",
+  "Loestrin 24 Fe / Junel Fe 24 / Blisovi 24 Fe / Taytulla",
+  "Cryselle / Elinest / Low-Ogestrel",
+  "Sprintec / Estarylla / Mili",
+  "Apri / Enskyce / Isibloom",
+  "Yaz / Gianvi / Nikki / Loryna",
+  "Yasmin / Ocella / Syeda"
 ];
 
 const baseSandbox = loadSandbox({
@@ -293,28 +284,28 @@ const baseSandbox = loadSandbox({
 const api = baseSandbox.window.__COC_TESTING__;
 const normalizedMedications = api.getNormalizedMedications();
 
-assert(normalizedMedications.length === 24, "Expected 24 medication rows.");
+assert(normalizedMedications.length === 15, "Expected 15 medication rows.");
 assert(JSON.stringify(normalizedMedications.map((medication) => medication.name)) === JSON.stringify(expectedOrder), "Medication rows should preserve the provided order.");
 
 assert(normalizedMedications[0].eeBucket === "10 mcg", "Lo Loestrin Fe should normalize to 10 mcg.");
-assert(normalizedMedications[1].eeBucket === "20 mcg", "Levonorgestrel 20 row should normalize to 20 mcg.");
-assert(normalizedMedications[16].eeBucket === "20 mcg", "Azurette family should normalize 20 (then 10) to 20 mcg.");
-assert(normalizedMedications[22].eeBucket === "30-35 mcg", "Seasonique family should normalize 30 (then 10) to 30-35 mcg.");
+assert(normalizedMedications[1].eeBucket === "20 mcg", "Aviane family should normalize to 20 mcg.");
+assert(normalizedMedications[10].eeBucket === "30-35 mcg", "Sprintec family should normalize 35 mcg to 30-35 mcg.");
+assert(normalizedMedications[14].eeBucket === "30-35 mcg", "Yasmin family should normalize 30 mcg to 30-35 mcg.");
 
 assert(normalizedMedications[0].progestinCategory === "norethindrone", "Norethindrone rows should normalize correctly.");
 assert(normalizedMedications[1].progestinCategory === "levonorgestrel", "Levonorgestrel rows should normalize correctly.");
-assert(normalizedMedications[13].progestinCategory === "third-gen", "Norgestimate rows should normalize to third-gen.");
-assert(normalizedMedications[15].progestinCategory === "third-gen", "Desogestrel rows should normalize to third-gen.");
-assert(normalizedMedications[17].progestinCategory === "drospirenone", "Drospirenone rows should normalize correctly.");
+assert(normalizedMedications[10].progestinCategory === "norgestrel", "Norgestrel rows should normalize correctly.");
+assert(normalizedMedications[11].progestinCategory === "third-gen", "Norgestimate rows should normalize to third-gen.");
+assert(normalizedMedications[12].progestinCategory === "third-gen", "Desogestrel rows should normalize to third-gen.");
+assert(normalizedMedications[13].progestinCategory === "drospirenone", "Drospirenone rows should normalize correctly.");
 
 const continuousNames = api.filterMedications({ ee: "any", pro: "any", cycle: "continuous" }).map((medication) => medication.name);
-assert(continuousNames.includes("Afirmelle-28; Aubra-28; Aubra EQ-28; Aviane-28; Falmina-28; Larissia-28; Lessina-28; Lutera-28; Orsythia-28; Vienva-28; generic levonorgestrel and ethinyl estradiol 0.1/0.02"), "Continuous filter should include standard monophasic rows.");
-assert(continuousNames.includes("Amethyst; generic equivalents"), "Continuous filter should include Amethyst.");
-assert(!continuousNames.includes("Lo Loestrin Fe"), "Continuous filter should exclude Lo Loestrin Fe.");
-assert(!continuousNames.includes("Ortho Tri-Cyclen; Tri-Sprintec; Tri-Estarylla; Tri-Femynor; Tri-Nymyo; Tri-VyLibra"), "Continuous filter should exclude triphasic norgestimate rows.");
-assert(!continuousNames.includes("Azurette 28; Bekyree 28; Kariva 28; Mircette 28; Pimtrea; Simuya 28; Viorele 28; Volnea 0.15-0.02-0.01"), "Continuous filter should exclude Azurette-family rows.");
-assert(!continuousNames.includes("LoSeasonique; Amethia Lo; Camrese Lo; Lojaimiess; Lo Simpesse"), "Continuous filter should exclude LoSeasonique-family rows.");
-assert(!continuousNames.includes("Seasonique; Amethia; Ashlyna; Camrese; Daysee; Jaimiess; Simpesse"), "Continuous filter should exclude Seasonique-family rows.");
+assert(continuousNames.includes("Aviane / Vienva / Lessina / Lutera"), "Continuous filter should include standard monophasic levonorgestrel rows.");
+assert(continuousNames.includes("Amethyst"), "Continuous filter should include Amethyst.");
+assert(continuousNames.includes("Lo Loestrin Fe"), "Continuous filter should include Lo Loestrin Fe.");
+assert(continuousNames.includes("Introvale / Jolessa / Setlakin"), "Continuous filter should include Introvale-family rows.");
+assert(!continuousNames.includes("LoSeasonique / Camrese Lo"), "Continuous filter should exclude LoSeasonique-family rows.");
+assert(!continuousNames.includes("Seasonique / Camrese / Daysee"), "Continuous filter should exclude Seasonique-family rows.");
 
 const picksEnv = createPicksSandbox();
 assert(!collectText(picksEnv.results).includes("undefined"), "Quick Picks should not render undefined text.");

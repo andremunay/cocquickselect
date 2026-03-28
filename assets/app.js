@@ -52,8 +52,9 @@
 
   function normalizeProgestinCategory(value) {
     const key = (value || "").trim().toLowerCase();
-    if (key === "norethindrone") return "norethindrone";
+    if (key === "norethindrone" || key === "norethindrone acetate") return "norethindrone";
     if (key === "levonorgestrel") return "levonorgestrel";
+    if (key === "norgestrel") return "norgestrel";
     if (key === "desogestrel" || key === "norgestimate") return "third-gen";
     if (key === "drospirenone") return "drospirenone";
     return key;
@@ -62,6 +63,7 @@
   function normalizeCycleCategoryKeys(value) {
     if (value === "21/7") return ["21-7"];
     if (value === "24/4") return ["24-4"];
+    if (value === "24/2/2") return ["24-2-2"];
     if (value === "Extended cycling") return ["extended"];
     if (value === "Continuous cycling") return ["continuous"];
     return [];
@@ -72,14 +74,11 @@
   }
 
   function normalizeContinuousEligibility(medication) {
-    if (matchesNamePrefix(medication, "Lo Loestrin Fe")) return false;
-    if (matchesNamePrefix(medication, "Azurette 28;")) return false;
-    if (matchesNamePrefix(medication, "Ortho Tri-Cyclen;")) return false;
-    if (matchesNamePrefix(medication, "LoSeasonique;")) return false;
-    if (matchesNamePrefix(medication, "Seasonique;")) return false;
+    if (matchesNamePrefix(medication, "LoSeasonique /")) return false;
+    if (matchesNamePrefix(medication, "Seasonique /")) return false;
     if (medication.cycle === "Continuous cycling") return true;
-    if (medication.cycle === "Extended cycling") return matchesNamePrefix(medication, "Introvale;");
-    return medication.cycle === "21/7" || medication.cycle === "24/4";
+    if (medication.cycle === "Extended cycling") return matchesNamePrefix(medication, "Introvale /");
+    return medication.cycle === "21/7" || medication.cycle === "24/4" || medication.cycle === "24/2/2";
   }
 
   function normalizeHasGenericOption(medication) {
@@ -522,7 +521,7 @@
     );
     mountBulletGuide(
       $("#wiz-progestin-guide"),
-      progestinOptions.map((option) => `${option.label}: ${option.helpText}.`),
+      data.progestin.guideBullets || progestinOptions.map((option) => `${option.label}: ${option.helpText}.`),
       data.progestin.guideNotes
     );
     mountBulletGuide(
@@ -987,14 +986,14 @@
       table.className = "results-table";
       const thead = create("thead");
       const headRow = create("tr");
-      ["Medication", "Estrogen (mcg)", "Progestin", "Cycle", "Details / Notes"].forEach((label) => headRow.appendChild(create("th", label)));
+      ["Brand / Family", "EE Dose", "Progestin", "Pack Type"].forEach((label) => headRow.appendChild(create("th", label)));
       thead.appendChild(headRow);
       table.appendChild(thead);
 
       const tbody = create("tbody");
       rows.forEach((medication) => {
         const tr = create("tr");
-        [medication.name, medication.ee, medication.progestin, medication.cycle, medication.note || ""]
+        [medication.name, formatEeDisplay(medication.ee), medication.progestin, medication.note || medication.cycle]
           .forEach((text) => tr.appendChild(create("td", text)));
         tbody.appendChild(tr);
       });

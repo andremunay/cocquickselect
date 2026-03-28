@@ -265,7 +265,7 @@ function runHappyPathAssertions(env) {
   assertChoiceLabels(env.eeChoices, ["All", "10 mcg", "20 mcg", "30-35 mcg"], "EE choices should render title-only labels.");
   assertChoiceLabels(
     env.proChoices,
-    ["All", "Norethindrone", "Levonorgestrel", "Norgestimate/Desogestrel", "Drospirenone"],
+    ["All", "Norethindrone", "Levonorgestrel", "Norgestrel", "Norgestimate/Desogestrel", "Drospirenone"],
     "Progestin choices should render simplified labels."
   );
   assertChoiceLabels(

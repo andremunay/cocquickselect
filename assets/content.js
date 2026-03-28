@@ -213,24 +213,24 @@ window.COC_CONTENT = {
         key: "10 mcg",
         label: "10 mcg",
         helpText: "Ultra-low dose",
-        detail: "Lowest estrogen exposure; more breakthrough bleeding and less predictable cycles."
+        detail: "Lowest estrogen exposure. May reduce estrogen-related side effects, but has the highest rate of breakthrough bleeding (BTB) and less predictable cycle control."
       },
       {
         key: "20 mcg",
         label: "20 mcg",
         helpText: "Low dose",
-        detail: "Common starting point; often well tolerated, with more spotting than higher-dose pills."
+        detail: "Common starting dose for many patients. Often well tolerated, but unscheduled spotting/BTB is still more common than with 30-35 mcg pills, especially in the first few months, and generally improves with time."
       },
       {
         key: "30-35 mcg",
         label: "30-35 mcg",
-        helpText: "Standard dose",
-        detail: "Often improves bleeding predictability, with more noticeable estrogen-related side effects."
+        helpText: "High-standard dose",
+        detail: "Often provides better cycle control and less BTB, but may be associated with more estrogen-related side effects (for example nausea, breast tenderness, and headaches) in some patients."
       }
     ],
     pearls: [
-      "Clinical pearl: Lower EE doses are often better tolerated but more likely to cause unscheduled bleeding; 30-35 mcg EE may be a better fit when cycle predictability is a priority or breakthrough bleeding occurs.",
-      "Clinical pearl: Estrogen dose matters for VTE risk overall - older 50 mcg EE pills have higher VTE risk than modern low-dose pills. However, within currently used low-dose formulations (20 vs 30-35 mcg EE), evidence that lower EE meaningfully reduces VTE risk is limited; in practice, dose selection is usually driven more by bleeding profile, tolerability, and overall CHC eligibility/risk factors than by small presumed VTE differences."
+      "Clinical pearl: EE dose is usually chosen based on bleeding profile and tolerability, not VTE risk alone. Lower-dose pills (10-20 mcg) may be better tolerated but are more likely to cause unscheduled bleeding. If a patient prioritizes predictable bleeding or is having persistent BTB on a lower-dose pill, a 20-35 mcg EE pill may be a better fit if otherwise medically eligible.",
+      "VTE pearl: Estrogen dose does matter for overall thrombotic risk, particularly with older 50 mcg EE formulations, which carry higher VTE risk than modern low-dose pills. However, among currently used lower-dose COCs (20 vs 30-35 mcg EE), evidence that lower EE meaningfully reduces VTE risk is limited or inconsistent. In practice, dose selection is usually driven more by CDC MEC eligibility, patient risk factors, bleeding goals, and side-effect profile than by small presumed VTE differences between modern low-dose options."
     ]
   },
   progestin: {
@@ -238,33 +238,39 @@ window.COC_CONTENT = {
       {
         key: "norethindrone",
         label: "Norethindrone",
-        helpText: "1st gen - lower potency; practical if estrogen-sensitive; more BTB"
+        helpText: "1st generation; common, practical option. If BTB is more noticeable, this is usually driven more by the EE dose and formulation than by the progestin itself."
       },
       {
         key: "levonorgestrel",
         label: "Levonorgestrel",
-        helpText: "2nd gen - strong cycle control; heavy bleeding; may be slightly lower VTE risk"
+        helpText: "2nd generation; often chosen when cycle control and endometrial stability are priorities, and often used as a lower-VTE-risk reference formulation."
+      },
+      {
+        key: "norgestrel",
+        label: "Norgestrel",
+        helpText: "2nd generation; older but still commonly encountered in generic formulations and often used when cycle control is a priority."
       },
       {
         key: "third-gen",
         label: "Norgestimate/Desogestrel",
-        helpText: "Less androgenic; acne/hirsutism; fewer androgenic side effects"
+        helpText: "3rd generation; generally less androgenic. Can be helpful when minimizing acne, oily skin, hirsutism, or other androgenic side effects is a priority."
       },
       {
         key: "drospirenone",
         label: "Drospirenone",
-        helpText: "4th gen - anti-androgenic + anti-mineralocorticoid; PMDD/bloating/acne/weight or mood concerns; may increase VTE risk vs LNG"
+        helpText: "4th generation; anti-androgenic plus anti-mineralocorticoid. Often considered for acne, bloating or fluid retention, or PMDD-type symptoms."
       }
     ],
     guideBullets: [
-      "Norethindrone: common, practical starting option; inexpensive and widely available",
-      "Levonorgestrel: common, practical default option; well-studied and often used as a straightforward starting point",
-      "Norgestimate/Desogestrel: less androgenic; often a good choice if acne is a concern",
-      "Drospirenone: may be helpful for acne, bloating/fluid retention, or PMDD-type symptoms"
+      "Norethindrone / norethindrone acetate (1st generation): Common, practical options with many widely used formulations. Often paired with lower-dose EE pills. If breakthrough bleeding (BTB) is more noticeable, this is usually driven more by the lower estrogen dose and formulation than by the progestin itself.",
+      "Levonorgestrel (2nd generation): Often chosen when cycle control and endometrial stability are priorities. Commonly used as a lower-VTE-risk reference formulation among COCs, although evidence is mixed or inconsistent that risk is meaningfully lower compared with other modern progestins.",
+      "Norgestrel (2nd generation): Older but still commonly encountered in some widely used generic formulations. Like levonorgestrel, it is often thought of as a practical option when cycle control is a priority.",
+      "Norgestimate/Desogestrel: Less androgenic than older progestins. These third-generation options can be helpful when minimizing androgenic side effects is a priority, for example acne, oily skin, or hirsutism, though individual response varies.",
+      "Drospirenone (4th generation): Anti-androgenic plus anti-mineralocorticoid. Often considered when patients prioritize acne improvement, less bloating or fluid retention, or PMDD-type symptoms. Some studies suggest a possible small increase in VTE risk compared with levonorgestrel, but evidence is mixed or inconsistent, so patient-specific VTE risk factors and overall CHC eligibility matter more than progestin choice alone."
     ],
     guideNotes: [
-      "Clinical pearl: Most combined pills are similarly effective for contraception. In practice, progestin choice is most useful for symptom goals (such as acne or PMDD-type symptoms) and side-effect counseling, rather than because one progestin is dramatically better than another. If VTE risk is a major counseling concern in an otherwise CHC-eligible patient, levonorgestrel-containing pills are often used as a lower-risk reference option, but overall CHC eligibility (US MEC) and patient risk factors matter more than small formulation differences.",
-      'US MEC (U.S. Medical Eligibility Criteria): A safety framework for contraceptive prescribing. For combined hormonal contraception, the key question is: "Can this patient safely use estrogen?"'
+      "Clinical pearl: For most patients, progestin choice is driven more by symptom goals and side-effect counseling than by major differences in contraceptive efficacy. Most COCs are similarly effective when taken correctly. In practice, progestin selection is most useful for matching the pill to the patient's priorities, such as cycle control, acne, PMDD-type symptoms, bloating, or minimizing androgenic effects.",
+      "VTE / safety pearl: If VTE risk is a major counseling concern in an otherwise CHC-eligible patient, levonorgestrel-containing pills are often used as a lower-risk reference option. However, evidence for clinically meaningful VTE differences between modern low-dose COCs by progestin is not strong enough to outweigh the bigger question: can this patient safely use estrogen at all? In practice, overall CHC eligibility (US MEC) and patient-specific risk factors matter much more than small formulation differences."
     ],
     drospirenoneNote: "Potassium monitoring is only recommended during the first month if the patient is taking other medications that increase potassium (spironolactone, ACE-I, ARBs, or other K-sparing meds)."
   },
@@ -273,36 +279,37 @@ window.COC_CONTENT = {
       {
         key: "21-7",
         label: "21/7",
-        helpText: "Standard regimen with a monthly withdrawal bleed"
+        helpText: "21 active pills plus 7 placebo or hormone-free days, with a monthly withdrawal bleed."
       },
       {
         key: "24-4",
         label: "24/4",
-        helpText: "Shorter hormone-free interval; may reduce withdrawal symptoms and lighten bleeding"
+        helpText: "24 active pills plus 4 placebo or hormone-free days, with a shorter withdrawal interval that may reduce symptoms and improve cycle control."
       },
       {
         key: "extended",
         label: "Extended cycling",
-        helpText: "Fewer scheduled bleeds, including 84/7-style regimens and monophasic pills used for suppression"
+        helpText: "84 active pills plus a short placebo or low-dose EE interval, or similar regimens that give fewer scheduled bleeds."
       },
       {
         key: "continuous",
         label: "Continuous cycling",
-        helpText: "No scheduled withdrawal bleed when using a continuous-eligible monophasic COC"
+        helpText: "No scheduled hormone-free interval, so there is no scheduled withdrawal bleed."
       }
     ],
     guideIntro: "What do the numbers mean?",
     guideBullets: [
-      "21/7: 21 active pills + 7 placebo/hormone-free days -> monthly withdrawal bleed",
-      "24/4: 24 active pills + 4 placebo/hormone-free days -> monthly withdrawal bleed with a shorter hormone-free interval; may reduce withdrawal symptoms and may result in lighter bleeding",
-      "Extended cycling (e.g., 84/7): 84 active pills + 7 placebo/hormone-free days -> fewer scheduled bleeds (often every 3 months)",
-      "Continuous cycling: no placebo/hormone-free interval -> no scheduled withdrawal bleed; safe and commonly used"
+      "21/7: 21 active pills plus 7 placebo or hormone-free days -> monthly withdrawal bleed. Traditional and familiar, but the longer hormone-free interval may allow more withdrawal symptoms such as headache, bloating, or pelvic pain.",
+      "24/4: 24 active pills plus 4 placebo or hormone-free days -> monthly withdrawal bleed with a shorter hormone-free interval; may reduce withdrawal symptoms and improve cycle control.",
+      "24/2/2 (for example Lo Loestrin Fe): 24 active combination pills plus 2 EE-only pills plus 2 placebo or iron pills -> very short withdrawal interval with continued low-dose estrogen exposure; bleeding may be lighter, less predictable, or absent.",
+      "Extended cycling (for example 84/7): 84 active pills plus 7 placebo or hormone-free days -> fewer scheduled bleeds, often every 3 months. Some extended regimens use low-dose EE instead of placebo during the interval.",
+      "Continuous cycling: no scheduled hormone-free interval -> no scheduled withdrawal bleed. Safe and commonly used for menstrual suppression and for patients who want fewer hormone-withdrawal symptoms.",
+      "Other shortened hormone-free interval regimens (less common, for example 26/2): more active days and fewer placebo days; generally intended to reduce withdrawal symptoms and improve cycle control. These are less common and are not the primary focus of this tool."
     ],
     guideNotes: [
-      "Clinical pearl: The bleed during placebo days is a withdrawal bleed, not a medically necessary period. Extended and continuous regimens are safe options for patients who want fewer periods, menstrual suppression, or less cyclic pain, headache, or bloating.",
-      "Monophasic = each active pill contains the same hormone dose. This site generally recommends monophasic COCs because they are easier to prescribe, easier to troubleshoot, and the simplest option for extended or continuous cycling.",
-      "Multiphasic (including biphasic, triphasic, or quadriphasic) pills vary hormone dose throughout the pack; they can work well for some patients, but are usually less straightforward to prescribe, troubleshoot, or use continuously than monophasic pills.",
-      "Practical tip: Any monophasic COC can usually be used continuously by skipping placebo pills and starting the next pack right away."
+      "Clinical pearl: The bleed during placebo days is a withdrawal bleed, not a medically necessary period. It is safe to have fewer periods, or no scheduled bleeding at all, on COCs. Patients do not need a monthly bleed for the pill to clean out the uterus or to make the pill safer.",
+      "Practical pearl: Most monophasic COCs can usually be used in an extended or continuous fashion by skipping placebo pills and starting the next pack right away, even if packaged as a traditional cyclic pill. In practice, the formulation matters more than the package instructions.",
+      "Counseling pearl: Breakthrough bleeding is common early with extended or continuous use and usually improves over time. If BTB becomes bothersome, first check adherence. Then consider whether the EE dose, formulation, or a shorter hormone-free break may help."
     ]
   },
   missedPill: [
@@ -330,170 +337,107 @@ window.COC_CONTENT = {
     {
       name: "Lo Loestrin Fe",
       ee: "10",
-      progestin: "Norethindrone",
-      cycle: "24/4",
-      note: "Pack contains 24 combo active tablets (norethindrone acetate + EE 10 mcg), then 2 EE-only tablets (10 mcg), then 2 inert/iron tablets."
+      progestin: "Norethindrone acetate",
+      cycle: "24/2/2",
+      note: "24/2/2; can also be prescribed in extended or continuous fashion"
     },
     {
-      name: "Afirmelle-28; Aubra-28; Aubra EQ-28; Aviane-28; Falmina-28; Larissia-28; Lessina-28; Lutera-28; Orsythia-28; Vienva-28; generic levonorgestrel and ethinyl estradiol 0.1/0.02",
+      name: "Aviane / Vienva / Lessina / Lutera",
       ee: "20",
       progestin: "Levonorgestrel",
       cycle: "21/7",
-      note: "Standard 28-day regimen: 21 active + 7 placebo."
+      note: "21/7; can also be prescribed in extended or continuous fashion"
     },
     {
-      name: "Tyblume",
-      ee: "20",
-      progestin: "Levonorgestrel",
-      cycle: "21/7",
-      note: "Chewable; 21 active + 7 placebo."
-    },
-    {
-      name: "Balcoltra",
-      ee: "20",
-      progestin: "Levonorgestrel",
-      cycle: "21/7",
-      note: "21 active tablets (levonorgestrel/EE) + 7 inactive tablets containing ferrous bisglycinate."
-    },
-    {
-      name: "Minzoya",
-      ee: "20",
-      progestin: "Levonorgestrel",
-      cycle: "21/7",
-      note: "Generic equivalent of Balcoltra's regimen; 21 active + 7 inert/iron."
-    },
-    {
-      name: "Altavera-28; Ayuna-28; Chateal-28; Chateal EQ-28; Kurvelo-28; Levora-28; Lillow-28; Marlissa-28; Portia-28; generic levonorgestrel and ethinyl estradiol 0.15/0.03",
+      name: "Levora / Portia / Marlissa / Kurvelo",
       ee: "30",
       progestin: "Levonorgestrel",
       cycle: "21/7",
-      note: "Standard 28-day regimen: 21 active + 7 placebo."
+      note: "21/7; can also be prescribed in extended or continuous fashion"
     },
     {
-      name: "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE; Noreth-Estrad-Fe 1-0.02(21)-75; Tarina FE; Tarina FE 1-20 EQ",
+      name: "LoSeasonique / Camrese Lo",
       ee: "20",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "21 active pills + 7 ferrous fumarate placebo pills."
-    },
-    {
-      name: "Aurovela FE; Blisovi FE; Hailey FE; Junel FE; Larin FE; Loestrin FE; Microgestin FE",
-      ee: "30",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "21 active pills + 7 ferrous fumarate placebo pills."
-    },
-    {
-      name: "Balziva-28; Briellyn; Philith; Vyfemla; Wymzya FE; Noret-Estra-Fe 0.4-0.035(21)-75",
-      ee: "35",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "Includes standard tablets and chewable/iron variants."
-    },
-    {
-      name: "Necon; Nortrel; Wera",
-      ee: "35",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "Standard 28-day regimen."
-    },
-    {
-      name: "Alyacen; Dasetta; Nortrel; Pirmella",
-      ee: "35",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "28-day products in the 1 mg/35 mcg family."
-    },
-    {
-      name: "Aurovela 1 mg-20 mcg; Junel 1 mg-20 mcg; Larin 21 1-20; Loestrin 21 1-20; Microgestin 21 1-20; Norethind-Eth Estrad 1-0.02",
-      ee: "20",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "21-tablet packs; no inert tablets included."
-    },
-    {
-      name: "Aurovela 21 1.5-30; Junel 1.5 mg-30 mcg; Hailey 21 1.5 mg-30 mcg; Larin 1.5 mg-30 mcg; Loestrin 21 1.5-30; Microgestin 21 1.5-30; Norethin-EE 1.5-0.03 (21)",
-      ee: "30",
-      progestin: "Norethindrone",
-      cycle: "21/7",
-      note: "21-tablet packs; no inert tablets included."
-    },
-    {
-      name: "Estarylla; Femynor-28; Mili; Mono-Linyah-28; Nymyo; Previfem; Sprintec-28; Vylibra-28; generic norgestimate and ethinyl estradiol 0.25/0.035",
-      ee: "35",
-      progestin: "Norgestimate",
-      cycle: "21/7",
-      note: "Standard 28-day regimen: 21 active + 7 placebo."
-    },
-    {
-      name: "Ortho Tri-Cyclen; Tri-Sprintec; Tri-Estarylla; Tri-Femynor; Tri-Nymyo; Tri-VyLibra",
-      ee: "35",
-      progestin: "Norgestimate",
-      cycle: "21/7",
-      note: "Triphasic norgestimate dosing with EE 35 mcg."
-    },
-    {
-      name: "Apri-28; Cyred-28; Cyred EQ-28; Emoquette-28; Enskyce-28; Isibloom-28; Juleber-28; Kalliga-28; Reclipsen-28; generic desogestrel/ethinyl estradiol 0.15/0.03",
-      ee: "30",
-      progestin: "Desogestrel",
-      cycle: "21/7",
-      note: "Standard 28-day regimen: 21 active + 7 placebo."
-    },
-    {
-      name: "Azurette 28; Bekyree 28; Kariva 28; Mircette 28; Pimtrea; Simuya 28; Viorele 28; Volnea 0.15-0.02-0.01",
-      ee: "20 (then 10)",
-      progestin: "Desogestrel",
-      cycle: "21/7",
-      note: "21 desogestrel/EE 20 mcg tablets followed by EE-only 10 mcg tablets in the tail end of the pack."
-    },
-    {
-      name: "Yasmin-28; Ocella; Syeda-28; Zarah; Zumandimine 3-0.03; Safyral; Tydemy 3-0.03-0.451",
-      ee: "30",
-      progestin: "Drospirenone",
-      cycle: "21/7",
-      note: "3 mg drospirenone / 30 mcg EE family."
-    },
-    {
-      name: "Yaz; Gianvi; Jasmiel; Nikki; Loryna; Lo-Zumandimine; Beyaz",
-      ee: "20",
-      progestin: "Drospirenone",
-      cycle: "24/4",
-      note: "24 active + 4 inert."
-    },
-    {
-      name: "Aurovela 24 FE; Blisovi 24; Charlotte 24 FE; Gemmily; Hailey 24 FE; Junel FE 24; Larin 24 FE; Melodetta 24 FE; Merzee; Mibelas; Microgestin 24 FE; Minastrin 24 FE; Noreth-Estrad-FE 1-0.02(24)-75; Tarina 24 FE; Taytulla",
-      ee: "20",
-      progestin: "Norethindrone",
-      cycle: "24/4",
-      note: "24 active hormone days + 4 placebo/iron days."
-    },
-    {
-      name: "LoSeasonique; Amethia Lo; Camrese Lo; Lojaimiess; Lo Simpesse",
-      ee: "20 (then 10)",
       progestin: "Levonorgestrel",
       cycle: "Extended cycling",
-      note: "84 active tablets of levonorgestrel/EE 0.1/0.02 followed by 7 tablets of EE 0.01."
+      note: "Extended (84/7); already packaged for extended cycling"
     },
     {
-      name: "Introvale; Iclevia; Jolessa; Setlakin",
+      name: "Seasonique / Camrese / Daysee",
       ee: "30",
       progestin: "Levonorgestrel",
       cycle: "Extended cycling",
-      note: "84 active levonorgestrel/EE 0.15/0.03 tablets plus 7 inert tablets."
+      note: "Extended (84/7); already packaged for extended cycling"
     },
     {
-      name: "Seasonique; Amethia; Ashlyna; Camrese; Daysee; Jaimiess; Simpesse",
-      ee: "30 (then 10)",
+      name: "Introvale / Jolessa / Setlakin",
+      ee: "30",
       progestin: "Levonorgestrel",
       cycle: "Extended cycling",
-      note: "84 active levonorgestrel/EE 0.15/0.03 tablets followed by 7 tablets of EE 0.01."
+      note: "Extended (84/7); already packaged for extended cycling"
     },
     {
-      name: "Amethyst; generic equivalents",
+      name: "Amethyst",
       ee: "20",
       progestin: "Levonorgestrel",
       cycle: "Continuous cycling",
-      note: "Continuous daily active tablets; no planned hormone-free interval."
+      note: "Continuous; already packaged for continuous use"
+    },
+    {
+      name: "Loestrin Fe 1/20 / Junel Fe 1/20 / Blisovi Fe 1/20 / Microgestin Fe 1/20",
+      ee: "20",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Loestrin Fe 1.5/30 / Junel Fe 1.5/30 / Blisovi Fe 1.5/30 / Microgestin Fe 1.5/30",
+      ee: "30",
+      progestin: "Norethindrone",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Loestrin 24 Fe / Junel Fe 24 / Blisovi 24 Fe / Taytulla",
+      ee: "20",
+      progestin: "Norethindrone acetate",
+      cycle: "24/4",
+      note: "24/4; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Cryselle / Elinest / Low-Ogestrel",
+      ee: "30",
+      progestin: "Norgestrel",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Sprintec / Estarylla / Mili",
+      ee: "35",
+      progestin: "Norgestimate",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Apri / Enskyce / Isibloom",
+      ee: "30",
+      progestin: "Desogestrel",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Yaz / Gianvi / Nikki / Loryna",
+      ee: "20",
+      progestin: "Drospirenone",
+      cycle: "24/4",
+      note: "24/4; can also be prescribed in extended or continuous fashion"
+    },
+    {
+      name: "Yasmin / Ocella / Syeda",
+      ee: "30",
+      progestin: "Drospirenone",
+      cycle: "21/7",
+      note: "21/7; can also be prescribed in extended or continuous fashion"
     }
   ]
 };
