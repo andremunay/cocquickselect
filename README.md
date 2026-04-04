@@ -2,6 +2,19 @@
 
 Resident-facing internal clinical decision-support website for outpatient IM residency clinic use.
 
+## Run locally
+No build step is required.
+
+1. Open a terminal in the repository root.
+2. Start a simple local server with:
+   `py -m http.server 8000`
+3. Open `http://127.0.0.1:8000` in your browser.
+
+If `py` is not available in the current terminal session, use:
+`& "$env:LocalAppData\Programs\Python\Python313\python.exe" -m http.server 8000`
+
+If `python` or `py` still does not resolve after installation, open a new terminal window so PATH refreshes.
+
 ## Deploy on GitHub Pages
 1. Push this repository to GitHub.
 2. In **Settings → Pages**, set source to **Deploy from a branch**.
