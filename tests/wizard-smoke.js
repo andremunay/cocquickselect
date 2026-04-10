@@ -331,6 +331,10 @@ function runSafetyFeedbackAssertions(env) {
   assert(env.safetyFeedback.children.length === 0, "Category 3 should not render an in-step status panel.");
   env.cat4Choices.children[1].click();
   assert(env.safetyFeedback.children.length > 0, "Category 4 should render the hard-stop feedback block.");
+  const feedbackText = collectText(env.safetyFeedback);
+  assert(feedbackText.includes("Category 4: Do NOT Use CHC"), "Category 4 feedback should use the updated hard-stop heading.");
+  assert(feedbackText.includes("Do not start estrogen (pill, patch, or ring)."), "Category 4 feedback should use the updated estrogen warning.");
+  assert(feedbackText.includes("POP - daily pill, no estrogen"), "Category 4 feedback should list the updated alternatives.");
 }
 
 function runStep4InteractionAssertions(env) {
@@ -399,7 +403,7 @@ function runMarkupAssertions() {
   assertIncludes(wizardHtml, "Choose an EE dose.</p>", "Step 3 should remove the keep it broad copy from the EE card.");
   assertIncludes(wizardHtml, "Choose a progestin goal.</p>", "Step 3 should remove the keep it broad copy from the progestin card.");
   assertIncludes(wizardHtml, "Choose a cycle pattern.</p>", "Step 3 should remove the keep it broad copy from the cycle card.");
-  assertIncludes(wizardHtml, "<summary>Category 4 quick guide</summary>", "Step 2 should restore the Category 4 quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>", "Step 2 should restore the Category 4 quick guide label.");
   assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
   assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
   assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
@@ -416,11 +420,11 @@ function runMarkupAssertions() {
   assertIncludes(contentJs, 'surveyHeading: "Resident Survey"', "Shared survey heading should be renamed.");
   assertExcludes(qiHtml, '<details class="wizard-details" open>', "QI collapsible sections should start collapsed.");
 
-  assertIncludes(contraindicationsHtml, "<summary>Category 4 quick guide</summary>", "Contraindications should make Category 4 collapsible.");
+  assertIncludes(contraindicationsHtml, "<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>", "Contraindications should make Category 4 collapsible.");
   assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
   assertExcludes(contraindicationsHtml, '<details class="wizard-details" open>', "Contraindications quick guides should start collapsed.");
-  assertIncludes(contraindicationsHtml, '<summary>Category 4 quick guide</summary>\n          <div id="cat4-intro"></div>', "Category 4 intro should live inside the collapsible quick guide.");
-  assertIncludes(contraindicationsHtml, '<summary>Category 3 quick guide</summary>\n          <div id="cat3-intro"></div>', "Category 3 intro should live inside the collapsible quick guide.");
+  assertIncludes(contraindicationsHtml, '<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>\n          <div id="cat4-intro"></div>', "Category 4 intro should live inside the collapsible quick guide.");
+  assertIncludes(contraindicationsHtml, '<div id="cat3-intro"></div>', "Category 3 intro should live inside the collapsible quick guide.");
 }
 
 const happyPathEnv = createEnvironment();

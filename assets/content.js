@@ -1,11 +1,11 @@
 window.COC_CONTENT = {
   siteName: "Combined Oral Contraceptive Pill Selection",
   wizard: {
-    hardStopHeading: "Do not start estrogen today.",
-    hardStopBody: "A Category 4 condition is present. Do not start estrogen (pill/patch/ring). Use a progestin-only or nonhormonal method instead.",
+    hardStopHeading: "Category 4: Do NOT Use CHC",
+    hardStopBody: "A Category 4 condition is present. Do not start estrogen (pill, patch, or ring).",
     cautionHeading: "Usually avoid estrogen.",
     cautionBody: "A Category 3 condition is present. Estrogen is usually not first-line; prefer a progestin-only or nonhormonal method and review the current U.S. MEC if estrogen is still being considered.",
-    alternativesHeading: "Preferred next move",
+    alternativesHeading: "Choose a progestin-only or nonhormonal method instead:",
     recommendationEmpty: "No pills match the current goals. Broaden a filter and review again.",
     surveyHeading: "Resident Survey"
   },
@@ -22,7 +22,7 @@ window.COC_CONTENT = {
     approachHeading: "Counseling Principles",
     approachIntro: "Contraceptive counseling should be:",
     approachBullets: [
-      "Patient-centered and non-directive",
+      "Patient-centered",
       "Grounded in reproductive autonomy",
       "Free of coercion and judgment",
       "Clear about risks, benefits, and alternatives",
@@ -39,17 +39,18 @@ window.COC_CONTENT = {
       label: "CDC U.S. MEC Appendix D: Combined Hormonal Contraceptives"
     },
     category4Lead: [
-      "If YES -> do not start estrogen (pill/patch/ring).",
-      "Use a progestin-only or nonhormonal method instead. If the history is complex, check the current U.S. MEC before prescribing."
+      "If YES -> do not start estrogen (combined oral pill, patch, or ring).",
+      "Use a progestin-only or nonhormonal method instead. If the history is complex or unclear, check the current CDC U.S. MEC (Appendix D: Combined Hormonal Contraceptives) before prescribing."
     ],
+    category4ListHeading: "Common Category 4 Conditions",
     category4Guide: [
       {
         title: "Age >=35 and smoking >=15 cigarettes/day",
-        details: ["Heavy smoking + estrogen = unacceptable thrombotic risk."]
+        details: []
       },
       {
         title: "Hypertension >=160/100 mmHg",
-        details: ["Severe hypertension = avoid estrogen."]
+        details: []
       },
       {
         title: "Hypertension with vascular disease",
@@ -65,22 +66,22 @@ window.COC_CONTENT = {
       },
       {
         title: "Known thrombophilia / thrombogenic mutation",
-        details: ["Examples: Factor V Leiden, prothrombin mutation, protein C/S deficiency, antithrombin deficiency, antiphospholipid syndrome."]
+        details: ["Examples: Factor V Leiden, prothrombin mutation, protein C or S deficiency, antithrombin deficiency, antiphospholipid syndrome."]
       },
       {
         title: "Known ischemic heart disease",
-        details: ["Prior MI, angina, or known CAD."]
+        details: ["Examples: prior MI, angina, or known CAD."]
       },
       {
         title: "History of stroke or TIA"
       },
       {
         title: "Complicated valvular heart disease",
-        details: ["Examples: pulmonary hypertension, atrial fibrillation risk, or endocarditis risk."]
+        details: ["Examples: pulmonary hypertension, risk for atrial fibrillation, or history/risk of endocarditis."]
       },
       {
         title: "Migraine with aura",
-        details: ["Aura = focal neurologic symptoms (e.g., visual changes, numbness, speech symptoms)."]
+        details: ["Aura = focal neurologic symptoms (for example: visual changes, numbness, speech symptoms)."]
       },
       {
         title: "Current breast cancer"
@@ -197,8 +198,14 @@ window.COC_CONTENT = {
       "Category 3 = risks usually outweigh benefits.",
       "This does not always mean \"never,\" but estrogen should generally be avoided unless there is a strong reason and safer alternatives are not acceptable."
     ],
-    hardStopText: "Do NOT prescribe COCs. Consider alternative contraception options.",
-    alternatives: ["POP (placeholder)", "IUD (placeholder)", "Implant (placeholder)", "Shot (placeholder)"]
+    hardStopText: "A Category 4 condition is present. Do not start estrogen (pill, patch, or ring).",
+    alternatives: [
+      "POP - daily pill, no estrogen",
+      "Hormonal IUD - lighter periods, highly effective",
+      "Copper IUD - hormone-free, highly effective",
+      "Implant - long-acting, low maintenance",
+      "DMPA shot - every 3 months, no estrogen"
+    ]
   },
   estrogen: {
     intro: [

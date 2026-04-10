@@ -260,7 +260,7 @@
     container.appendChild(row);
   }
 
-  function mountContraindicationGuide(container, leadParagraphs, items, reminderHeading, reminderParagraphs) {
+  function mountContraindicationGuide(container, leadParagraphs, items, reminderHeading, reminderParagraphs, listHeading) {
     if (!container) return;
     container.innerHTML = "";
 
@@ -272,6 +272,9 @@
 
     const listBlock = create("div");
     listBlock.className = "wizard-detail-block";
+    if (listHeading) {
+      listBlock.appendChild(create("h4", listHeading));
+    }
     listBlock.appendChild(renderGuideList(items));
     container.appendChild(listBlock);
 
@@ -625,14 +628,16 @@
       data.contraindications.category4Lead,
       data.contraindications.category4Guide || data.contraindications.category4,
       data.contraindications.category4ReminderHeading || "Clinical Reminder",
-      data.contraindications.category4Reminder
+      data.contraindications.category4Reminder,
+      data.contraindications.category4ListHeading
     );
     mountContraindicationGuide(
       $("#wiz-step-cat3-guide"),
       data.contraindications.category3Lead,
       data.contraindications.category3Guide || data.contraindications.category3,
       data.contraindications.category3ReminderHeading || "Clinical Reminder",
-      data.contraindications.category3Reminder || data.contraindications.cat3Counseling
+      data.contraindications.category3Reminder || data.contraindications.cat3Counseling,
+      null
     );
     mountBulletGuide(
       $("#wiz-ee-guide"),
