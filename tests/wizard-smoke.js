@@ -404,10 +404,10 @@ function runMarkupAssertions() {
   assertIncludes(wizardHtml, "Choose a progestin goal.</p>", "Step 3 should remove the keep it broad copy from the progestin card.");
   assertIncludes(wizardHtml, "Choose a cycle pattern.</p>", "Step 3 should remove the keep it broad copy from the cycle card.");
   assertIncludes(wizardHtml, "<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>", "Step 2 should restore the Category 4 quick guide label.");
-  assertIncludes(wizardHtml, "<summary>Category 3 quick guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
-  assertIncludes(wizardHtml, "<summary>EE dose quick guide</summary>", "Step 3 should restore the EE quick guide label.");
-  assertIncludes(wizardHtml, "<summary>Progestin goal quick guide</summary>", "Step 3 should restore the progestin quick guide label.");
-  assertIncludes(wizardHtml, "<summary>Cycle pattern quick guide</summary>", "Step 3 should restore the cycle quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Category 3 Quick Guide</summary>", "Step 2 should restore the Category 3 quick guide label.");
+  assertIncludes(wizardHtml, "<summary>EE Dose Quick Guide</summary>", "Step 3 should restore the EE quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Progestin Goal Quick Guide</summary>", "Step 3 should restore the progestin quick guide label.");
+  assertIncludes(wizardHtml, "<summary>Cycle Pattern Quick Guide</summary>", "Step 3 should restore the cycle quick guide label.");
   assertIncludes(wizardHtml, '>Next</button>', "Wizard should restore the old Next CTA language.");
   assertExcludes(wizardHtml, "keep it broad", "Step 3 should no longer mention keep it broad.");
 
@@ -421,7 +421,7 @@ function runMarkupAssertions() {
   assertExcludes(qiHtml, '<details class="wizard-details" open>', "QI collapsible sections should start collapsed.");
 
   assertIncludes(contraindicationsHtml, "<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>", "Contraindications should make Category 4 collapsible.");
-  assertIncludes(contraindicationsHtml, "<summary>Category 3 quick guide</summary>", "Contraindications should make Category 3 collapsible.");
+  assertIncludes(contraindicationsHtml, "<summary>Category 3 Quick Guide</summary>", "Contraindications should make Category 3 collapsible.");
   assertExcludes(contraindicationsHtml, '<details class="wizard-details" open>', "Contraindications quick guides should start collapsed.");
   assertIncludes(contraindicationsHtml, '<summary>Category 4 Quick Guide (Do NOT Use CHC)</summary>\n          <div id="cat4-intro"></div>', "Category 4 intro should live inside the collapsible quick guide.");
   assertIncludes(contraindicationsHtml, '<div id="cat3-intro"></div>', "Category 3 intro should live inside the collapsible quick guide.");
